@@ -1,0 +1,317 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8221136224201391739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/WeaponPickup/PistolPickup
+  m_EditorClassIdentifier: 
+  Path: event:/WeaponPickup/PistolPickup
+  Guid:
+    Data1: 282417765
+    Data2: 1286012156
+    Data3: 878367373
+    Data4: 1483796702
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7759099119434797694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/PistolShot
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/PistolShot
+  Guid:
+    Data1: 1048036519
+    Data2: 1203272254
+    Data3: 59534225
+    Data4: -556055322
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5999004425347462157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638088967677987141
+  FileSizes:
+  - Name: Desktop
+    Value: 79296
+  Exists: 1
+--- !u!114 &-4964242849108217362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/MachinegunShot
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/MachinegunShot
+  Guid:
+    Data1: -324655913
+    Data2: 1142196118
+    Data3: -1693441381
+    Data4: 650732084
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4498044100537845055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/FootstepsWood
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/FootstepsWood
+  Guid:
+    Data1: -1629451577
+    Data2: 1148875456
+    Data3: -1641506423
+    Data4: -1955743403
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1419792654137060661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638088967678007142
+  FileSizes:
+  - Name: Desktop
+    Value: 1176
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -1419792654137060661}
+  - {fileID: -5999004425347462157}
+  EditorEvents:
+  - {fileID: 2882896055464666148}
+  - {fileID: 9202492830057669059}
+  - {fileID: 2044326943030536667}
+  - {fileID: -7759099119434797694}
+  - {fileID: -4498044100537845055}
+  - {fileID: -4964242849108217362}
+  - {fileID: 5025999481800269262}
+  - {fileID: 8713014685625546857}
+  - {fileID: -8221136224201391739}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -5999004425347462157}
+  StringsBanks:
+  - {fileID: -1419792654137060661}
+  cacheTime: 638088967678007142
+  cacheVersion: 131601
+--- !u!114 &2044326943030536667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/FootstepsConcrete
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/FootstepsConcrete
+  Guid:
+    Data1: -1912579933
+    Data2: 1285581030
+    Data3: 1475794612
+    Data4: -139954175
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2882896055464666148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Fists
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Fists
+  Guid:
+    Data1: -529670871
+    Data2: 1203232513
+    Data3: 1306790826
+    Data4: -1930066090
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5025999481800269262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/FootstepsSolid
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/FootstepsSolid
+  Guid:
+    Data1: -73164325
+    Data2: 1315595767
+    Data3: 411791541
+    Data4: 1191726202
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8713014685625546857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/WeaponPickup/MachinegunPickup
+  m_EditorClassIdentifier: 
+  Path: event:/WeaponPickup/MachinegunPickup
+  Guid:
+    Data1: 1937113923
+    Data2: 1157258786
+    Data3: -1952861567
+    Data4: -1493460007
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &9202492830057669059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/ShotgunShot
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/ShotgunShot
+  Guid:
+    Data1: 683630497
+    Data2: 1184891234
+    Data3: -1698727746
+    Data4: 1077249582
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
