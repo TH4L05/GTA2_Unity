@@ -7,9 +7,9 @@ using ProjectGTA2_Unity;
 
 public class Hud : MonoBehaviour
 {
-    [SerializeField] private Image weaponImage;
-    [SerializeField] private TextMeshProUGUI ammoTextField;
-
+    [SerializeField] private UnityEngine.UI.Image weaponImage;
+    //[SerializeField] private TextMeshProUGUI ammoTextField;
+    [SerializeField] private Text ammoTextField;
 
     private void Awake()
     {
@@ -47,12 +47,12 @@ public class Hud : MonoBehaviour
 
         if (ammo < 0)
         {
-            ammoTextField.gameObject.SetActive(false);
+            //ammoTextField.gameObject.SetActive(false);
         }
         else
         {
-            ammoTextField.gameObject.SetActive(true);
-            ammoTextField.text = ammo.ToString();
+            //ammoTextField.gameObject.SetActive(true);
+            //ammoTextField.text = ammo.ToString();
         }
     }
 }
