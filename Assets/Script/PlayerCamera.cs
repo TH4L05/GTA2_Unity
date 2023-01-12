@@ -1,11 +1,14 @@
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 
 namespace ProjectGTA2_Unity
 {
     public class PlayerCamera : MonoBehaviour
     {
-        public Transform target;
+        public static Transform targetObj;
         [SerializeField] private Vector3 targetOffset;
+        [SerializeField] private Vector3 targetOffsetMax;
         [SerializeField] private float speed;
 
         void Update()
@@ -13,9 +16,9 @@ namespace ProjectGTA2_Unity
             MoveCameraWithTarget();
         }
 
-        public void SetCameraTarget(Transform target)
+        public static void SetCameraTarget(Transform target)
         {
-            this.target = target; 
+            targetObj = target; 
         }
 
         public void SetTargetOffset(Vector3 targetCamOffset)
@@ -45,13 +48,13 @@ namespace ProjectGTA2_Unity
 
         private void MoveCameraWithTarget()
         {
-            if (target == null)
+            if (targetObj == null)
             {
                 Debug.LogError("Camera Target is ´Missing !!");
                 return;
             }
 
-            transform.position = Vector3.Lerp(transform.position, target.position + targetOffset, speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, targetObj.position + targetOffset, speed * Time.deltaTime);
  
         }
     }

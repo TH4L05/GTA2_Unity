@@ -37,3 +37,11 @@ MonoBehaviour:
         Data3: -1641506423
         Data4: -1955743403
       Path: event:/Footsteps/FootstepsWood
+  - eventName: FootstepsGrass
+    eventPath:
+      Guid:
+        Data1: 1247977287
+        Data2: 1185527018
+        Data3: 1846815917
+        Data4: -135288825
+      Path: event:/Footsteps/FootstepsGras

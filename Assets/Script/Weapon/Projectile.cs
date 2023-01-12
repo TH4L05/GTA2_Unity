@@ -1,20 +1,25 @@
-using Project11;
-using System.Collections;
-using System.Collections.Generic;
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 using ProjectGTA2_Unity.Characters;
+using Unity.Burst.CompilerServices;
 
 namespace ProjectGTA2_Unity
 {
     public class Projectile : MonoBehaviour
-    {
+    {    
         [SerializeField] protected float lifeTime = 2.5f;
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected float speed = 20f;
-        [SerializeField] protected float damage = 20f;
-        public float Speed { private get; set; }
+        [SerializeField] protected float damage = 1f;
+        [SerializeField] protected AudioEventList audioEventList;
+        [SerializeField] protected GameObject impactVFX;
 
-        private void OnEnable()
+        public float Speed { get; set; }
+
+
+
+        protected void OnEnable()
         {
             Destroy(gameObject, lifeTime);
         }
@@ -25,19 +30,15 @@ namespace ProjectGTA2_Unity
             this.damageType = damageType;
         }
 
-        void Update()
+        protected void Update()
         {
             MoveProjectile();
         }
 
-        public virtual void MoveProjectile()
+        protected virtual void MoveProjectile()
         {
-
-            if (Speed != 0)
-            {
-                speed = Speed;
-            }
-
+            if (speed == 0f) Destroy(gameObject);
+            
             //rbody.AddForce(transform.forward * speed, ForceMode.VelocityChange);
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
             /*if (rbody != null)
@@ -46,19 +47,66 @@ namespace ProjectGTA2_Unity
             }*/
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected void OnTriggerEnter(Collider collider)
         {
             Debug.Log("ProjectileCollide");
-            Destroy(gameObject);
 
-            var character = other.GetComponent<Character>();
+            var damageableTarget = collider.GetComponent<IDamagable>();
+            if (damageableTarget != null) damageableTarget.TakeDamage(damage, damageType);
+
+            PlayImpactSound(collider);
+            CreateImpactVFX();
+            Destroy(gameObject);
+        }
+
+        protected virtual void PlayImpactSound(Collider collider)
+        {
+            var character = collider.GetComponent<Character>();
+            var car = collider.GetComponent<Car>();
+            var tile = collider.GetComponent<Tile>();
+
 
             if (character)
             {
-                character.TakeDamage(damage, damageType);
-            }
 
+            }
+            else if (car)
+            {
+                audioEventList.PlayAudioEventOneShot("BulletCarImpact");
+            }
+            else
+            {
+                var impactSurface = tile.GetSurfaceType();
+                switch (impactSurface)
+                {
+                    case SurfaceType.Invalid:
+                        break;
+
+                    case SurfaceType.Normal:
+                        audioEventList.PlayAudioEventOneShot("BulletWallImpact");
+                        break;
+
+                    case SurfaceType.Grass:
+                        audioEventList.PlayAudioEventOneShot("BulletWallImpact");
+                        break;
+
+                    case SurfaceType.Metal:
+                        audioEventList.PlayAudioEventOneShot("BulletWallImpact");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            
         }
+
+        protected virtual void CreateImpactVFX()
+        {
+            if (impactVFX == null) return;
+            var newImpactVfx = Instantiate(impactVFX, transform.position, Quaternion.Euler(90f,0f,0f));
+        }
+
     }
 }
 

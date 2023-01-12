@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8221136224201391739
+--- !u!114 &-9179773368065080741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/WeaponPickup/PistolPickup
+  m_Name: event:/Weapons/RocketLauncher
   m_EditorClassIdentifier: 
-  Path: event:/WeaponPickup/PistolPickup
+  Path: event:/Weapons/RocketLauncher
   Guid:
-    Data1: 282417765
-    Data2: 1286012156
-    Data3: 878367373
-    Data4: 1483796702
+    Data1: 1181341345
+    Data2: 1219334041
+    Data3: -2131837792
+    Data4: -2097603861
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -41,14 +41,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Weapons/PistolShot
   Guid:
-    Data1: 1048036519
-    Data2: 1203272254
-    Data3: 59534225
-    Data4: -556055322
+    Data1: -122415219
+    Data2: 1251817932
+    Data3: 1335636886
+    Data4: -329731962
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7354430743680281769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupShotgun
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupShotgun
+  Guid:
+    Data1: 132897027
+    Data2: 1271527104
+    Data3: 1718641330
+    Data4: 1201173200
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6172949499633896219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupRocketLauncher
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupRocketLauncher
+  Guid:
+    Data1: 1123942384
+    Data2: 1247319323
+    Data3: 1266465177
+    Data4: 1969255232
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -69,12 +123,12 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638088967677987141
+  lastModified: 638090745393644210
   FileSizes:
   - Name: Desktop
-    Value: 79296
+    Value: 300896
   Exists: 1
---- !u!114 &-4964242849108217362
+--- !u!114 &-5631627904718049434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,18 +138,126 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Weapons/MachinegunShot
+  m_Name: event:/Impact/SmallExplosion
   m_EditorClassIdentifier: 
-  Path: event:/Weapons/MachinegunShot
+  Path: event:/Impact/SmallExplosion
   Guid:
-    Data1: -324655913
-    Data2: 1142196118
-    Data3: -1693441381
-    Data4: 650732084
+    Data1: 1412962099
+    Data2: 1133101553
+    Data3: -1081518452
+    Data4: -890987363
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5583607671039269220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupMolotov
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupMolotov
+  Guid:
+    Data1: 623660264
+    Data2: 1128982523
+    Data3: 1539128989
+    Data4: 2096154297
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4729165623993065560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/FootstepsGras
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/FootstepsGras
+  Guid:
+    Data1: 1247977287
+    Data2: 1185527018
+    Data3: 1846815917
+    Data4: -135288825
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4702618489684859736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/SilencedMacGunShot
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/SilencedMacGunShot
+  Guid:
+    Data1: 381642518
+    Data2: 1340871256
+    Data3: -1685890420
+    Data4: 1519559383
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4505186378554993106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impact/Explosion
+  m_EditorClassIdentifier: 
+  Path: event:/Impact/Explosion
+  Guid:
+    Data1: -898968771
+    Data2: 1265965290
+    Data3: 1264912317
+    Data4: 2116890963
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -128,6 +290,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4429165571846348175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/ElectrogunShot
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/ElectrogunShot
+  Guid:
+    Data1: -632189158
+    Data2: 1079404973
+    Data3: -345473920
+    Data4: 421111471
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1419792654137060661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,11 +332,38 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638088967678007142
+  lastModified: 638090745393664199
   FileSizes:
   - Name: Desktop
-    Value: 1176
+    Value: 1908
   Exists: 1
+--- !u!114 &-801982590891697373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupGrenade
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupGrenade
+  Guid:
+    Data1: -238726816
+    Data2: 1289685725
+    Data3: 1141453990
+    Data4: -1760193648
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,17 +385,114 @@ MonoBehaviour:
   - {fileID: 2044326943030536667}
   - {fileID: -7759099119434797694}
   - {fileID: -4498044100537845055}
-  - {fileID: -4964242849108217362}
   - {fileID: 5025999481800269262}
-  - {fileID: 8713014685625546857}
-  - {fileID: -8221136224201391739}
+  - {fileID: -7354430743680281769}
+  - {fileID: -4702618489684859736}
+  - {fileID: 8396806367963845092}
+  - {fileID: -4429165571846348175}
+  - {fileID: -5631627904718049434}
+  - {fileID: 9038667731109895646}
+  - {fileID: -4505186378554993106}
+  - {fileID: -4729165623993065560}
+  - {fileID: 2710024140873954349}
+  - {fileID: 2594818579821927868}
+  - {fileID: 7976775884241421922}
+  - {fileID: -801982590891697373}
+  - {fileID: 491823557054484209}
+  - {fileID: 872540478744596586}
+  - {fileID: 6425496946347726005}
+  - {fileID: -9179773368065080741}
+  - {fileID: 707339556495931950}
+  - {fileID: -5583607671039269220}
+  - {fileID: -6172949499633896219}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5999004425347462157}
   StringsBanks:
   - {fileID: -1419792654137060661}
-  cacheTime: 638088967678007142
+  cacheTime: 638090745393664199
   cacheVersion: 131601
+--- !u!114 &491823557054484209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupSilentMacgun
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupSilentMacgun
+  Guid:
+    Data1: 683349096
+    Data2: 1143344880
+    Data3: 1327525265
+    Data4: -145025724
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &707339556495931950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/FlameThrowerShot
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/FlameThrowerShot
+  Guid:
+    Data1: -924865079
+    Data2: 1096832486
+    Data3: 2143892631
+    Data4: 1782255583
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &872540478744596586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupDualPistol
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupDualPistol
+  Guid:
+    Data1: 1788345737
+    Data2: 1201060516
+    Data3: 2081190547
+    Data4: 1847602960
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2044326943030536667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +515,60 @@ MonoBehaviour:
   - {fileID: -5999004425347462157}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2594818579821927868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupPistol
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupPistol
+  Guid:
+    Data1: -212345010
+    Data2: 1125144028
+    Data3: 283419021
+    Data4: -1872510204
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2710024140873954349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickups/WeaponPickup/PickupMacgun
+  m_EditorClassIdentifier: 
+  Path: event:/Pickups/WeaponPickup/PickupMacgun
+  Guid:
+    Data1: -269873847
+    Data2: 1246433793
+    Data3: -513279046
+    Data4: -1318363667
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -261,7 +628,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &8713014685625546857
+--- !u!114 &6425496946347726005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,18 +638,99 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/WeaponPickup/MachinegunPickup
+  m_Name: event:/Weapons/MacGunShot
   m_EditorClassIdentifier: 
-  Path: event:/WeaponPickup/MachinegunPickup
+  Path: event:/Weapons/MacGunShot
   Guid:
-    Data1: 1937113923
-    Data2: 1157258786
-    Data3: -1952861567
-    Data4: -1493460007
+    Data1: -258115951
+    Data2: 1075262621
+    Data3: 692890241
+    Data4: -2130774820
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7976775884241421922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impact/BulletCar
+  m_EditorClassIdentifier: 
+  Path: event:/Impact/BulletCar
+  Guid:
+    Data1: -407864997
+    Data2: 1314852805
+    Data3: -1157345901
+    Data4: 75016398
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8396806367963845092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impact/LargeExplosion
+  m_EditorClassIdentifier: 
+  Path: event:/Impact/LargeExplosion
+  Guid:
+    Data1: 247858202
+    Data2: 1182891299
+    Data3: -206586750
+    Data4: 738587191
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &9038667731109895646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impact/BulletWall
+  m_EditorClassIdentifier: 
+  Path: event:/Impact/BulletWall
+  Guid:
+    Data1: 482021940
+    Data2: 1084902576
+    Data3: -974627162
+    Data4: -276008362
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -302,14 +750,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Weapons/ShotgunShot
   Guid:
-    Data1: 683630497
-    Data2: 1184891234
-    Data3: -1698727746
-    Data4: 1077249582
+    Data1: -1282367034
+    Data2: 1279323476
+    Data3: -1611247218
+    Data4: -1204078577
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1

@@ -1,10 +1,10 @@
+/// <author>Thoams Krahl</author>
 
+using ProjectGTA2_Unity;
 
-namespace Project11
+public interface IDamagable
 {
-    public interface IDamagable
-    {
-        public void TakeDamage(float damage);
-    }
+   public void TakeDamage(float damageAmount, DamageType damageType);
 }
+
 

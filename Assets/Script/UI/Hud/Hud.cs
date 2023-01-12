@@ -1,58 +1,61 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using ProjectGTA2_Unity;
 
-public class Hud : MonoBehaviour
+namespace ProjectGTA2_Unity.UI
 {
-    [SerializeField] private UnityEngine.UI.Image weaponImage;
-    //[SerializeField] private TextMeshProUGUI ammoTextField;
-    [SerializeField] private Text ammoTextField;
-
-    private void Awake()
+    public class Hud : MonoBehaviour
     {
-        WeaponBelt.WeaponChanged += UpdateWeapon;
-        WeaponBelt.WeaponUpdate += UpdateAmmo;
-    }
+        [SerializeField] private UnityEngine.UI.Image weaponImage;
+        //[SerializeField] private TextMeshProUGUI ammoTextField;
+        [SerializeField] private Text ammoTextField;
 
-    private void OnDestroy()
-    {
-        WeaponBelt.WeaponChanged -= UpdateWeapon;
-        WeaponBelt.WeaponUpdate -= UpdateAmmo;
-    }
-
-
-    private void UpdateWeapon(Sprite sprite, int ammo)
-    {
-        if(weaponImage == null) return;
-
-        if (sprite == null)
+        private void Awake()
         {
-            weaponImage.gameObject.SetActive(false);
-        }
-        else
-        {
-            weaponImage.gameObject.SetActive(true);
-            weaponImage.sprite = sprite;
+            WeaponBelt.WeaponChanged += UpdateWeapon;
+            WeaponBelt.WeaponUpdate += UpdateAmmo;
         }
 
-        UpdateAmmo(ammo);
-    }
-
-    private void UpdateAmmo(int ammo)
-    {
-        if (ammoTextField == null) return;
-
-        if (ammo < 0)
+        private void OnDestroy()
         {
-            //ammoTextField.gameObject.SetActive(false);
+            WeaponBelt.WeaponChanged -= UpdateWeapon;
+            WeaponBelt.WeaponUpdate -= UpdateAmmo;
         }
-        else
+
+
+        private void UpdateWeapon(Sprite sprite, int ammo)
         {
-            //ammoTextField.gameObject.SetActive(true);
-            //ammoTextField.text = ammo.ToString();
+            if (weaponImage == null) return;
+
+            if (sprite == null)
+            {
+                weaponImage.gameObject.SetActive(false);
+            }
+            else
+            {
+                weaponImage.gameObject.SetActive(true);
+                weaponImage.sprite = sprite;
+            }
+
+            UpdateAmmo(ammo);
+        }
+
+        private void UpdateAmmo(int ammo)
+        {
+            if (ammoTextField == null) return;
+
+            if (ammo < 0)
+            {
+                ammoTextField.gameObject.SetActive(false);
+            }
+            else
+            {
+                ammoTextField.gameObject.SetActive(true);
+                ammoTextField.text = ammo.ToString();
+            }
         }
     }
 }
+

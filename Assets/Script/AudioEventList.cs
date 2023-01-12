@@ -18,6 +18,7 @@ namespace ProjectGTA2_Unity
     public class AudioEventList : ScriptableObject
     {
         [SerializeField] private List<AudioEvent> audioEvents = new List<AudioEvent>();
+        [SerializeField] private bool showDebugMessages = true;
         private EventInstance instance;
         private Dictionary<string, EventInstance> eventInstances = new Dictionary<string, EventInstance>();
 
@@ -29,7 +30,7 @@ namespace ProjectGTA2_Unity
             {
                 eventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 eventInstance.Value.release();
-                Debug.Log($"<color=#FFB12B>Release {eventInstance.Key}</color>");
+                if(showDebugMessages) Debug.Log($"<color=#FFB12B>Release {eventInstance.Key}</color>");
             }
         }
 
@@ -39,7 +40,7 @@ namespace ProjectGTA2_Unity
             {
                 if (audioEvent.eventName == eventName)
                 {
-                    Debug.Log($"<color=#FFB12B>Play Audio {audioEvent.eventName}</color>");
+                    if (showDebugMessages) Debug.Log($"<color=#FFB12B>Play Audio {audioEvent.eventName}</color>");
                     RuntimeManager.PlayOneShot(audioEvent.eventPath);
                     return;
                 }
@@ -51,11 +52,11 @@ namespace ProjectGTA2_Unity
         {
             if (eventListIndex < 0 || eventListIndex > audioEvents.Count)
             {
-                Debug.LogError($"AudioEvent with at Index: {eventListIndex} not found");
+                if (showDebugMessages) Debug.LogError($"AudioEvent with at Index: {eventListIndex} not found");
                 return;
             }
 
-            Debug.Log($"<color=#FFB12B>Play Audio {audioEvents[eventListIndex].eventName}</color>");
+            if (showDebugMessages) Debug.Log($"<color=#FFB12B>Play Audio {audioEvents[eventListIndex].eventName}</color>");
             RuntimeManager.PlayOneShot(audioEvents[eventListIndex].eventPath);
         }
 
@@ -72,7 +73,7 @@ namespace ProjectGTA2_Unity
                     return;
                 }
             }
-            Debug.LogError($"AudioEvent : {eventName} not found");
+            if (showDebugMessages) Debug.LogError($"AudioEvent : {eventName} not found");
         }
 
         public void PlayAudioEvent(int eventListIndex)
@@ -83,7 +84,7 @@ namespace ProjectGTA2_Unity
                 return;
             }
 
-            Debug.Log($"<color=#FFB12B>Play Audio {audioEvents[eventListIndex].eventName}</color>");
+            if (showDebugMessages) Debug.Log($"<color=#FFB12B>Play Audio {audioEvents[eventListIndex].eventName}</color>");
             instance = RuntimeManager.CreateInstance(audioEvents[eventListIndex].eventPath);
             instance.start();
             instance.release();
@@ -103,7 +104,7 @@ namespace ProjectGTA2_Unity
             {
                 if (audioEvent.eventName == eventName)
                 {
-                    Debug.Log($"<color=#FFB12B>Start Audio {audioEvent.eventName}</color>");
+                    if (showDebugMessages) Debug.Log($"<color=#FFB12B>Start Audio {audioEvent.eventName}</color>");
                     i = RuntimeManager.CreateInstance(audioEvent.eventPath);
                     i.start();
                     break;
@@ -117,7 +118,7 @@ namespace ProjectGTA2_Unity
         {
             if (eventInstances.ContainsKey(eventName))
             {
-                Debug.Log($"<color=#FFB12B>Stop Audio {eventName}</color>");
+                if (showDebugMessages) Debug.Log($"<color=#FFB12B>Stop Audio {eventName}</color>");
                 eventInstances[eventName].stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
             }
@@ -130,7 +131,7 @@ namespace ProjectGTA2_Unity
                 PLAYBACK_STATE state;
                 eventInstances[eventName].getPlaybackState(out state);
                 if (state == PLAYBACK_STATE.PLAYING) return;
-                Debug.Log($"<color=#FFB12B>Restart Audio {eventName}</color>");
+                if (showDebugMessages) Debug.Log($"<color=#FFB12B>Restart Audio {eventName}</color>");
                 eventInstances[eventName].start();
             }
         }
@@ -160,7 +161,7 @@ namespace ProjectGTA2_Unity
                 eventInstances[eventName].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 eventInstances[eventName].release();
                 eventInstances.Remove(eventName);
-                Debug.Log($"<color=#FFB12B>AudioEvent {eventName} removed</color>");
+                if (showDebugMessages) Debug.Log($"<color=#FFB12B>AudioEvent {eventName} removed</color>");
             }
         }
 
@@ -168,7 +169,6 @@ namespace ProjectGTA2_Unity
         {
             return eventInstances[eventName];
         }
-
     }
 }
 

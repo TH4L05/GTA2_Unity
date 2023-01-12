@@ -16,16 +16,64 @@ MonoBehaviour:
   - eventName: PistolAttack
     eventPath:
       Guid:
-        Data1: 1048036519
-        Data2: 1203272254
-        Data3: 59534225
-        Data4: -556055322
+        Data1: -122415219
+        Data2: 1251817932
+        Data3: 1335636886
+        Data4: -329731962
       Path: event:/Weapons/PistolShot
   - eventName: MachinegunAttack
     eventPath:
       Guid:
-        Data1: -324655913
-        Data2: 1142196118
-        Data3: -1693441381
-        Data4: 650732084
-      Path: event:/Weapons/MachinegunShot
+        Data1: -258115951
+        Data2: 1075262621
+        Data3: 692890241
+        Data4: -2130774820
+      Path: event:/Weapons/MacGunShot
+  - eventName: SilentMachinegunAttack
+    eventPath:
+      Guid:
+        Data1: 381642518
+        Data2: 1340871256
+        Data3: -1685890420
+        Data4: 1519559383
+      Path: event:/Weapons/SilencedMacGunShot
+  - eventName: ShotgunAttack
+    eventPath:
+      Guid:
+        Data1: -1282367034
+        Data2: 1279323476
+        Data3: -1611247218
+        Data4: -1204078577
+      Path: event:/Weapons/ShotgunShot
+  - eventName: RocketLauncherAttack
+    eventPath:
+      Guid:
+        Data1: 1181341345
+        Data2: 1219334041
+        Data3: -2131837792
+        Data4: -2097603861
+      Path: event:/Weapons/RocketLauncher
+  - eventName: ElectroGunAttack
+    eventPath:
+      Guid:
+        Data1: -632189158
+        Data2: 1079404973
+        Data3: -345473920
+        Data4: 421111471
+      Path: event:/Weapons/ElectrogunShot
+  - eventName: FlameThrowerAttack
+    eventPath:
+      Guid:
+        Data1: -924865079
+        Data2: 1096832486
+        Data3: 2143892631
+        Data4: 1782255583
+      Path: event:/Weapons/FlameThrowerShot
+  - eventName: FistsAttack
+    eventPath:
+      Guid:
+        Data1: -529670871
+        Data2: 1203232513
+        Data3: 1306790826
+        Data4: -1930066090
+      Path: event:/Weapons/Fists

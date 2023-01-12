@@ -1,39 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 
-
-public enum TileType
+namespace ProjectGTA2_Unity
 {
-    Invalid = -1,
-    Floor,
-    Wall
-}
-
-public enum SurfaceType
-{
-    Invalid = -1,
-    Normal,
-    Grass,
-    Metal,
-    Water,
-    Electrified,
-    ElectrifiedPlatform,
-    RoadJunction
-}
-
-public class Tile : MonoBehaviour
-{
-    [SerializeField] private TileType tileType = TileType.Invalid;
-    [SerializeField] private SurfaceType surfaceType = SurfaceType.Invalid;
-
-    public TileType GetTileType()
+    public enum TileType
     {
-        return tileType;
+        Invalid = -1,
+        Floor,
+        Wall
     }
 
-    public SurfaceType GetSurfaceType()
+    public enum SurfaceType
     {
-        return surfaceType;
+        Invalid = -1,
+        Normal,
+        Grass,
+        Metal,
+        Water,
+        Wood,
+        Electrified,
+        ElectrifiedPlatform,
+        RoadJunction
+    }
+
+    public class Tile : MonoBehaviour
+    {
+        [SerializeField] private TileType tileType = TileType.Invalid;
+        [SerializeField] private SurfaceType surfaceType = SurfaceType.Invalid;
+
+        public TileType GetTileType()
+        {
+            return tileType;
+        }
+
+        public SurfaceType GetSurfaceType()
+        {
+            return surfaceType;
+        }
     }
 }
+

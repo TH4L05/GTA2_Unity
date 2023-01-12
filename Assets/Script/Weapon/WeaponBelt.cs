@@ -1,9 +1,8 @@
+/// <author>Thoams Krahl</author>
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ProjectGTA2_Unity
 {
@@ -39,20 +38,15 @@ namespace ProjectGTA2_Unity
         {
             if (Input.GetKeyUp(KeyCode.Y))
             {
-                NextWeapon();
+                PreviousWeapon();
             }
             else if(Input.GetKeyUp(KeyCode.X))
             {
-                PreviousWeapon();
-            }
-
-            if (Input.GetKey(KeyCode.LeftControl))
-            {              
-                WeaponAttack();
+                NextWeapon();
             }
         }
 
-        private void WeaponAttack()
+        public void WeaponAttack()
         {
             weapons[currentweaponIndex].Attack();
             if(currentweaponIndex != 0) WeaponUpdate?.Invoke(weapons[currentweaponIndex].CurrentAmmo);
@@ -103,6 +97,7 @@ namespace ProjectGTA2_Unity
             }
 
             GunEquippedCheck();
+            WeaponChanged?.Invoke(weapons[currentweaponIndex].Icon, weapons[currentweaponIndex].CurrentAmmo);
             Debug.Log($"<color=orange>Weapon {weapons[currentweaponIndex].name} selected</color>");
         }
 

@@ -11,9 +11,16 @@ namespace ProjectGTA2_Unity
         Invalid = -1,
         Health,
         Armor,
-        Pistol,         
+        Pistol,
+        DualPistol,
         Machinegun,         
-        Shotgun,         
+        Shotgun,  
+        RocketLauncher,
+        SilentMacgun,
+        ElectroGun,
+        Flamethrower,
+        Grenade,
+        Molotov
     }
 
     public class Pickup : MonoBehaviour

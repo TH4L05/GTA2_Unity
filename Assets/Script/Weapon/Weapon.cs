@@ -1,6 +1,6 @@
+/// <author>Thoams Krahl</author>
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectGTA2_Unity
@@ -27,6 +27,7 @@ namespace ProjectGTA2_Unity
     public class Weapon : MonoBehaviour
     {
         public static Action NoAmmoLeft;
+        public static Action ShootWeapon;
 
         #region SerializedFields
 
@@ -88,7 +89,7 @@ namespace ProjectGTA2_Unity
             if (unlimtitedAmmo) return;
             currentAmmo -= amount;
 
-            if (currentAmmo < 0)
+            if (currentAmmo <= 0)
             {
                 currentAmmo = 0;
                 active = false;
@@ -146,7 +147,7 @@ namespace ProjectGTA2_Unity
                         break;
                 }
 
-                Debug.Log("weapon " + name + "shoot");
+                //Debug.Log("weapon " + name + " shoot");
             }
         }
 

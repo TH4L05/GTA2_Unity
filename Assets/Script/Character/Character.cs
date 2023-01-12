@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 
 namespace ProjectGTA2_Unity.Characters
 {
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, IDamagable
     {
         #region SerializedFields
       
@@ -23,14 +22,13 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
 
-       
         #endregion
 
         #region private Fields
 
         protected float currentHealth;
         protected bool healthRegenActive;
-        protected bool onGround;
+        [SerializeField] protected bool onGround;
         protected bool isDead;
 
         #endregion

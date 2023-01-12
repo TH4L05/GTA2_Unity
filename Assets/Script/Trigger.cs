@@ -1,4 +1,4 @@
-
+/// <author>Thoams Krahl</author>
 
 using UnityEngine;
 using UnityEngine.Events;
