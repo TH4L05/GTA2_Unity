@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18de2b68d3375d142aa27b1daf53b5ab, type: 3}
+  m_Name: Pickups
+  m_EditorClassIdentifier: 
+  audioEvents:
+  - eventName: PickupPistol
+    eventPath:
+      Guid:
+        Data1: -212345010
+        Data2: 1125144028
+        Data3: 283419021
+        Data4: -1872510204
+      Path: event:/Pickups/WeaponPickup/PickupPistol
+  - eventName: PickupMacgun
+    eventPath:
+      Guid:
+        Data1: -269873847
+        Data2: 1246433793
+        Data3: -513279046
+        Data4: -1318363667
+      Path: event:/Pickups/WeaponPickup/PickupMacgun
+  - eventName: PickupSilentMacgun
+    eventPath:
+      Guid:
+        Data1: 683349096
+        Data2: 1143344880
+        Data3: 1327525265
+        Data4: -145025724
+      Path: event:/Pickups/WeaponPickup/PickupSilentMacgun
+  - eventName: PickupRocketLauncher
+    eventPath:
+      Guid:
+        Data1: 1123942384
+        Data2: 1247319323
+        Data3: 1266465177
+        Data4: 1969255232
+      Path: event:/Pickups/WeaponPickup/PickupRocketLauncher
+  - eventName: PickupShotgun
+    eventPath:
+      Guid:
+        Data1: 132897027
+        Data2: 1271527104
+        Data3: 1718641330
+        Data4: 1201173200
+      Path: event:/Pickups/WeaponPickup/PickupShotgun
+  - eventName: PickupDualPistol
+    eventPath:
+      Guid:
+        Data1: 1788345737
+        Data2: 1201060516
+        Data3: 2081190547
+        Data4: 1847602960
+      Path: event:/Pickups/WeaponPickup/PickupDualPistol
+  - eventName: PickupGrenade
+    eventPath:
+      Guid:
+        Data1: -238726816
+        Data2: 1289685725
+        Data3: 1141453990
+        Data4: -1760193648
+      Path: event:/Pickups/WeaponPickup/PickupGrenade
+  - eventName: PickupMolotov
+    eventPath:
+      Guid:
+        Data1: 623660264
+        Data2: 1128982523
+        Data3: 1539128989
+        Data4: 2096154297
+      Path: event:/Pickups/WeaponPickup/PickupMolotov
+  showDebugMessages: 0

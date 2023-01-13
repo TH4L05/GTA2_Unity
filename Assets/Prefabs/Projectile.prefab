@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2854871057447317455}
   - component: {fileID: 332152701692381894}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -9046031545901471910}
   - component: {fileID: 5153419211907330854}
   - component: {fileID: 3118070021631457965}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,6 +136,7 @@ MonoBehaviour:
   speed: 10
   damage: 20
   audioEventList: {fileID: 11400000, guid: 9d99c3c121ddf5347aaa36f9afe9ccf1, type: 2}
+  impactVFX: {fileID: 0}
 --- !u!65 &5153419211907330854
 BoxCollider:
   m_ObjectHideFlags: 0

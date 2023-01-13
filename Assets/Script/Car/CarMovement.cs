@@ -8,30 +8,42 @@ namespace ProjectGTA2_Unity
     [RequireComponent(typeof(Rigidbody))]
     public class CarMovement : MonoBehaviour
     {
-        private enum MovementDirection
+        public enum MovementDirection
         {
             Forward,
             Backward
         }
 
-        [SerializeField] private Rigidbody rb;
+        #region SerializedFields
 
-        [SerializeField] private float mass;
+        //[SerializeField] private float mass;
         [SerializeField] private float accerlation;
         [SerializeField] private float brakePower;
         [SerializeField] private float turnRatio;
         [SerializeField] private float maxForwardSpeed;
         [SerializeField] private float maxBackwardSpeed;
+        [SerializeField] protected Transform groundCheck;
+        [SerializeField] protected LayerMask groundLayer;
 
+        #endregion
+
+        #region PrivateFields
+
+        private Rigidbody rb;
         private bool isActive = false;
         private float currentSpeed;
-        private Vector3 move = Vector3.zero;
         private Vector2 input = Vector2.zero;
-        private Vector3 rotation = Vector3.zero;
-
         private MovementDirection movementDirection;
-        private MovementDirection lastMovementDirection;
+        //private MovementDirection lastMovementDirection;
+        private bool onGround;
 
+        #endregion
+
+        #region PublicFields
+
+        public (float, float, float, MovementDirection) MovementValues => (currentSpeed, maxForwardSpeed, maxBackwardSpeed, movementDirection);
+        
+        #endregion
 
         #region UnityFunctions
 
@@ -43,17 +55,21 @@ namespace ProjectGTA2_Unity
         private void Update()
         {
             if (!isActive) return;
-            InputCheck();            
+            InputCheck();
+            UpdatePosition();
+            GroundCheck();
+            Rotation();
+            UpdatePosition();
         }
 
-        private void FixedUpdate()
+        /*private void FixedUpdate()
         {
             if (!isActive) return;
-            UpdatePosition();
-            Rotation();
-        }
+            //UpdatePosition();
+        }*/
 
         #endregion
+
         public void SetActive(bool active)
         {
             isActive = active;
@@ -120,9 +136,6 @@ namespace ProjectGTA2_Unity
                 default:
                     break;
             }
-
-
-
         }
 
         private void Brake(float brakePower)
@@ -137,7 +150,7 @@ namespace ProjectGTA2_Unity
 
         private void EngineBreak()
         {
-            currentSpeed -= Time.deltaTime * brakePower / 2;
+            currentSpeed -= Time.deltaTime * brakePower * 2;
 
             if (currentSpeed <= 0.1f)
             {
@@ -167,14 +180,14 @@ namespace ProjectGTA2_Unity
 
         private void ForwardMove()
         {
-            move = currentSpeed * transform.forward;
-            rb.velocity = move;
+            //rb.velocity = currentSpeed * transform.forward;
+            transform.Translate(Time.deltaTime * currentSpeed * transform.forward, Space.World);
         }
 
         private void BackwardMove()
         {
-            move = currentSpeed * -transform.forward;
-            rb.velocity = move;
+            //rb.velocity = currentSpeed * -transform.forward;
+            transform.Translate(Time.deltaTime * currentSpeed * -transform.forward, Space.World);
         }
 
         private void Rotation()
@@ -182,32 +195,49 @@ namespace ProjectGTA2_Unity
             //if (!onGround) return;
             if (currentSpeed < 0.65f) return;
 
-            var rotationY = input.x * turnRatio - currentSpeed;
+            var rotationY = 0f;
 
-            rotation = new Vector3(0f, rotationY, 0f);
-            rotation *= Time.deltaTime;
+            switch (movementDirection)
+            {
+                case MovementDirection.Forward:
+                    rotationY = input.x * turnRatio;
+                    break;
 
-            transform.Rotate(rotation);
+                case MovementDirection.Backward:
+                    rotationY = (input.x * -1) * turnRatio;
+                    break;
+
+                default:
+                    break;
+            }
+            
+            //rotation = new Vector3(0f, rotationY, 0f);
+            //rotation *= Time.deltaTime;
+            rotationY *= Time.deltaTime;
+
+            //transform.Rotate(rotation);
+            transform.rotation *= Quaternion.AngleAxis(rotationY, transform.up);
+
         }
 
-        /*private void GroundCheck()
+        private void GroundCheck()
         {
             onGround = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
-            animator.SetBool("OnGround", onGround);
-
-            Vector3 rayOrigin = groundRaycast.position;
+          
+            Vector3 rayOrigin = groundCheck.position;
             Vector3 rayDirection = Vector3.down;
             Ray ray = new Ray(rayOrigin, rayDirection);
+            RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 0.2f, groundLayer))
             {
-                SlopeCheck(hit);
+                //SlopeCheck(hit);
 
                 var tile = hit.collider.gameObject.GetComponent<Tile>();
-                if (tile == null) return;
-                surfaceType = tile.GetSurfaceType();
+                //if (tile == null) return;
+                //surfaceType = tile.GetSurfaceType();
             }
-        }*/
+        }
     }
 }
 

@@ -42,16 +42,16 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -103,18 +103,260 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82b779f494551a4cad9efed644787e9
+      internalID: 1024286412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2917b030563684f45846779721d7ad7f
+      internalID: 222458652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_2
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b3f94c6d49eb8148bcc093971ad465f
+      internalID: -2018227582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_3
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce3d789e266f904eaaafbcd0187bda7
+      internalID: 589877163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_4
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc00a0dffb0b104baadded6ee35c933
+      internalID: -1245449243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_5
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5a28576a43da9a4fbcbe7a36f56d018
+      internalID: 1383117805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_6
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfba860c7cdbf954ba84709a1ca21bbc
+      internalID: 593543894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_7
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4e87f54faa8e394aab6ebbd67df6fa6
+      internalID: 1042510900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_8
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 244a9c56225d0ae43b9818a3425487c0
+      internalID: 1589970955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_9
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 66
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb021427d060c9941be90618972b9245
+      internalID: 1552765567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D_GTA2_CAR_0_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 65.6
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 555f68c5c5617b646b934586ca696b87
+      internalID: 1470928232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1d79f8a219fc3a14e93bc467ee810098
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      D_GTA2_CAR_0_7: 1042510900
+      D_GTA2_CAR_0_6: 593543894
+      D_GTA2_CAR_0_0: 1024286412
+      D_GTA2_CAR_0_1: 222458652
+      D_GTA2_CAR_0_10: 1470928232
+      D_GTA2_CAR_0_3: 589877163
+      D_GTA2_CAR_0_4: -1245449243
+      D_GTA2_CAR_0_8: 1589970955
+      D_GTA2_CAR_0_5: 1383117805
+      D_GTA2_CAR_0_9: 1552765567
+      D_GTA2_CAR_0_2: -2018227582
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace ProjectGTA2_Unity.Characters
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Character : MonoBehaviour, IDamagable
     {
         #region SerializedFields
       
         [SerializeField] protected Animator animator;
         [SerializeField] protected Rigidbody rb;
-
+        
+        [SerializeField] protected bool godMode = false;    
         [SerializeField] protected float maxHealth;
         [SerializeField] protected float walkSpeed;
         [SerializeField] protected float runSpeed;
@@ -30,6 +32,7 @@ namespace ProjectGTA2_Unity.Characters
         protected bool healthRegenActive;
         [SerializeField] protected bool onGround;
         protected bool isDead;
+        protected DamageType lastDamageType;
 
         #endregion
 
@@ -65,7 +68,7 @@ namespace ProjectGTA2_Unity.Characters
 
         protected virtual void Initialize()
         {
-            
+            currentHealth = maxHealth;
         }
 
         protected virtual void AdditionalSetup()
@@ -82,10 +85,11 @@ namespace ProjectGTA2_Unity.Characters
 
         public virtual void TakeDamage(float damageAmount, DamageType damageType)
         {
-            if (isDead) return;
+            if(godMode || isDead) return;
 
+            lastDamageType = damageType;
             DecreaseHealth(damageAmount);
-            Debug.Log($"<color=orange>{gameObject.name} takes damage - {damageAmount.ToString("0")}</color>");
+            Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount.ToString("0")} damage</color>");
         }
 
         #endregion
@@ -100,8 +104,8 @@ namespace ProjectGTA2_Unity.Characters
 
             if (currentHealth <= 0)
             {
-                currentHealth = 0;
-                isDead = true;
+                currentHealth = 0;               
+                Death();
             }
 
             //if (healthBar != null) healthBar.UpdateBar(currentHealth, healthmax);
@@ -110,16 +114,13 @@ namespace ProjectGTA2_Unity.Characters
         protected virtual void IncreaseHealth(float amount)
         {
             if (isDead) return;
+            if (maxHealth < 0) return;
 
             currentHealth += amount;
 
-            //var healthmax = characterStats.GetStatValue(StatType.HealthMax);
-            var healthmax = maxHealth;
-            if (healthmax < 0) return;
-
-            if (currentHealth >= healthmax)
+            if (currentHealth >= maxHealth)
             {
-                currentHealth = healthmax;
+                currentHealth = maxHealth;
                 if (healthRegenActive)
                 {
                     CancelInvoke("HealthRegen");
@@ -155,6 +156,12 @@ namespace ProjectGTA2_Unity.Characters
         }
 
         #endregion
+
+
+        protected virtual void Death()
+        {
+            isDead = true;
+        }
     }
 }
 

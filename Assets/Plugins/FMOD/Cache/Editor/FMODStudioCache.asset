@@ -123,10 +123,10 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638090745393644210
+  lastModified: 638092282289597739
   FileSizes:
   - Name: Desktop
-    Value: 300896
+    Value: 351584
   Exists: 1
 --- !u!114 &-5631627904718049434
 MonoBehaviour:
@@ -317,6 +317,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2674446122589000582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Vocals/Busted
+  m_EditorClassIdentifier: 
+  Path: event:/Vocals/Busted
+  Guid:
+    Data1: 837528904
+    Data2: 1296258023
+    Data3: 242060472
+    Data4: -122468190
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2093538736965267984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Vocals/Wasted
+  m_EditorClassIdentifier: 
+  Path: event:/Vocals/Wasted
+  Guid:
+    Data1: -1521936359
+    Data2: 1297015354
+    Data3: 981478807
+    Data4: -423260796
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1419792654137060661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,10 +386,10 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638090745393664199
+  lastModified: 638092282289627734
   FileSizes:
   - Name: Desktop
-    Value: 1908
+    Value: 2002
   Exists: 1
 --- !u!114 &-801982590891697373
 MonoBehaviour:
@@ -405,12 +459,14 @@ MonoBehaviour:
   - {fileID: 707339556495931950}
   - {fileID: -5583607671039269220}
   - {fileID: -6172949499633896219}
+  - {fileID: -2093538736965267984}
+  - {fileID: -2674446122589000582}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5999004425347462157}
   StringsBanks:
   - {fileID: -1419792654137060661}
-  cacheTime: 638090745393664199
+  cacheTime: 638092282289627734
   cacheVersion: 131601
 --- !u!114 &491823557054484209
 MonoBehaviour:

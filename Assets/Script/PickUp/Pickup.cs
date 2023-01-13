@@ -16,7 +16,7 @@ namespace ProjectGTA2_Unity
         Machinegun,         
         Shotgun,  
         RocketLauncher,
-        SilentMacgun,
+        SilentMachinegun,
         ElectroGun,
         Flamethrower,
         Grenade,

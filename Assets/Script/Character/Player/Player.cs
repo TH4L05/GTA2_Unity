@@ -1,5 +1,6 @@
 /// <author>Thoams Krahl</author>
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace ProjectGTA2_Unity.Characters
 {
     public class Player : Character
     {
+        public static Action<DamageType> PlayerDied;
+
         [SerializeField] private WeaponBelt weaponBelt;
         [SerializeField] private AudioEventList audioEvents;
 
@@ -29,7 +32,6 @@ namespace ProjectGTA2_Unity.Characters
 
         private bool onSlope;
         RaycastHit hit;
-
 
 
         #region UnityFunctions
@@ -72,6 +74,7 @@ namespace ProjectGTA2_Unity.Characters
         {
             base.AdditionalSetup();
             Pickup.PickupCollected += PickupColleted;
+            PlayerCamera.SetCameraTarget(transform);
             step_Distance = sprint_step_Distance;
 
         }
@@ -212,8 +215,6 @@ namespace ProjectGTA2_Unity.Characters
                 return;
             }
 
-            Debug.Log(carColliders.Length);
-
             int index = 0;
             float distance = 999f;
 
@@ -228,8 +229,7 @@ namespace ProjectGTA2_Unity.Characters
                 }
             }
 
-            Debug.Log(index);
-            Debug.Log(carColliders[index].gameObject.name);
+            //Debug.Log(carColliders[index].gameObject.name);
 
             List<Component> results = new List<Component>();
 
@@ -284,6 +284,12 @@ namespace ProjectGTA2_Unity.Characters
             Gizmos.DrawWireSphere(transform.position, CarEnterDistance);
         }
 
+        protected override void Death()
+        {
+            base.Death();
+            PlayerDied?.Invoke(lastDamageType);
+            Destroy(gameObject);
+        }
     }
 }
 

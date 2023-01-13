@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18de2b68d3375d142aa27b1daf53b5ab, type: 3}
+  m_Name: Vocals
+  m_EditorClassIdentifier: 
+  audioEvents:
+  - eventName: BUSTED !
+    eventPath:
+      Guid:
+        Data1: 837528904
+        Data2: 1296258023
+        Data3: 242060472
+        Data4: -122468190
+      Path: event:/Vocals/Busted
+  - eventName: WASTED !
+    eventPath:
+      Guid:
+        Data1: -1521936359
+        Data2: 1297015354
+        Data3: 981478807
+        Data4: -423260796
+      Path: event:/Vocals/Wasted
+  showDebugMessages: 0
