@@ -34,6 +34,11 @@ namespace FMODUnity
             }
         }
 
+        public void SetAttenuationObject(GameObject obj)
+        {
+            attenuationObject = obj;
+        }
+
         public static float DistanceToNearestListener(Vector3 position)
         {
             float result = float.MaxValue;

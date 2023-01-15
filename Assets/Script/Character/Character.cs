@@ -8,21 +8,12 @@ namespace ProjectGTA2_Unity.Characters
     public class Character : MonoBehaviour, IDamagable
     {
         #region SerializedFields
-      
-        [SerializeField] protected Animator animator;
-        [SerializeField] protected Rigidbody rb;
-        
-        [SerializeField] protected bool godMode = false;    
-        [SerializeField] protected float maxHealth;
-        [SerializeField] protected float walkSpeed;
-        [SerializeField] protected float runSpeed;
-        [SerializeField] protected float jumpForce;
-        [SerializeField] protected float gravityFactor = 5f;
-        [SerializeField] protected float rotationSensitivity = 5f;
-        [SerializeField] protected bool canRegenHealth = false;
 
-        [SerializeField] protected Transform groundCheck;
-        [SerializeField] protected LayerMask groundLayer;
+        [SerializeField] protected CharacterData charData;
+        [SerializeField] protected bool godMode = false;    
+        [SerializeField] protected float maxHealth;       
+        [SerializeField] protected bool canRegenHealth = false;
+        [SerializeField] protected AudioEventList audioEvents;
 
         #endregion
 

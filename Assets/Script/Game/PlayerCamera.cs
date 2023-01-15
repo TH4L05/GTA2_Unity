@@ -1,6 +1,7 @@
 /// <author>Thoams Krahl</author>
 
 using UnityEngine;
+using FMODUnity;
 
 namespace ProjectGTA2_Unity
 {
@@ -10,6 +11,12 @@ namespace ProjectGTA2_Unity
         [SerializeField] private Vector3 targetOffset;
         [SerializeField] private Vector3 targetOffsetMax;
         [SerializeField] private float speed;
+        [SerializeField] private static StudioListener sl;
+
+        private void Awake()
+        {
+            sl = GetComponent<StudioListener>();
+        }
 
         void Update()
         {
@@ -18,7 +25,8 @@ namespace ProjectGTA2_Unity
 
         public static void SetCameraTarget(Transform target)
         {
-            targetObj = target; 
+            targetObj = target;
+            sl.SetAttenuationObject(targetObj.gameObject);
         }
 
         public void SetTargetOffset(Vector3 targetCamOffset)

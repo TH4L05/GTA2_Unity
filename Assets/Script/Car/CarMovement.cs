@@ -24,6 +24,7 @@ namespace ProjectGTA2_Unity
         [SerializeField] private float maxBackwardSpeed;
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
+        [SerializeField] protected float gravityFactor = 15f;
 
         #endregion
 
@@ -34,7 +35,6 @@ namespace ProjectGTA2_Unity
         private float currentSpeed;
         private Vector2 input = Vector2.zero;
         private MovementDirection movementDirection;
-        //private MovementDirection lastMovementDirection;
         private bool onGround;
 
         #endregion
@@ -54,12 +54,17 @@ namespace ProjectGTA2_Unity
 
         private void Update()
         {
-            if (!isActive) return;
-            InputCheck();
-            UpdatePosition();
             GroundCheck();
-            Rotation();
             UpdatePosition();
+            Rotation();
+
+            if (!onGround)
+            {
+                rb.AddForce(new Vector3(0, -1, 0) * gravityFactor, ForceMode.Acceleration);
+            }
+
+            if (!isActive) return;
+            InputCheck();           
         }
 
         /*private void FixedUpdate()
@@ -180,7 +185,7 @@ namespace ProjectGTA2_Unity
 
         private void ForwardMove()
         {
-            //rb.velocity = currentSpeed * transform.forward;
+            //rb.velocity = currentSpeed * transform.forward;          
             transform.Translate(Time.deltaTime * currentSpeed * transform.forward, Space.World);
         }
 

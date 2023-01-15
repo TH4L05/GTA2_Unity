@@ -8,8 +8,10 @@ namespace ProjectGTA2_Unity
     {
         private void OnTriggerEnter(Collider collider)
         {
+            Debug.Log(collider.name);
+
             var damageable = collider.GetComponent<IDamagable>();
-            if (damageable != null) damageable.TakeDamage(999f, DamageType.Normal);
+            if (damageable != null) damageable.TakeDamage(999f, DamageType.Water);
         }
     }
 }

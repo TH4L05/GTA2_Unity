@@ -96,7 +96,7 @@ namespace ProjectGTA2_Unity.UI
                     break;
 
                 case DamageType.Water:
-                    text = infoTexts[3];
+                    text = infoTexts[0];
                     break;
 
                 case DamageType.Electro:
@@ -120,7 +120,6 @@ namespace ProjectGTA2_Unity.UI
             audioEvents.PlayAudioEventOneShot(text);
             ShowInfoText(text);
         }
-
     }
 }
 

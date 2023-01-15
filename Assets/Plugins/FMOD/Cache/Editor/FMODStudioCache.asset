@@ -54,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7659871863531150245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impact/Splash
+  m_EditorClassIdentifier: 
+  Path: event:/Impact/Splash
+  Guid:
+    Data1: -356187227
+    Data2: 1264184992
+    Data3: 1910874805
+    Data4: -1887738632
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7354430743680281769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +99,33 @@ MonoBehaviour:
     Data2: 1271527104
     Data3: 1718641330
     Data4: 1201173200
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6879985369844610400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/StartEngine2
+  m_EditorClassIdentifier: 
+  Path: event:/Car/StartEngine2
+  Guid:
+    Data1: -1563841263
+    Data2: 1307768871
+    Data3: 1463432337
+    Data4: -1767322778
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -123,10 +177,10 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638092282289597739
+  lastModified: 638092875726089714
   FileSizes:
   - Name: Desktop
-    Value: 351584
+    Value: 488704
   Exists: 1
 --- !u!114 &-5631627904718049434
 MonoBehaviour:
@@ -173,6 +227,33 @@ MonoBehaviour:
     Data2: 1128982523
     Data3: 1539128989
     Data4: 2096154297
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5449739257793176743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/Collision/CollisionBounce
+  m_EditorClassIdentifier: 
+  Path: event:/Car/Collision/CollisionBounce
+  Guid:
+    Data1: -257153990
+    Data2: 1186287431
+    Data3: -1903130435
+    Data4: 1400809780
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -317,6 +398,87 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4333463743038123178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/Collision/CollisionSoft
+  m_EditorClassIdentifier: 
+  Path: event:/Car/Collision/CollisionSoft
+  Guid:
+    Data1: -2139233925
+    Data2: 1212606511
+    Data3: -983294017
+    Data4: 1881712189
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4067187037961758829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarDoorClose
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarDoorClose
+  Guid:
+    Data1: -858746230
+    Data2: 1322801898
+    Data3: 589211821
+    Data4: -323282229
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3432765213069429556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/Collision/CollisionPed
+  m_EditorClassIdentifier: 
+  Path: event:/Car/Collision/CollisionPed
+  Guid:
+    Data1: 1779882722
+    Data2: 1193685905
+    Data3: -1516094568
+    Data4: 1793229247
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2674446122589000582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,11 +548,38 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638092282289627734
+  lastModified: 638092875726129901
   FileSizes:
   - Name: Desktop
-    Value: 2002
+    Value: 2838
   Exists: 1
+--- !u!114 &-1330046826332315743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/RocketFly
+  m_EditorClassIdentifier: 
+  Path: event:/RocketFly
+  Guid:
+    Data1: -1975715546
+    Data2: 1151457881
+    Data3: 84708232
+    Data4: 896085007
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 638
 --- !u!114 &-801982590891697373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,6 +607,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-462825124233985527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PhoneRing
+  m_EditorClassIdentifier: 
+  Path: event:/PhoneRing
+  Guid:
+    Data1: -309550370
+    Data2: 1288836626
+    Data3: -1870418034
+    Data4: 1161229052
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3500
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,12 +677,30 @@ MonoBehaviour:
   - {fileID: -6172949499633896219}
   - {fileID: -2093538736965267984}
   - {fileID: -2674446122589000582}
+  - {fileID: -5449739257793176743}
+  - {fileID: -4333463743038123178}
+  - {fileID: -4067187037961758829}
+  - {fileID: 4978413626278280369}
+  - {fileID: 8960999345767441736}
+  - {fileID: 7243256263264591736}
+  - {fileID: -7659871863531150245}
+  - {fileID: 5641271707767807165}
+  - {fileID: -462825124233985527}
+  - {fileID: -3432765213069429556}
+  - {fileID: 5309407562478003715}
+  - {fileID: 2474747577259619946}
+  - {fileID: 1658360713639998845}
+  - {fileID: 7536451239297761261}
+  - {fileID: 2038321985900617514}
+  - {fileID: -6879985369844610400}
+  - {fileID: 5400730983306501171}
+  - {fileID: -1330046826332315743}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5999004425347462157}
   StringsBanks:
   - {fileID: -1419792654137060661}
-  cacheTime: 638092282289627734
+  cacheTime: 638092875726129901
   cacheVersion: 131601
 --- !u!114 &491823557054484209
 MonoBehaviour:
@@ -549,6 +783,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &1658360713639998845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarEngine/EngineSportsCar
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarEngine/EngineSportsCar
+  Guid:
+    Data1: 1771550787
+    Data2: 1200974381
+    Data3: -1186988621
+    Data4: -101885686
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 170
+--- !u!114 &2038321985900617514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarBurning
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarBurning
+  Guid:
+    Data1: -334295595
+    Data2: 1300787380
+    Data3: -821674601
+    Data4: 1558213177
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2044326943030536667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,6 +864,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &2474747577259619946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarEngine/EngineCompact
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarEngine/EngineCompact
+  Guid:
+    Data1: -1452991691
+    Data2: 1165882859
+    Data3: 1643676340
+    Data4: 1698029264
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 590
 --- !u!114 &2594818579821927868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,6 +972,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &4978413626278280369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarDoorOpen
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarDoorOpen
+  Guid:
+    Data1: -1882740854
+    Data2: 1144242244
+    Data3: -229028970
+    Data4: -403203260
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5025999481800269262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +1021,87 @@ MonoBehaviour:
   - {fileID: -5999004425347462157}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5309407562478003715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impact/BulletPed
+  m_EditorClassIdentifier: 
+  Path: event:/Impact/BulletPed
+  Guid:
+    Data1: -1293216727
+    Data2: 1168961760
+    Data3: -1962529135
+    Data4: 668732833
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5400730983306501171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/StartEngine1
+  m_EditorClassIdentifier: 
+  Path: event:/Car/StartEngine1
+  Guid:
+    Data1: 1876928308
+    Data2: 1169516364
+    Data3: -483301238
+    Data4: 59104819
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5641271707767807165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarDamage
+  Guid:
+    Data1: 731518407
+    Data2: 1135765697
+    Data3: 795065006
+    Data4: 1647801790
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -711,6 +1134,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &7243256263264591736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/Collision/CollisionMedium
+  m_EditorClassIdentifier: 
+  Path: event:/Car/Collision/CollisionMedium
+  Guid:
+    Data1: 578548123
+    Data2: 1241874768
+    Data3: 682529173
+    Data4: 1351557329
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7536451239297761261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarEngine/EngineSuperCar
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarEngine/EngineSuperCar
+  Guid:
+    Data1: 1312876739
+    Data2: 1295044533
+    Data3: 740982151
+    Data4: -1285925452
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 263
 --- !u!114 &7976775884241421922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,6 +1233,33 @@ MonoBehaviour:
     Data2: 1182891299
     Data3: -206586750
     Data4: 738587191
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8960999345767441736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/Collision/CollisionHard
+  m_EditorClassIdentifier: 
+  Path: event:/Car/Collision/CollisionHard
+  Guid:
+    Data1: 2077105555
+    Data2: 1149847048
+    Data3: -1616386928
+    Data4: 893663861
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0

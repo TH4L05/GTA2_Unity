@@ -53,4 +53,20 @@ MonoBehaviour:
         Data3: -206586750
         Data4: 738587191
       Path: event:/Impact/LargeExplosion
+  - eventName: Splash
+    eventPath:
+      Guid:
+        Data1: 247858202
+        Data2: 1182891299
+        Data3: -206586750
+        Data4: 738587191
+      Path: event:/Impact/LargeExplosion
+  - eventName: PhoneRing
+    eventPath:
+      Guid:
+        Data1: -309550370
+        Data2: 1288836626
+        Data3: -1870418034
+        Data4: 1161229052
+      Path: event:/PhoneRing
   showDebugMessages: 0
