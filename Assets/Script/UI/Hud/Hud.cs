@@ -10,13 +10,24 @@ namespace ProjectGTA2_Unity.UI
 {
     public class Hud : MonoBehaviour
     {
+        [Header("Weapon")]
+        [SerializeField] private Text moneyTExtField;
+
+        [Header("Weapon")]
         [SerializeField] private Image weaponImage;
-        //[SerializeField] private TextMeshProUGUI ammoTextField;
         [SerializeField] private Text ammoTextField;
-        [SerializeField] private Text infoTextField;
-        [SerializeField] private PlayableDirector playableDirector;
-        [SerializeField] private PlayableAsset showInforTextPlayable;
+
+        [Header("Life & Multiplier")]
+        [SerializeField] private Text lifesTextField;
+        [SerializeField] private Text multiplierTextField;
+
+        [Header("InfoText")]
         [SerializeField] private string[] infoTexts;
+        [SerializeField] private Text infoTextField;
+        [SerializeField] private PlayableAsset showInfoTextPlayable;
+
+        [Header("Settings")]
+        [SerializeField] private PlayableDirector playableDirector;
         [SerializeField] private AudioEventList audioEvents;
 
         private void Awake()
@@ -69,13 +80,13 @@ namespace ProjectGTA2_Unity.UI
         public void ShowInfoText(string text)
         {
             infoTextField.text = text;
-            playableDirector.Play(showInforTextPlayable);
+            playableDirector.Play(showInfoTextPlayable);
         }
 
         public void ShowInfoText(int index)
         {
             infoTextField.text = infoTexts[index];
-            playableDirector.Play(showInforTextPlayable);
+            playableDirector.Play(showInfoTextPlayable);
         }
 
         private void PlayerDied(DamageType damageType)
