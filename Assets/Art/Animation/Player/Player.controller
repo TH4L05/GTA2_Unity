@@ -61,9 +61,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Walk
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Jump
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: GunEquiped
     m_EventTreshold: 0
@@ -98,19 +95,19 @@ AnimatorStateMachine:
     m_Position: {x: 340, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7671422924764564234}
-    m_Position: {x: 180, y: 310, z: 0}
+    m_Position: {x: -30, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8588625229074406357}
-    m_Position: {x: 770, y: 310, z: 0}
+    m_Position: {x: 780, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6287846201404604892}
     m_Position: {x: 780, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7532099703725114844}
-    m_Position: {x: 320, y: 380, z: 0}
+    m_Position: {x: 240, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2877826564678559762}
-    m_Position: {x: 600, y: 380, z: 0}
+    m_Position: {x: 480, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6720369311235146057}
     m_Position: {x: 560, y: 50, z: 0}
@@ -119,7 +116,7 @@ AnimatorStateMachine:
     m_Position: {x: 340, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6455628154578030091}
-    m_Position: {x: 1020, y: 40, z: 0}
+    m_Position: {x: 1030, y: 0, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -4020991294631125444}
@@ -130,7 +127,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 800, y: 0, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 50, y: 80, z: 0}
+  m_ExitPosition: {x: 1060, y: 90, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 6889838693252986725}
 --- !u!1102 &-7671422924764564234
@@ -303,7 +300,7 @@ AnimatorStateTransition:
     m_ConditionEvent: OnGround
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Jump
+    m_ConditionEvent: JumpB
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3285492170662191600}
@@ -438,37 +435,43 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Walk
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: GunEquiped
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Jump
+    m_Controller: {fileID: 0}
+  - m_Name: JumpB
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: OnGround
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Shoot
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: Jump
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -593,11 +596,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: OnGround
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: Jump
+    m_ConditionEvent: JumpB
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6720369311235146057}
@@ -605,7 +608,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -688,9 +691,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.7058823
+  m_ExitTime: 1
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

@@ -34,11 +34,13 @@ namespace ProjectGTA2_Unity
 
         public void SetZoneName(string zoneName)
         {
+            zoneName = zoneName.ToUpper();
             if (zoneNameTextField != null) zoneNameTextField.text = zoneName;
         }
 
         public void SetCarName(string carName)
         {
+            carName = carName.ToUpper();
             if (carNameTextField != null) carNameTextField.text = carName;
         }
 
@@ -55,6 +57,7 @@ namespace ProjectGTA2_Unity
            
         public void ShowCarName(string name)
         {
+            name = name.ToUpper();
             SetCarName(name);
             if (playableDirector == null || showCarPlayable == null) return;
             playableDirector.Play(showCarPlayable);

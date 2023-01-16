@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 1
   runSpeed: 2
-  jumpForce: 10
+  jumpForce: 3
   rotationSensitivity: 285
   gravityFactor: 15
   walkStepDistance: 0.5

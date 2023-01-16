@@ -182,8 +182,8 @@ namespace ProjectGTA2_Unity
             }
             else
             {
-                carMovementComponent.SetActive(isActive);
                 isActive = true;
+                carMovementComponent.SetActive(isActive);
             }
         }
 
@@ -238,6 +238,16 @@ namespace ProjectGTA2_Unity
             carColor = Game.Instance.GetRandomCarColor();
         }
 
+        [Space(2),Header("Sprite and Color")]
+        public Color[] spriteColors;
+        public Color[] spriteColors2;
+        public Texture2D tex;
+        public Texture2D tex2;
+        public Sprite carSprite;
+        public List<string> colorStrings = new List<string>();
+        public Color[] ignoredColors;
+
+
         private void SetCarColors(Color color)
         {
             if (sr != null) sr.color = carColor;
@@ -246,6 +256,75 @@ namespace ProjectGTA2_Unity
             {
                 sr.color = carColor;
             }
+
+
+            //Color Test
+
+            colorStrings = Serialization.LoadFromFileTextByLine("77.pal");
+            ignoredColors = new Color[colorStrings.Count-1];
+
+            for (int i = 0; i < 4; i++)
+            {
+                colorStrings.RemoveAt(0);
+            }
+         
+            for (int i = 0; i < colorStrings.Count - 1; i++)
+            {
+                string[] tempString = colorStrings[i].Split(' ');
+                float r = float.Parse(tempString[0]) * 100 / colorStrings.Count;
+                float g = float.Parse(tempString[1]) * 100 / colorStrings.Count;
+                float b = float.Parse(tempString[2]) * 100 / colorStrings.Count;
+                ignoredColors[i] = new Color(r /100, g/100, b/100, 1f);
+            }
+       
+            tex = carSprite.texture;
+
+            spriteColors = tex.GetPixels(0,0,carSprite.texture.width, carSprite.texture.height, 0);
+            spriteColors2 = tex.GetPixels(0, 0, carSprite.texture.width, carSprite.texture.height, 0);
+
+            for (int i = 0; i < spriteColors2.Length; i++)
+            {
+                bool ignored = false;
+
+                if (spriteColors2[i].a == 0)
+                {
+                    Debug.Log("TransparentPixel");
+                    ignored = true;
+                }
+                if (spriteColors2[i] == Color.white)
+                {
+                    Debug.Log("WhitePixel");
+                    ignored = true;
+                }
+
+                for (int x = 0; x < ignoredColors.Length; x++)
+                {
+                    if (spriteColors2[i] == ignoredColors[x])
+                    {
+                        ignored = true;
+                        Debug.Log("IgnoredPixel");
+                        break;
+                    }
+                }
+
+                if (ignored) continue;
+
+                Color newCol = (spriteColors2[i] + color) / 2;
+                //Color newCol = Color.Lerp(spriteColors2[i], color, 0.75f);
+                spriteColors2[i] = newCol;
+            }
+
+            Texture2D texCol = new Texture2D(tex.width, tex.height, TextureFormat.ARGB32, false);
+            texCol.SetPixels(spriteColors2, 0);
+            texCol.Apply();
+            tex2 = texCol;         
+            Sprite coloredCarSprite = Sprite.Create(texCol, carSprite.rect, carSprite.pivot);
+            coloredCarSprite.name = "COLORED-" + carSprite.name;
+            sr.sprite = carSprite;
+
+            var bytesArray = texCol.EncodeToPNG();
+
+            Serialization.SaveFileByteArray("testPicture.png", bytesArray);
         }
 
         #endregion
