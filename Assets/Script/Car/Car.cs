@@ -116,11 +116,11 @@ namespace ProjectGTA2_Unity
 
                     if (collision.collider.gameObject.tag == "Player" || collision.collider.gameObject.tag == "NPC")
                     {
-                        damagable.TakeDamage(999f, DamageType.Car);
+                        damagable.TakeDamage(999f, DamageType.Car, gameObject.tag);
                     }
                     else
                     {
-                        damagable.TakeDamage(5f, DamageType.Car);
+                        damagable.TakeDamage(5f, DamageType.Car,gameObject.tag);
                     }                                     
                 }                
             }
@@ -167,6 +167,7 @@ namespace ProjectGTA2_Unity
             {
                 PlayerCamera.SetCameraTarget(transform);
                 gameObject.tag = "Player";
+                gameObject.layer = character.gameObject.layer;
                 PlayerEntersCar?.Invoke(name);
             }
             else
@@ -212,6 +213,7 @@ namespace ProjectGTA2_Unity
 
             passangers.Clear();
             gameObject.tag = "Car";
+            gameObject.layer = LayerMask.NameToLayer("Car");
         }
 
         private void CheckCarExit(Character character)
@@ -331,7 +333,7 @@ namespace ProjectGTA2_Unity
 
         #region DamageAndDestroy
 
-        public void TakeDamage(float damageAmount, DamageType damageType)
+        public void TakeDamage(float damageAmount, DamageType damageType, string character)
         {
             if (isDestroyed) return;
             lastDamageType = damageType;
@@ -361,7 +363,7 @@ namespace ProjectGTA2_Unity
 
             foreach (Character charInside in passangers)
             {
-                charInside.TakeDamage(999f, lastDamageType);
+                charInside.TakeDamage(999f, lastDamageType, gameObject.tag);
             }
                   
             switch (lastDamageType)

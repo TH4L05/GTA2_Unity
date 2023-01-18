@@ -18,7 +18,7 @@ namespace ProjectGTA2_Unity
             sl = GetComponent<StudioListener>();
         }
 
-        void Update()
+        void LateUpdate()
         {
             MoveCameraWithTarget();
         }

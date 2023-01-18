@@ -21,12 +21,15 @@ namespace ProjectGTA2_Unity
 
         public List<HumanPlayer> humanPlayers = new List<HumanPlayer>();
 
+        private int moneyMultiplier = 0;
+
         #region UnityFunctions
 
         private void Awake()
         {
             Instance = this;
             Application.targetFrameRate = 60;
+            Character.CharacterisDead += CharacterKilled;
         }
 
         private void Start()
@@ -40,13 +43,19 @@ namespace ProjectGTA2_Unity
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                player.TakeDamage(999f, DamageType.Normal);
+                player.TakeDamage(999f, DamageType.Normal, "");
+            }
+
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                player.IncreaseMoney(100);
             }
         }
 
         private void OnDestroy()
         {
             Player.PlayerDied -= RespawnPlayer;
+            Character.CharacterisDead -= CharacterKilled;
         }
 
         #endregion
@@ -102,6 +111,22 @@ namespace ProjectGTA2_Unity
            
             StartCoroutine(SpawnThePlayer(2f));
         }    
+
+        public void CharacterKilled(string tag)
+        {
+            if (tag == "Player") return;
+
+            if (tag == "NPC")
+            {
+                player.IncreaseMoney(10);
+            }
+            else if (tag == "Car")
+            {
+                player.IncreaseMoney(10);
+            }
+        }
+
+
     }  
 }
 

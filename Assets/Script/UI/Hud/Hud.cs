@@ -11,11 +11,12 @@ namespace ProjectGTA2_Unity.UI
     public class Hud : MonoBehaviour
     {
         [Header("Weapon")]
-        [SerializeField] private Text moneyTExtField;
+        [SerializeField] private Text moneyTextField;
 
         [Header("Weapon")]
         [SerializeField] private Image weaponImage;
         [SerializeField] private Text ammoTextField;
+        [SerializeField] private Text ammoTextShadowField;
 
         [Header("Life & Multiplier")]
         [SerializeField] private Text lifesTextField;
@@ -35,6 +36,7 @@ namespace ProjectGTA2_Unity.UI
             WeaponBelt.WeaponChanged += UpdateWeapon;
             WeaponBelt.WeaponUpdate += UpdateAmmo;
             Player.PlayerDied += PlayerDied;
+            Player.UpdatePlayerMoney += UpdateMoney;
         }
 
         private void OnDestroy()
@@ -42,6 +44,7 @@ namespace ProjectGTA2_Unity.UI
             WeaponBelt.WeaponChanged -= UpdateWeapon;
             WeaponBelt.WeaponUpdate -= UpdateAmmo;
             Player.PlayerDied -= PlayerDied;
+            Player.UpdatePlayerMoney -= UpdateMoney;
         }
 
 
@@ -66,14 +69,17 @@ namespace ProjectGTA2_Unity.UI
         {
             if (ammoTextField == null) return;
 
-            if (ammo < 0)
+            if (ammo <= 0)
             {
                 ammoTextField.gameObject.SetActive(false);
+                ammoTextShadowField.gameObject.SetActive(false);
             }
             else
             {
                 ammoTextField.gameObject.SetActive(true);
+                ammoTextShadowField.gameObject.SetActive(true);
                 ammoTextField.text = ammo.ToString();
+                ammoTextShadowField.text = ammo.ToString();
             }
         }
 
@@ -130,6 +136,11 @@ namespace ProjectGTA2_Unity.UI
             if (string.IsNullOrEmpty(text)) return;
             audioEvents.PlayAudioEventOneShot(text);
             ShowInfoText(text);
+        }
+
+        private void UpdateMoney(int amount)
+        {
+            moneyTextField.text = amount.ToString("00000000");
         }
     }
 }

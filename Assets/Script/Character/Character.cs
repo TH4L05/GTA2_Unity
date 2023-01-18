@@ -1,5 +1,7 @@
 /// <author>Thoams Krahl</author>
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectGTA2_Unity.Characters
@@ -7,13 +9,27 @@ namespace ProjectGTA2_Unity.Characters
     [RequireComponent(typeof(Rigidbody))]
     public class Character : MonoBehaviour, IDamagable
     {
+        public static Action<string> CharacterisDead;
+
         #region SerializedFields
 
+        [Header("Base")]
         [SerializeField] protected CharacterData charData;
+        [SerializeField] protected Rigidbody rb;
+        [SerializeField] protected BoxCollider boxCollider;
+        [SerializeField] protected SpriteRenderer spRend;
+        [SerializeField] protected AudioEventList audioEvents; 
+        [SerializeField] protected float CarEnterDistance = 2f;
+
+        [Header("Health")]
         [SerializeField] protected bool godMode = false;    
         [SerializeField] protected float maxHealth;       
         [SerializeField] protected bool canRegenHealth = false;
-        [SerializeField] protected AudioEventList audioEvents;
+
+        [Header("Death")]
+        [SerializeField] protected Sprite deathSprite;
+        [SerializeField] protected GameObject deathVfx;
+        [SerializeField] protected float deletionTime = 5f;
 
         #endregion
 
@@ -24,6 +40,7 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected bool onGround;
         protected bool isDead;
         protected DamageType lastDamageType;
+        protected string lastDamageTag;
 
         #endregion
 
@@ -39,7 +56,7 @@ namespace ProjectGTA2_Unity.Characters
 
         void Start()
         {
-            AdditionalSetup();
+            StartSetup();
         }
 
         void LateUpdate()
@@ -62,7 +79,7 @@ namespace ProjectGTA2_Unity.Characters
             currentHealth = maxHealth;
         }
 
-        protected virtual void AdditionalSetup()
+        protected virtual void StartSetup()
         {
         }
 
@@ -74,13 +91,13 @@ namespace ProjectGTA2_Unity.Characters
 
         #region Damage
 
-        public virtual void TakeDamage(float damageAmount, DamageType damageType)
+        public virtual void TakeDamage(float damageAmount, DamageType damageType, string character)
         {
             if(godMode || isDead) return;
 
             lastDamageType = damageType;
             DecreaseHealth(damageAmount);
-            Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount.ToString("0")} damage</color>");
+            Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount.ToString("0")} damage by {character}</color>");
         }
 
         #endregion
@@ -146,12 +163,99 @@ namespace ProjectGTA2_Unity.Characters
             IncreaseHealth(healthRegen);
         }
 
-        #endregion
-
-
         protected virtual void Death()
         {
             isDead = true;
+            boxCollider.enabled = false;
+            rb.isKinematic = true;
+            spRend.sortingOrder = 1;          
+            CharacterisDead?.Invoke(gameObject.tag);
+
+            switch (lastDamageType)
+            {
+                case DamageType.Invalid:
+                    break;
+
+                case DamageType.Normal:
+                    spRend.sprite = deathSprite;
+                    break;
+
+                case DamageType.Fire:
+                    spRend.sprite = deathSprite;
+                    break;
+
+                case DamageType.Water:
+                    spRend.enabled = false;
+                    audioEvents.PlayAudioEventOneShot("Splash");
+                    break;
+
+                case DamageType.Electro:
+                    spRend.sprite = deathSprite;
+                    break;
+
+                case DamageType.Car:
+                    audioEvents.PlayAudioEventOneShot("CarHit");
+                    spRend.sprite = deathSprite;
+                    break;
+
+                case DamageType.CopNormal:
+                    break;
+
+                case DamageType.CopGun:
+                    break;
+
+                default:
+                    break;
+            }
+
+            Destroy(gameObject, deletionTime);
+        }
+
+        #endregion
+
+        protected void CheckNearbyCarsToEnter()
+        {
+            Collider[] carColliders = Physics.OverlapSphere(transform.position, CarEnterDistance, 1 << 8);
+
+            if (carColliders.Length < 1)
+            {
+                Debug.Log("NO Cars in Range");
+                return;
+            }
+
+            int index = 0;
+            float distance = 999f;
+
+            for (int i = 0; i < carColliders.Length; i++)
+            {
+                float lastDistance = distance;
+                distance = Vector3.Distance(transform.position, carColliders[i].transform.position);
+
+                if (distance < lastDistance)
+                {
+                    index = i;
+                }
+            }
+
+            //Debug.Log(carColliders[index].gameObject.name);
+
+            List<Component> results = new List<Component>();
+
+            foreach (var item in results)
+            {
+                Debug.Log(item.name);
+            }
+
+            var car = carColliders[index].gameObject.GetComponent<Car>();
+
+            if (car != null)
+            {
+                car.CharacterEnter(this);
+            }
+            else
+            {
+                Debug.Log("NO CAR");
+            }
         }
     }
 }

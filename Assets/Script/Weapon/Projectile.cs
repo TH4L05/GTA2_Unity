@@ -52,7 +52,7 @@ namespace ProjectGTA2_Unity
             Debug.Log("ProjectileCollide");
 
             var damageableTarget = collider.GetComponent<IDamagable>();
-            if (damageableTarget != null) damageableTarget.TakeDamage(damage, damageType);
+            if (damageableTarget != null) damageableTarget.TakeDamage(damage, damageType, gameObject.tag);
 
             PlayImpactSound(collider);
             CreateImpactVFX();

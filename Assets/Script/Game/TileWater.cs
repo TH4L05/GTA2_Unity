@@ -11,7 +11,7 @@ namespace ProjectGTA2_Unity
             Debug.Log(collider.name);
 
             var damageable = collider.GetComponent<IDamagable>();
-            if (damageable != null) damageable.TakeDamage(999f, DamageType.Water);
+            if (damageable != null) damageable.TakeDamage(999f, DamageType.Water, gameObject.tag);
         }
     }
 }

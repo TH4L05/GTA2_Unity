@@ -9,10 +9,11 @@ namespace ProjectGTA2_Unity.Characters
     public class Player : Character
     {
         public static Action<DamageType> PlayerDied;
+        public static Action<int> UpdatePlayerMoney;
 
         [SerializeField] private WeaponBelt weaponBelt;
         [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private float CarEnterDistance = 2f;
+        [SerializeField] private int money;
 
         #region UnityFunctions
 
@@ -27,73 +28,6 @@ namespace ProjectGTA2_Unity.Characters
             {
                 CheckNearbyCarsToEnter();
             }
-
-        }
-
-        #endregion
-
-        protected override void AdditionalSetup()
-        {
-            base.AdditionalSetup();
-            playerMovement.SetCharacterData(charData);
-            Pickup.PickupCollected += PickupColleted;
-            PlayerCamera.SetCameraTarget(transform);         
-        }
-
-        
-
-        private void CheckNearbyCarsToEnter()
-        {
-            Collider[] carColliders = Physics.OverlapSphere(transform.position, CarEnterDistance, 1 << 8 );
-           
-            if (carColliders.Length < 1)
-            {
-                Debug.Log("NO Cars in Range");
-                return;
-            }
-
-            int index = 0;
-            float distance = 999f;
-
-            for (int i = 0; i < carColliders.Length; i++)
-            {
-                float lastDistance = distance;
-                distance = Vector3.Distance(transform.position, carColliders[i].transform.position);
-
-                if (distance < lastDistance)
-                {
-                    index = i;
-                }
-            }
-
-            //Debug.Log(carColliders[index].gameObject.name);
-
-            List<Component> results = new List<Component>();
-
-            foreach (var item in results)
-            {
-                Debug.Log(item.name);
-            }
-
-            var car = carColliders[index].gameObject.GetComponent<Car>();
-             
-            if (car != null)
-            {
-                car.CharacterEnter(this);
-            }
-            else
-            {
-                Debug.Log("NO CAR");
-            }
-        }
-
-        
-
-
-        private void PickupColleted(PickupType pickupType, int amount)
-        {
-            Debug.Log("PickUpCollected");
-            weaponBelt.AddAmmo(pickupType.ToString(), amount);                
         }
 
         private void OnDrawGizmosSelected()
@@ -101,12 +35,59 @@ namespace ProjectGTA2_Unity.Characters
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, CarEnterDistance);
         }
+        
+        #endregion
+
+
+        #region Money
+
+        public void IncreaseMoney(int amount)
+        {
+            money += amount;
+
+            if(money > int.MaxValue)
+            {
+                money = int.MaxValue;
+            }
+            UpdatePlayerMoney?.Invoke(money);
+
+        }
+
+        public void DecreaseMoney(int amount)
+        {
+            money -= amount;
+
+            if (money < 0)
+            {
+                money = 0;
+            }
+            UpdatePlayerMoney?.Invoke(money);
+        }
+
+        #endregion
+
+        #region Setup
+
+        protected override void StartSetup()
+        {
+            playerMovement.SetCharacterData(charData);
+            Collectable.CollectableGathered += CollectableGathered;
+            PlayerCamera.SetCameraTarget(transform);
+            UpdatePlayerMoney?.Invoke(money);
+        }
+
+        #endregion
+
+        private void CollectableGathered(CollectableType pickupType, int amount, float time)
+        {
+            Debug.Log("PickUpCollected");
+            weaponBelt.AddAmmo(pickupType.ToString(), amount);                
+        }
 
         protected override void Death()
         {
             base.Death();
             PlayerDied?.Invoke(lastDamageType);
-            Destroy(gameObject);
         }
     }
 }
