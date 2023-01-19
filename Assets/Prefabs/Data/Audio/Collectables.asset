@@ -20,7 +20,7 @@ MonoBehaviour:
         Data2: 1125144028
         Data3: 283419021
         Data4: -1872510204
-      Path: event:/Pickups/WeaponPickup/PickupPistol
+      Path: event:/Collectables/Weapon/PickupPistol
   - eventName: CollectMacgun
     eventPath:
       Guid:
@@ -28,7 +28,7 @@ MonoBehaviour:
         Data2: 1246433793
         Data3: -513279046
         Data4: -1318363667
-      Path: event:/Pickups/WeaponPickup/PickupMacgun
+      Path: event:/Collectables/Weapon/PickupMacgun
   - eventName: CollectSilentMacgun
     eventPath:
       Guid:
@@ -36,7 +36,7 @@ MonoBehaviour:
         Data2: 1143344880
         Data3: 1327525265
         Data4: -145025724
-      Path: event:/Pickups/WeaponPickup/PickupSilentMacgun
+      Path: event:/Collectables/Weapon/PickupSilentMacgun
   - eventName: CollectRocketLauncher
     eventPath:
       Guid:
@@ -44,7 +44,7 @@ MonoBehaviour:
         Data2: 1247319323
         Data3: 1266465177
         Data4: 1969255232
-      Path: event:/Pickups/WeaponPickup/PickupRocketLauncher
+      Path: event:/Collectables/Weapon/PickupRocketLauncher
   - eventName: CollectShotgun
     eventPath:
       Guid:
@@ -52,7 +52,7 @@ MonoBehaviour:
         Data2: 1271527104
         Data3: 1718641330
         Data4: 1201173200
-      Path: event:/Pickups/WeaponPickup/PickupShotgun
+      Path: event:/Collectables/Weapon/PickupShotgun
   - eventName: CollectDualPistol
     eventPath:
       Guid:
@@ -60,23 +60,23 @@ MonoBehaviour:
         Data2: 1201060516
         Data3: 2081190547
         Data4: 1847602960
-      Path: event:/Pickups/WeaponPickup/PickupDualPistol
+      Path: event:/Collectables/Weapon/PickupDualPistol
   - eventName: CollectElectrogun
     eventPath:
       Guid:
-        Data1: 623660264
-        Data2: 1128982523
-        Data3: 1539128989
-        Data4: 2096154297
-      Path: event:/Pickups/WeaponPickup/PickupMolotov
+        Data1: -142531290
+        Data2: 1092393615
+        Data3: -1610968916
+        Data4: -181695229
+      Path: event:/Collectables/Weapon/PickupElectrogun
   - eventName: CollectFlamethrower
     eventPath:
       Guid:
-        Data1: 623660264
-        Data2: 1128982523
-        Data3: 1539128989
-        Data4: 2096154297
-      Path: event:/Pickups/WeaponPickup/PickupMolotov
+        Data1: -1918969686
+        Data2: 1206999655
+        Data3: -416144493
+        Data4: -1663615537
+      Path: event:/Collectables/Weapon/PickupFlamethrower
   - eventName: CollectGrenade
     eventPath:
       Guid:
@@ -84,7 +84,7 @@ MonoBehaviour:
         Data2: 1289685725
         Data3: 1141453990
         Data4: -1760193648
-      Path: event:/Pickups/WeaponPickup/PickupGrenade
+      Path: event:/Collectables/Weapon/PickupGrenade
   - eventName: CollectMolotov
     eventPath:
       Guid:
@@ -92,5 +92,5 @@ MonoBehaviour:
         Data2: 1128982523
         Data3: 1539128989
         Data4: 2096154297
-      Path: event:/Pickups/WeaponPickup/PickupMolotov
+      Path: event:/Collectables/Weapon/PickupMolotov
   showDebugMessages: 0

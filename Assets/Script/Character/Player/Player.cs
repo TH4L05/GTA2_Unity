@@ -8,8 +8,9 @@ namespace ProjectGTA2_Unity.Characters
 {
     public class Player : Character
     {
-        public static Action<DamageType> PlayerDied;
-        public static Action<int> UpdatePlayerMoney;
+        public static Action<DamageType> OnDeath;
+        public static Action<float,float> OnHealthChanged;
+        public static Action<int> OnUpdateMoney;
 
         [SerializeField] private WeaponBelt weaponBelt;
         [SerializeField] private PlayerMovement playerMovement;
@@ -38,7 +39,6 @@ namespace ProjectGTA2_Unity.Characters
         
         #endregion
 
-
         #region Money
 
         public void IncreaseMoney(int amount)
@@ -49,7 +49,7 @@ namespace ProjectGTA2_Unity.Characters
             {
                 money = int.MaxValue;
             }
-            UpdatePlayerMoney?.Invoke(money);
+            OnUpdateMoney?.Invoke(money);
 
         }
 
@@ -61,7 +61,7 @@ namespace ProjectGTA2_Unity.Characters
             {
                 money = 0;
             }
-            UpdatePlayerMoney?.Invoke(money);
+            OnUpdateMoney?.Invoke(money);
         }
 
         #endregion
@@ -73,7 +73,8 @@ namespace ProjectGTA2_Unity.Characters
             playerMovement.SetCharacterData(charData);
             Collectable.CollectableGathered += CollectableGathered;
             PlayerCamera.SetCameraTarget(transform);
-            UpdatePlayerMoney?.Invoke(money);
+            OnUpdateMoney?.Invoke(money);
+            OnHealthChanged?.Invoke(currentHealth, maxHealth);
         }
 
         #endregion
@@ -84,10 +85,23 @@ namespace ProjectGTA2_Unity.Characters
             weaponBelt.AddAmmo(pickupType.ToString(), amount);                
         }
 
+        protected override void DecreaseHealth(float amount)
+        {
+            base.DecreaseHealth(amount);
+            OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        }
+
+        protected override void IncreaseHealth(float amount)
+        {
+            base.IncreaseHealth(amount);
+            OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        }
+
         protected override void Death()
         {
             base.Death();
-            PlayerDied?.Invoke(lastDamageType);
+            OnDeath?.Invoke(lastDamageType);
+            
         }
     }
 }

@@ -93,4 +93,20 @@ MonoBehaviour:
         Data3: -483301238
         Data4: 59104819
       Path: event:/Car/StartEngine1
+  - eventName: StartEngine2
+    eventPath:
+      Guid:
+        Data1: -1563841263
+        Data2: 1307768871
+        Data3: 1463432337
+        Data4: -1767322778
+      Path: event:/Car/StartEngine2
+  - eventName: CarBurning
+    eventPath:
+      Guid:
+        Data1: -334295595
+        Data2: 1300787380
+        Data3: -821674601
+        Data4: 1558213177
+      Path: event:/Car/CarBurning
   showDebugMessages: 0

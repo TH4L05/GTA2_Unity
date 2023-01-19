@@ -45,7 +45,7 @@ namespace ProjectGTA2_Unity
                     return;
                 }
             }
-            Debug.LogError($"AudioEvent : {eventName} not found");
+            if (showDebugMessages) Debug.LogError($"AudioEvent : {eventName} not found");
         }
 
         public void PlayAudioEventOneShot(int eventListIndex)
@@ -104,14 +104,49 @@ namespace ProjectGTA2_Unity
             {
                 if (audioEvent.eventName == eventName)
                 {
-                    if (showDebugMessages) Debug.Log($"<color=#FFB12B>Start Audio {audioEvent.eventName}</color>");
                     i = RuntimeManager.CreateInstance(audioEvent.eventPath);
                     i.start();
+
+                    if (showDebugMessages) Debug.Log($"<color=#FFB12B>Start Audio {audioEvent.eventName}</color>");
                     break;
                 }
             }
             eventInstances.Add(eventName,i);
+        }
 
+        public void Create3DEvent(string eventName, Transform transform)
+        {
+            if (eventInstances.ContainsKey(eventName))
+            {
+                RestartEvent(eventName);
+                return;
+            }
+
+            EventInstance i = new EventInstance();
+
+            foreach (var audioEvent in audioEvents)
+            {
+                if (audioEvent.eventName == eventName)
+                {
+                    i = RuntimeManager.CreateInstance(audioEvent.eventPath);
+                    i.start();
+
+                    EventDescription description = new EventDescription();
+                    bool is3D = false;
+
+                    i.getDescription(out description);
+                    description.is3D(out is3D);
+
+                    if (is3D)
+                    {
+                        i.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                    }
+
+                    if (showDebugMessages) Debug.Log($"<color=#FFB12B>Start Audio {audioEvent.eventName}</color>");
+                    break;
+                }
+            }
+            eventInstances.Add(eventName, i);
         }
 
         public void StopEvent(string eventName)
@@ -120,7 +155,6 @@ namespace ProjectGTA2_Unity
             {
                 if (showDebugMessages) Debug.Log($"<color=#FFB12B>Stop Audio {eventName}</color>");
                 eventInstances[eventName].stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
             }
         }
 
@@ -135,7 +169,6 @@ namespace ProjectGTA2_Unity
                 eventInstances[eventName].start();
             }
         }
-
 
         public bool EventIsPlaying(string eventName)
         {
@@ -153,7 +186,6 @@ namespace ProjectGTA2_Unity
             return false;
         }
 
-
         public void RemoveEvent(string eventName)
         {
             if (eventInstances.ContainsKey(eventName))
@@ -163,6 +195,17 @@ namespace ProjectGTA2_Unity
                 eventInstances.Remove(eventName);
                 if (showDebugMessages) Debug.Log($"<color=#FFB12B>AudioEvent {eventName} removed</color>");
             }
+        }
+
+        public void RemoveAllEvents()
+        {
+            foreach (var audioEvent in eventInstances)
+            {
+                audioEvent.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                audioEvent.Value.release();
+                if (showDebugMessages) Debug.Log($"<color=#FFB12B>AudioEvent {audioEvent.Key} removed</color>");
+            }
+            eventInstances.Clear();
         }
 
         public EventInstance GetInstance(string eventName)

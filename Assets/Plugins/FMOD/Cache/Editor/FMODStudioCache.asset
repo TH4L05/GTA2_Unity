@@ -54,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7734032656832516909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Vocals/Shocking
+  m_EditorClassIdentifier: 
+  Path: event:/Vocals/Shocking
+  Guid:
+    Data1: -1838184869
+    Data2: 1284686979
+    Data3: 493083278
+    Data4: 2010911951
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7659871863531150245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,33 +99,6 @@ MonoBehaviour:
     Data2: 1264184992
     Data3: 1910874805
     Data4: -1887738632
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-7354430743680281769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupShotgun
-  m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupShotgun
-  Guid:
-    Data1: 132897027
-    Data2: 1271527104
-    Data3: 1718641330
-    Data4: 1201173200
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-6172949499633896219
+--- !u!114 &-6541690427681315620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,14 +145,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupRocketLauncher
+  m_Name: event:/Character/Footsteps/FootstepsConcrete
   m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupRocketLauncher
+  Path: event:/Character/Footsteps/FootstepsConcrete
   Guid:
-    Data1: 1123942384
-    Data2: 1247319323
-    Data3: 1266465177
-    Data4: 1969255232
+    Data1: -1912579933
+    Data2: 1285581030
+    Data3: 1475794612
+    Data4: -139954175
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6432700438876361005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupFlamethrower
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupFlamethrower
+  Guid:
+    Data1: -1918969686
+    Data2: 1206999655
+    Data3: -416144493
+    Data4: -1663615537
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -177,10 +204,10 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638092875726089714
+  lastModified: 638097262859606571
   FileSizes:
   - Name: Desktop
-    Value: 488704
+    Value: 629440
   Exists: 1
 --- !u!114 &-5631627904718049434
 MonoBehaviour:
@@ -200,33 +227,6 @@ MonoBehaviour:
     Data2: 1133101553
     Data3: -1081518452
     Data4: -890987363
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-5583607671039269220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupMolotov
-  m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupMolotov
-  Guid:
-    Data1: 623660264
-    Data2: 1128982523
-    Data3: 1539128989
-    Data4: 2096154297
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -258,33 +258,6 @@ MonoBehaviour:
   - {fileID: -5999004425347462157}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-4729165623993065560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Footsteps/FootstepsGras
-  m_EditorClassIdentifier: 
-  Path: event:/Footsteps/FootstepsGras
-  Guid:
-    Data1: 1247977287
-    Data2: 1185527018
-    Data3: 1846815917
-    Data4: -135288825
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -339,33 +312,6 @@ MonoBehaviour:
   - {fileID: -5999004425347462157}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-4498044100537845055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Footsteps/FootstepsWood
-  m_EditorClassIdentifier: 
-  Path: event:/Footsteps/FootstepsWood
-  Guid:
-    Data1: -1629451577
-    Data2: 1148875456
-    Data3: -1641506423
-    Data4: -1955743403
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -449,6 +395,34 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3915006774419169154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Car/CarEngine/EngineSuperCarLoop
+  m_EditorClassIdentifier: 
+  Path: event:/Car/CarEngine/EngineSuperCarLoop
+  Guid:
+    Data1: 1312876739
+    Data2: 1295044533
+    Data3: 740982151
+    Data4: -1285925452
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 9145663104919595315}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -548,10 +522,10 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638092875726129901
+  lastModified: 638097262859646687
   FileSizes:
   - Name: Desktop
-    Value: 2838
+    Value: 3160
   Exists: 1
 --- !u!114 &-1330046826332315743
 MonoBehaviour:
@@ -580,33 +554,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 638
---- !u!114 &-801982590891697373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupGrenade
-  m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupGrenade
-  Guid:
-    Data1: -238726816
-    Data2: 1289685725
-    Data3: 1141453990
-    Data4: -1760193648
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-462825124233985527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +581,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3500
+--- !u!114 &-356237007613764138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupElectrogun
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupElectrogun
+  Guid:
+    Data1: -142531290
+    Data2: 1092393615
+    Data3: -1610968916
+    Data4: -181695229
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-237095876906497980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupSilentMacgun
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupSilentMacgun
+  Guid:
+    Data1: 683349096
+    Data2: 1143344880
+    Data3: 1327525265
+    Data4: -145025724
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,29 +653,17 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 2882896055464666148}
   - {fileID: 9202492830057669059}
-  - {fileID: 2044326943030536667}
   - {fileID: -7759099119434797694}
-  - {fileID: -4498044100537845055}
-  - {fileID: 5025999481800269262}
-  - {fileID: -7354430743680281769}
   - {fileID: -4702618489684859736}
   - {fileID: 8396806367963845092}
   - {fileID: -4429165571846348175}
   - {fileID: -5631627904718049434}
   - {fileID: 9038667731109895646}
   - {fileID: -4505186378554993106}
-  - {fileID: -4729165623993065560}
-  - {fileID: 2710024140873954349}
-  - {fileID: 2594818579821927868}
   - {fileID: 7976775884241421922}
-  - {fileID: -801982590891697373}
-  - {fileID: 491823557054484209}
-  - {fileID: 872540478744596586}
   - {fileID: 6425496946347726005}
   - {fileID: -9179773368065080741}
   - {fileID: 707339556495931950}
-  - {fileID: -5583607671039269220}
-  - {fileID: -6172949499633896219}
   - {fileID: -2093538736965267984}
   - {fileID: -2674446122589000582}
   - {fileID: -5449739257793176743}
@@ -690,19 +679,37 @@ MonoBehaviour:
   - {fileID: 5309407562478003715}
   - {fileID: 2474747577259619946}
   - {fileID: 1658360713639998845}
-  - {fileID: 7536451239297761261}
   - {fileID: 2038321985900617514}
   - {fileID: -6879985369844610400}
   - {fileID: 5400730983306501171}
   - {fileID: -1330046826332315743}
+  - {fileID: 3687503305224119358}
+  - {fileID: 558633894411577639}
+  - {fileID: -356237007613764138}
+  - {fileID: 3583943750300837368}
+  - {fileID: 3087474582132593088}
+  - {fileID: 8178920941378171388}
+  - {fileID: 2315944854921709236}
+  - {fileID: -7734032656832516909}
+  - {fileID: 3384691444398668521}
+  - {fileID: -237095876906497980}
+  - {fileID: 3020631281340780191}
+  - {fileID: 8239980682050836027}
+  - {fileID: -6541690427681315620}
+  - {fileID: -6432700438876361005}
+  - {fileID: -3915006774419169154}
+  - {fileID: 3303137070390023449}
+  - {fileID: 8198916689811826631}
+  - {fileID: 1095587055207385981}
+  - {fileID: 6328138477268680054}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5999004425347462157}
   StringsBanks:
   - {fileID: -1419792654137060661}
-  cacheTime: 638092875726129901
+  cacheTime: 638097262859646687
   cacheVersion: 131601
---- !u!114 &491823557054484209
+--- !u!114 &558633894411577639
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -712,18 +719,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupSilentMacgun
+  m_Name: event:/Vocals/Toasted
   m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupSilentMacgun
+  Path: event:/Vocals/Toasted
   Guid:
-    Data1: 683349096
-    Data2: 1143344880
-    Data3: 1327525265
-    Data4: -145025724
+    Data1: -337669093
+    Data2: 1308127380
+    Data3: -1980567423
+    Data4: 162201661
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -756,7 +763,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &872540478744596586
+--- !u!114 &1095587055207385981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -766,14 +773,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupDualPistol
+  m_Name: event:/Collectables/Weapon/PickupMolotov
   m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupDualPistol
+  Path: event:/Collectables/Weapon/PickupMolotov
   Guid:
-    Data1: 1788345737
-    Data2: 1201060516
-    Data3: 2081190547
-    Data4: 1847602960
+    Data1: 623660264
+    Data2: 1128982523
+    Data3: 1539128989
+    Data4: 2096154297
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -837,7 +844,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &2044326943030536667
+--- !u!114 &2315944854921709236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -847,23 +854,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Footsteps/FootstepsConcrete
+  m_Name: event:/Character/CharOnFire
   m_EditorClassIdentifier: 
-  Path: event:/Footsteps/FootstepsConcrete
+  Path: event:/Character/CharOnFire
   Guid:
-    Data1: -1912579933
-    Data2: 1285581030
-    Data3: 1475794612
-    Data4: -139954175
+    Data1: -285072559
+    Data2: 1136847576
+    Data3: -2032466247
+    Data4: 1169291653
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
+  Is3D: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 1547
 --- !u!114 &2474747577259619946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -891,60 +898,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 590
---- !u!114 &2594818579821927868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupPistol
-  m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupPistol
-  Guid:
-    Data1: -212345010
-    Data2: 1125144028
-    Data3: 283419021
-    Data4: -1872510204
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &2710024140873954349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pickups/WeaponPickup/PickupMacgun
-  m_EditorClassIdentifier: 
-  Path: event:/Pickups/WeaponPickup/PickupMacgun
-  Guid:
-    Data1: -269873847
-    Data2: 1246433793
-    Data3: -513279046
-    Data4: -1318363667
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &2882896055464666148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,6 +925,168 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3020631281340780191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/CharOnFireScream
+  m_EditorClassIdentifier: 
+  Path: event:/Character/CharOnFireScream
+  Guid:
+    Data1: -1176510129
+    Data2: 1096851352
+    Data3: 2025342126
+    Data4: -96912127
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3087474582132593088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupMacgun
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupMacgun
+  Guid:
+    Data1: -269873847
+    Data2: 1246433793
+    Data3: -513279046
+    Data4: -1318363667
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3303137070390023449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Footsteps/FootstepsWood
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Footsteps/FootstepsWood
+  Guid:
+    Data1: -1629451577
+    Data2: 1148875456
+    Data3: -1641506423
+    Data4: -1955743403
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3384691444398668521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupGrenade
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupGrenade
+  Guid:
+    Data1: -238726816
+    Data2: 1289685725
+    Data3: 1141453990
+    Data4: -1760193648
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3583943750300837368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Footsteps/FootstepsGras
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Footsteps/FootstepsGras
+  Guid:
+    Data1: 1247977287
+    Data2: 1185527018
+    Data3: 1846815917
+    Data4: -135288825
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3687503305224119358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupShotgun
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupShotgun
+  Guid:
+    Data1: 132897027
+    Data2: 1271527104
+    Data3: 1718641330
+    Data4: 1201173200
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &4978413626278280369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,33 +1109,6 @@ MonoBehaviour:
   - {fileID: -5999004425347462157}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &5025999481800269262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Footsteps/FootstepsSolid
-  m_EditorClassIdentifier: 
-  Path: event:/Footsteps/FootstepsSolid
-  Guid:
-    Data1: -73164325
-    Data2: 1315595767
-    Data3: 411791541
-    Data4: 1191726202
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -1107,6 +1195,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &6328138477268680054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupRocketLauncher
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupRocketLauncher
+  Guid:
+    Data1: 1123942384
+    Data2: 1247319323
+    Data3: 1266465177
+    Data4: 1969255232
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &6425496946347726005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,33 +1276,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &7536451239297761261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Car/CarEngine/EngineSuperCar
-  m_EditorClassIdentifier: 
-  Path: event:/Car/CarEngine/EngineSuperCar
-  Guid:
-    Data1: 1312876739
-    Data2: 1295044533
-    Data3: 740982151
-    Data4: -1285925452
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 263
 --- !u!114 &7976775884241421922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,6 +1294,87 @@ MonoBehaviour:
     Data2: 1314852805
     Data3: -1157345901
     Data4: 75016398
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8178920941378171388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupPistol
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupPistol
+  Guid:
+    Data1: -212345010
+    Data2: 1125144028
+    Data3: 283419021
+    Data4: -1872510204
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8198916689811826631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Footsteps/FootstepsSolid
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Footsteps/FootstepsSolid
+  Guid:
+    Data1: -73164325
+    Data2: 1315595767
+    Data3: 411791541
+    Data4: 1191726202
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8239980682050836027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collectables/Weapon/PickupDualPistol
+  m_EditorClassIdentifier: 
+  Path: event:/Collectables/Weapon/PickupDualPistol
+  Guid:
+    Data1: 1788345737
+    Data2: 1201060516
+    Data3: 2081190547
+    Data4: 1847602960
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -1296,6 +1465,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &9145663104919595315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/EngineSuperCarLoop/Speed
+  m_EditorClassIdentifier: 
+  Name: Speed
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3191055894
+    data2: 1794592557
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &9202492830057669059
 MonoBehaviour:
   m_ObjectHideFlags: 0

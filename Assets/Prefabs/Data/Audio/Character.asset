@@ -20,7 +20,7 @@ MonoBehaviour:
         Data2: 1285581030
         Data3: 1475794612
         Data4: -139954175
-      Path: event:/Footsteps/FootstepsConcrete
+      Path: event:/Character/Footsteps/FootstepsConcrete
   - eventName: FootstepsSolid
     eventPath:
       Guid:
@@ -28,7 +28,7 @@ MonoBehaviour:
         Data2: 1315595767
         Data3: 411791541
         Data4: 1191726202
-      Path: event:/Footsteps/FootstepsSolid
+      Path: event:/Character/Footsteps/FootstepsSolid
   - eventName: FootstepsWood
     eventPath:
       Guid:
@@ -36,7 +36,7 @@ MonoBehaviour:
         Data2: 1148875456
         Data3: -1641506423
         Data4: -1955743403
-      Path: event:/Footsteps/FootstepsWood
+      Path: event:/Character/Footsteps/FootstepsWood
   - eventName: FootstepsGrass
     eventPath:
       Guid:
@@ -44,7 +44,7 @@ MonoBehaviour:
         Data2: 1185527018
         Data3: 1846815917
         Data4: -135288825
-      Path: event:/Footsteps/FootstepsGras
+      Path: event:/Character/Footsteps/FootstepsGras
   - eventName: CarHit
     eventPath:
       Guid:
@@ -69,4 +69,20 @@ MonoBehaviour:
         Data3: -1962529135
         Data4: 668732833
       Path: event:/Impact/BulletPed
-  showDebugMessages: 0
+  - eventName: CharacterOnFire
+    eventPath:
+      Guid:
+        Data1: -285072559
+        Data2: 1136847576
+        Data3: -2032466247
+        Data4: 1169291653
+      Path: event:/Character/CharOnFire
+  - eventName: CharacterOnFireScream
+    eventPath:
+      Guid:
+        Data1: -1176510129
+        Data2: 1096851352
+        Data3: 2025342126
+        Data4: -96912127
+      Path: event:/Character/CharOnFireScream
+  showDebugMessages: 1

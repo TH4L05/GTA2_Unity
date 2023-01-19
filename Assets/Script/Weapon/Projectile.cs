@@ -7,7 +7,9 @@ using Unity.Burst.CompilerServices;
 namespace ProjectGTA2_Unity
 {
     public class Projectile : MonoBehaviour
-    {    
+    {
+        #region SerializedFields
+
         [SerializeField] protected float lifeTime = 2.5f;
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected float speed = 20f;
@@ -15,25 +17,49 @@ namespace ProjectGTA2_Unity
         [SerializeField] protected AudioEventList audioEventList;
         [SerializeField] protected GameObject impactVFX;
 
+        #endregion
+
+        #region PrivateFields
+
         public float Speed { get; set; }
+        private string owner;
 
+        #endregion
 
+        #region UnityFunctions
 
         protected void OnEnable()
         {
-            Destroy(gameObject, lifeTime);
-        }
-
-        public void SetValues(float damage, DamageType damageType)
-        {
-            this.damage = damage;
-            this.damageType = damageType;
+            Setup();
         }
 
         protected void Update()
         {
             MoveProjectile();
         }
+
+        protected void OnTriggerEnter(Collider collider)
+        {
+            OnImpact(collider);
+        }
+
+        #endregion
+
+        #region Setup
+
+        protected virtual void Setup()
+        {
+            Destroy(gameObject, lifeTime);
+        }
+
+        public void SetValues(float damage, DamageType damageType, string owner )
+        {
+            this.damage = damage;
+            this.damageType = damageType;
+            this.owner = owner;
+        }
+
+        #endregion
 
         protected virtual void MoveProjectile()
         {
@@ -47,12 +73,16 @@ namespace ProjectGTA2_Unity
             }*/
         }
 
-        protected void OnTriggerEnter(Collider collider)
+
+        #region Impact
+
+        protected virtual void OnImpact(Collider collider)
         {
+            if (collider.tag == owner) return;
             Debug.Log("ProjectileCollide");
 
             var damageableTarget = collider.GetComponent<IDamagable>();
-            if (damageableTarget != null) damageableTarget.TakeDamage(damage, damageType, gameObject.tag);
+            if (damageableTarget != null) damageableTarget.TakeDamage(damage, damageType, owner);
 
             PlayImpactSound(collider);
             CreateImpactVFX();
@@ -65,14 +95,13 @@ namespace ProjectGTA2_Unity
             var car = collider.GetComponent<Car>();
             var tile = collider.GetComponent<Tile>();
 
-
             if (character)
             {
 
             }
             else if (car)
             {
-                audioEventList.PlayAudioEventOneShot("BulletCarImpact");
+                PlayAudio("BulletCarImpact");
             }
             else
             {
@@ -83,15 +112,15 @@ namespace ProjectGTA2_Unity
                         break;
 
                     case SurfaceType.Normal:
-                        audioEventList.PlayAudioEventOneShot("BulletWallImpact");
+                        PlayAudio("BulletWallImpact");
                         break;
 
                     case SurfaceType.Grass:
-                        audioEventList.PlayAudioEventOneShot("BulletWallImpact");
+                        PlayAudio("BulletWallImpact");
                         break;
 
                     case SurfaceType.Metal:
-                        audioEventList.PlayAudioEventOneShot("BulletWallImpact");
+                        PlayAudio("BulletWallImpact");
                         break;
 
                     default:
@@ -101,12 +130,18 @@ namespace ProjectGTA2_Unity
             
         }
 
+        private void PlayAudio(string eventName)
+        {
+            if (audioEventList != null) audioEventList.PlayAudioEventOneShot(eventName);
+        }
+
         protected virtual void CreateImpactVFX()
         {
             if (impactVFX == null) return;
             var newImpactVfx = Instantiate(impactVFX, transform.position, Quaternion.Euler(90f,0f,0f));
         }
 
+        #endregion
     }
 }
 

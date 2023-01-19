@@ -622,14 +622,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charData: {fileID: 11400000, guid: bd3a77ed49e8aea4795770283bcc0306, type: 2}
+  rb: {fileID: 0}
+  animator: {fileID: 4347237451838439068}
+  boxCollider: {fileID: 4347237453156067669}
+  spRend: {fileID: 4347237451838439071}
+  audioEvents: {fileID: 11400000, guid: 2993b8b190a456e428941f2ae459c89b, type: 2}
+  CarEnterDistance: 0.65
   godMode: 0
   maxHealth: 100
   canRegenHealth: 0
-  audioEvents: {fileID: 0}
+  deathSprite: {fileID: 21300000, guid: 3c0156e63122ace478127167538a4232, type: 3}
+  deathVfx: {fileID: 0}
+  deletionTime: 5
   onGround: 0
   weaponBelt: {fileID: 4347237452191958741}
   playerMovement: {fileID: 8909357680320777439}
-  CarEnterDistance: 0.65
+  money: 0
 --- !u!114 &8909357680320777439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,12 +734,12 @@ MonoBehaviour:
   damageType: 0
   attackType: 3
   active: 0
-  damage: 15
+  damage: 10
   currentAmmo: 0
   maxAmmo: 999
   unlimtitedAmmo: 0
-  attackRate: 585
-  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  attackRate: 175
+  projectile: {fileID: 3816574717629571438, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
   icon: {fileID: 21300000, guid: 7b53f256a194fcd43918e9a329e3410e, type: 3}
   audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
   projectileSpawn: {fileID: 4347237453539915118}

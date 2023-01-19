@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vocals
   m_EditorClassIdentifier: 
   audioEvents:
-  - eventName: BUSTED !
+  - eventName: Busted
     eventPath:
       Guid:
         Data1: 837528904
@@ -21,7 +21,7 @@ MonoBehaviour:
         Data3: 242060472
         Data4: -122468190
       Path: event:/Vocals/Busted
-  - eventName: WASTED !
+  - eventName: Wasted
     eventPath:
       Guid:
         Data1: -1521936359
@@ -29,4 +29,20 @@ MonoBehaviour:
         Data3: 981478807
         Data4: -423260796
       Path: event:/Vocals/Wasted
+  - eventName: Shocking
+    eventPath:
+      Guid:
+        Data1: -1838184869
+        Data2: 1284686979
+        Data3: 493083278
+        Data4: 2010911951
+      Path: event:/Vocals/Shocking
+  - eventName: Toasted
+    eventPath:
+      Guid:
+        Data1: -337669093
+        Data2: 1308127380
+        Data3: -1980567423
+        Data4: 162201661
+      Path: event:/Vocals/Toasted
   showDebugMessages: 0

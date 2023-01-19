@@ -5162,6 +5162,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7244402996071040376, guid: 77a8e9d6ef2e0434e9d4ba431096b643, type: 3}
   m_PrefabInstance: {fileID: 833261450}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &174516254 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+  m_PrefabInstance: {fileID: 3816574717468002675}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &174750362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7244402996071040376, guid: 77a8e9d6ef2e0434e9d4ba431096b643, type: 3}
@@ -13337,7 +13342,7 @@ GameObject:
   - component: {fileID: 407588243}
   - component: {fileID: 407588242}
   m_Layer: 0
-  m_Name: Image (4)
+  m_Name: Health4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14999,7 +15004,7 @@ GameObject:
   - component: {fileID: 439028449}
   - component: {fileID: 439028448}
   m_Layer: 0
-  m_Name: Image (3)
+  m_Name: Health3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19616,7 +19621,7 @@ GameObject:
   - component: {fileID: 582481416}
   - component: {fileID: 582481415}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Health0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21111,7 +21116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   hud: {fileID: 1981649024}
-  playerObj: {fileID: 4347237453156067674, guid: be45fdb943ad14845a09f842d1ba83b2, type: 3}
+  playerPrefab: {fileID: 4347237453156067674, guid: be45fdb943ad14845a09f842d1ba83b2, type: 3}
   carColors:
   - {r: 0.83921576, g: 0.6039216, b: 0.41960788, a: 1}
   - {r: 0.22352943, g: 0.20392159, b: 0.2901961, a: 1}
@@ -31361,8 +31366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8320807038deb47806f7ab40484531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetOffset: {x: 0, y: 3.5, z: 0}
-  targetOffsetMax: {x: 0, y: 0, z: 0}
+  targetOffsetStart: {x: 0, y: 3.5, z: 0}
+  targetOffsetMax: {x: 0, y: 5, z: 0}
   speed: 25
 --- !u!114 &963194230
 MonoBehaviour:
@@ -35572,6 +35577,7 @@ Transform:
   - {fileID: 2213605302807454344}
   - {fileID: 1284629191}
   - {fileID: 2124531838}
+  - {fileID: 174516254}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -37957,7 +37963,7 @@ GameObject:
   - component: {fileID: 1163026972}
   - component: {fileID: 1163026971}
   m_Layer: 0
-  m_Name: Image (2)
+  m_Name: Health2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52081,7 +52087,7 @@ GameObject:
   - component: {fileID: 1615986773}
   - component: {fileID: 1615986772}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Health1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64355,16 +64361,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyTextField: {fileID: 1616424896}
+  health0: {fileID: 582481415}
+  health1: {fileID: 1615986772}
+  health2: {fileID: 1163026971}
+  health3: {fileID: 439028448}
+  health4: {fileID: 407588242}
+  healthFull: {fileID: 21300000, guid: d9ecd31375bee56478ce803370ff4072, type: 3}
+  healthEmpty: {fileID: 21300000, guid: 6b8f345862e289e45babb20fb8965bb5, type: 3}
   weaponImage: {fileID: 748158846}
   ammoTextField: {fileID: 436774369}
   ammoTextShadowField: {fileID: 2108684885}
   lifesTextField: {fileID: 1945468312}
   multiplierTextField: {fileID: 801003035}
   infoTexts:
-  - WASTED !
-  - BUSTED !
+  - Wasted !
+  - Busted !
+  - Shocking !
   infoTextField: {fileID: 1536971958}
-  showInfoTextPlayable: {fileID: 0}
+  showInfoTextPlayable: {fileID: 11400000, guid: 372b32dabcdc9d948b46718ea3e1af68, type: 2}
   playableDirector: {fileID: 1981649026}
   audioEvents: {fileID: 11400000, guid: 462814efb68aeff40aeff9c83d2af76c, type: 2}
 --- !u!95 &1981649025
@@ -64406,12 +64420,6 @@ PlayableDirector:
     value: {fileID: 1536971956}
   - key: {fileID: -892695687491006880, guid: 372b32dabcdc9d948b46718ea3e1af68, type: 2}
     value: {fileID: 1981649025}
-  - key: {fileID: -4849059556336347166, guid: 928b44eb9b27baf47a30c61808610e15, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 8874807198360077878, guid: 928b44eb9b27baf47a30c61808610e15, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 3655466703606922515, guid: 928b44eb9b27baf47a30c61808610e15, type: 2}
-    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!1001 &1981996663
@@ -70525,6 +70533,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01d6701eabece38478ec06ba576ae883, type: 3}
+--- !u!1001 &3816574717468002675
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1078289131}
+    m_Modifications:
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_RootOrder
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.00018
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.50001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.00016
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571437, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816574717629571438, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+      propertyPath: m_Name
+      value: FlamethrowerFlame
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
 --- !u!1001 &3821833672031703534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71210,8 +71275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4db5661da147ce4184f79cfb7af5621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charData: {fileID: 11400000, guid: bd3a77ed49e8aea4795770283bcc0306, type: 2}
+  charData: {fileID: 11400000, guid: e4cb940a2c6f3474f980a6c6fb341376, type: 2}
   rb: {fileID: 6038396129884195533}
+  animator: {fileID: 0}
   boxCollider: {fileID: 6038396129884195532}
   spRend: {fileID: 6038396131185646854}
   audioEvents: {fileID: 11400000, guid: 2993b8b190a456e428941f2ae459c89b, type: 2}
@@ -71222,6 +71288,11 @@ MonoBehaviour:
   deathSprite: {fileID: 0}
   deathVfx: {fileID: 0}
   deletionTime: 5
+  damgeVfxNormal: {fileID: 0}
+  damgeVfxFire: {fileID: 0}
+  deathVfxNormal: {fileID: 0}
+  deathVfxFire: {fileID: 0}
+  deathVfxElectro: {fileID: 0}
   onGround: 0
 --- !u!114 &6038396129915471956
 MonoBehaviour:
