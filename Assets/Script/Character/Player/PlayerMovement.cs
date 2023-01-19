@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private Rigidbody rb;
         private CharacterData characterData;
-        private TileType tileType;
+        private TileTypeA tileType;
         private SurfaceType surfaceType;
         private RaycastHit hit;
 
@@ -26,10 +27,14 @@ namespace ProjectGTA2_Unity.Characters
         private float accumulated_Distance = 1f;
         private float step_Distance = 0f;
 
-        private bool onGround;
+        private bool onGround;     
         private bool onSlope;
         private bool onJump;
         private bool onCar;
+
+        private float startFallHeight;
+        private bool isFalling => !onGround && rb.velocity.y < 0;
+        private bool wasFalling;
 
         private void Start()
         {
@@ -39,12 +44,21 @@ namespace ProjectGTA2_Unity.Characters
 
         private void Update()
         {
+            bool wasGrounded = onGround;
+                     
             GroundCheck();
+            if(!wasFalling && isFalling) startFallHeight = transform.position.y;
+            
+            FallDamageCheck(wasGrounded);
+            wasFalling = isFalling;
+
             Jump();
             PlayRunAnim();
             PlayFootStepSound(input);          
             moveSlope = Vector3.ProjectOnPlane(move, hit.normal);
         }
+
+        
 
         private void FixedUpdate()
         {
@@ -236,6 +250,20 @@ namespace ProjectGTA2_Unity.Characters
         public void SetCharacterData(CharacterData data)
         {
             characterData = data;
+        }
+
+        private void FallDamageCheck(bool wasGrounded)
+        {
+            float fallHeight = startFallHeight + transform.position.y;
+            Debug.Log(fallHeight);
+
+            if (!wasGrounded && onGround)
+            {           
+                if ( fallHeight > characterData.MinFallHeight)
+                {
+                    Game.Instance.player.TakeDamage(fallHeight * 10f, DamageType.Normal, gameObject.tag);
+                }               
+            }
         }
     }
 }

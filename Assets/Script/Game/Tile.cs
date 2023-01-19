@@ -4,11 +4,19 @@ using UnityEngine;
 
 namespace ProjectGTA2_Unity
 {
-    public enum TileType
+    public enum TileTypeA
     {
         Invalid = -1,
         Floor,
         Wall
+    }
+
+    public enum TileTypeB
+    {
+        Invalid = -1,
+        Road,
+        Pavement,
+        Air
     }
 
     public enum SurfaceType
@@ -26,12 +34,18 @@ namespace ProjectGTA2_Unity
 
     public class Tile : MonoBehaviour
     {
-        [SerializeField] private TileType tileType = TileType.Invalid;
+        [SerializeField] private TileTypeA tileTypeA = TileTypeA.Invalid;
+        [SerializeField] private TileTypeB tileTypeB = TileTypeB.Invalid;
         [SerializeField] private SurfaceType surfaceType = SurfaceType.Invalid;
 
-        public TileType GetTileType()
+        public TileTypeA GetTileTypeA()
         {
-            return tileType;
+            return tileTypeA;
+        }
+
+        public TileTypeB GetTileTypeB()
+        {
+            return tileTypeB;
         }
 
         public SurfaceType GetSurfaceType()

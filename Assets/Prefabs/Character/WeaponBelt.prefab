@@ -1,0 +1,696 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2925046848730678171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046848730678170}
+  - component: {fileID: 2925046848730678149}
+  m_Layer: 0
+  m_Name: Weapon06
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046848730678170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046848730678171}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046848730678149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046848730678171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: RocketLauncher
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 45
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 1
+  unlimtitedAmmo: 0
+  attackRate: 15
+  projectile: {fileID: 8091104468570349087, guid: a48021fd1f5b0ed4da4c28b2c54326ff, type: 3}
+  icon: {fileID: 21300000, guid: 4b21cc26206181a409c8ec1b0960289b, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046848822298662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046848822298657}
+  - component: {fileID: 2925046848822298656}
+  m_Layer: 0
+  m_Name: Weapon10
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046848822298657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046848822298662}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046848822298656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046848822298662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Grenade
+  damageType: 0
+  attackType: 1
+  active: 0
+  damage: 15
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 1
+  unlimtitedAmmo: 0
+  attackRate: 1
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: fb51eeed4a369c64e8bf6f2579cd2ed8, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046849126252608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046849126252611}
+  - component: {fileID: 2925046849126252610}
+  m_Layer: 0
+  m_Name: Weapon07
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046849126252611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849126252608}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046849126252610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849126252608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Flamethrower
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 10
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 5
+  unlimtitedAmmo: 0
+  attackRate: 175
+  projectile: {fileID: 3816574717629571438, guid: 4e98be0d80e43314289ee472076f6a5c, type: 3}
+  icon: {fileID: 21300000, guid: 7b53f256a194fcd43918e9a329e3410e, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046849186238918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046849186238913}
+  - component: {fileID: 2925046849186238912}
+  m_Layer: 0
+  m_Name: Weapon01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046849186238913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849186238918}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046849186238912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849186238918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Pistol
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 10
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 1
+  unlimtitedAmmo: 0
+  attackRate: 110
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: d06a04e4a8c9a3a4fa631dd4cf73bd0c, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046849534282073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046849534282072}
+  - component: {fileID: 2925046849534282075}
+  m_Layer: 0
+  m_Name: Weapon02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046849534282072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849534282073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046849534282075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849534282073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: DualPistol
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 15
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 2
+  unlimtitedAmmo: 0
+  attackRate: 75
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: f62c6f2a6d384f14180278531e140c3d, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046849682579947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046849682579946}
+  - component: {fileID: 2925046849682579925}
+  m_Layer: 0
+  m_Name: Weapon05
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046849682579946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849682579947}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046849682579925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849682579947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: SilentMachinegun
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 15
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 10
+  unlimtitedAmmo: 0
+  attackRate: 585
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: 51b598633897ab340930fb461c413fe5, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046849805294817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046849805294816}
+  - component: {fileID: 2925046849805294819}
+  m_Layer: 0
+  m_Name: Weapon00
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046849805294816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849805294817}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046849805294819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046849805294817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Fist
+  damageType: 0
+  attackType: 0
+  active: 1
+  damage: 5
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 10
+  unlimtitedAmmo: 1
+  attackRate: 0
+  projectile: {fileID: 0}
+  icon: {fileID: 0}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046850084783800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046850084783803}
+  - component: {fileID: 2925046850084783802}
+  m_Layer: 0
+  m_Name: Weapon03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046850084783803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850084783800}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046850084783802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850084783800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Shotgun
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 15
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 2
+  unlimtitedAmmo: 0
+  attackRate: 75
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: a903c493e951c5d4e98fe2d482037888, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046850214173121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046850214173120}
+  - component: {fileID: 2925046850214173123}
+  m_Layer: 0
+  m_Name: Weapon08
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046850214173120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850214173121}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046850214173123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850214173121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: ElectroGun
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 15
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 5
+  unlimtitedAmmo: 0
+  attackRate: 585
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: ec489fb2bd8e0394f8f9247929b48e97, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046850452946554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046850452946533}
+  - component: {fileID: 2925046850452946532}
+  m_Layer: 0
+  m_Name: Weapon04
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046850452946533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850452946554}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046850452946532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850452946554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Machinegun
+  damageType: 0
+  attackType: 3
+  active: 0
+  damage: 15
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 10
+  unlimtitedAmmo: 0
+  attackRate: 585
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: 7a9876738bb61c846b78b4ca66f12e37, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}
+--- !u!1 &2925046850532560067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046850532560066}
+  - component: {fileID: 2925046850532560077}
+  m_Layer: 0
+  m_Name: WeaponBelt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046850532560066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850532560067}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2925046849805294816}
+  - {fileID: 2925046849186238913}
+  - {fileID: 2925046849534282072}
+  - {fileID: 2925046850084783803}
+  - {fileID: 2925046850452946533}
+  - {fileID: 2925046849682579946}
+  - {fileID: 2925046848730678170}
+  - {fileID: 2925046849126252611}
+  - {fileID: 2925046850214173120}
+  - {fileID: 2925046850593974015}
+  - {fileID: 2925046848822298657}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046850532560077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850532560067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b4461b7b696742b1940c2a844d801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 2925046849805294819}
+  - {fileID: 2925046849186238912}
+  - {fileID: 2925046849534282075}
+  - {fileID: 2925046850084783802}
+  - {fileID: 2925046850452946532}
+  - {fileID: 2925046849682579925}
+  - {fileID: 2925046848730678149}
+  - {fileID: 2925046849126252610}
+  - {fileID: 2925046850214173123}
+  - {fileID: 2925046850593974014}
+  - {fileID: 2925046848822298656}
+--- !u!1 &2925046850593974012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925046850593974015}
+  - component: {fileID: 2925046850593974014}
+  m_Layer: 0
+  m_Name: Weapon09
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925046850593974015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850593974012}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.488136, y: -4.5139465, z: -12.20221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2925046850532560066}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925046850593974014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925046850593974012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6816cc0546c53334a99f6e303cefb293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Molotov
+  damageType: 0
+  attackType: 1
+  active: 0
+  damage: 15
+  maxAmmoMagazines: 99
+  ammoPerMagazine: 1
+  unlimtitedAmmo: 0
+  attackRate: 1
+  projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
+  icon: {fileID: 21300000, guid: e05ba849bb57598488f3441c9d976d50, type: 3}
+  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  projectileSpawn: {fileID: 0}

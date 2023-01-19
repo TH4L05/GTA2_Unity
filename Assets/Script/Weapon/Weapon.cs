@@ -40,8 +40,9 @@ namespace ProjectGTA2_Unity
         [SerializeField] private bool active = true;
 
         [SerializeField] private int damage;
-        [SerializeField] private int currentAmmo;
-        [SerializeField] private int maxAmmo;
+        [SerializeField] private int maxAmmoMagazines = 99;
+        [SerializeField] private int ammoPerMagazine = 10;
+
         [SerializeField] private bool unlimtitedAmmo = false;
         [SerializeField] private float attackRate;
 
@@ -54,8 +55,10 @@ namespace ProjectGTA2_Unity
 
         #region PrivateFields
 
+        private int currentAmmoMagazines = 0;
         private float shootTimer;
         private bool canShoot = true;
+        private int currentAmmo;
 
         #endregion
 
@@ -64,7 +67,7 @@ namespace ProjectGTA2_Unity
         public string Name => name;
         public bool Active => active;
         public AttackType AttackType => attackType;
-        public int CurrentAmmo => currentAmmo;
+        public int CurrentAmmo => currentAmmoMagazines;
         public Sprite Icon => icon;
 
         #endregion
@@ -73,7 +76,8 @@ namespace ProjectGTA2_Unity
 
         private void Awake()
         {
-            shootTimer = 0f;          
+            shootTimer = 0f;
+            
         }
 
         private void Update()
@@ -87,6 +91,19 @@ namespace ProjectGTA2_Unity
 
         #region Ammo
 
+        public void DecreaseAmmoMagazine(int amount)
+        {
+            if (unlimtitedAmmo) return;
+            currentAmmoMagazines -= amount;
+            currentAmmo = ammoPerMagazine;
+
+            if (currentAmmoMagazines <= 0)
+            {
+                currentAmmoMagazines = 0;
+                active = false;
+            }
+        }
+
         public void DecreaseAmmo(int amount)
         {
             if (unlimtitedAmmo) return;
@@ -95,19 +112,20 @@ namespace ProjectGTA2_Unity
             if (currentAmmo <= 0)
             {
                 currentAmmo = 0;
-                active = false;
+                DecreaseAmmoMagazine(1);
             }
 
         }
 
-        public void IncreaseAmmo(int amount) 
+        public void IncreaseAmmoMagazine(int amount) 
         {
-            currentAmmo += amount;
+            currentAmmoMagazines += amount;
             active = true;
 
-            if (currentAmmo > maxAmmo)
+            if (currentAmmoMagazines > maxAmmoMagazines)
             {
-                currentAmmo = maxAmmo;
+                currentAmmoMagazines = maxAmmoMagazines;
+                currentAmmo = ammoPerMagazine;
             }
         }
 
@@ -122,7 +140,7 @@ namespace ProjectGTA2_Unity
         {
             var rof = 1 / (attackRate / 60);
 
-            if (currentAmmo < 1) return;
+            if (currentAmmoMagazines < 1) return;
 
             if (canShoot && shootTimer >= rof)
             {
@@ -138,6 +156,11 @@ namespace ProjectGTA2_Unity
                     case AttackType.Melee:
                         break;
 
+                    case AttackType.Throw:
+                        Throw();
+                        DecreaseAmmo(1);
+                        break;
+
                     case AttackType.ShootRaycast:
                         //RaycastShoot();
                         DecreaseAmmo(1);
@@ -149,8 +172,6 @@ namespace ProjectGTA2_Unity
                     case AttackType.Beam:
                         break;
                 }
-
-                //Debug.Log("weapon " + name + " shoot");
             }
         }
 
@@ -190,6 +211,11 @@ namespace ProjectGTA2_Unity
         {
             var newProjectile = Instantiate(projectile, projectileSpawn.position, Game.Instance.player.transform.rotation);
             newProjectile.GetComponent<Projectile>().SetValues(damage, damageType, transform.root.tag);         
+        }
+
+        private void Throw()
+        {
+
         }
 
     }

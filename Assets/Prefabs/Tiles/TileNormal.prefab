@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b4a235b483f2743bc9376654c1b3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 0
+  tileTypeA: 0
+  tileTypeB: 1
   surfaceType: 0
 --- !u!212 &942646517488451936
 SpriteRenderer:

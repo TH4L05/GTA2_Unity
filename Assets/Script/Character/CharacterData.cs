@@ -15,7 +15,7 @@ public class CharacterData : ScriptableObject
     [SerializeField] private float walkStepDistance = 0.5f;
     [SerializeField] private float sprintStepDistance = 0.25f;
     [SerializeField] private float crouchStepDistance = 1.0f;
-    [SerializeField] private float maxSlopeAngle = 45f;
+    [SerializeField] private float minFallHeight = 2f;
     [SerializeField] private AudioEventList audioEvents;
 
     public float Walkspeed => walkSpeed;
@@ -26,6 +26,7 @@ public class CharacterData : ScriptableObject
     public float WalkStepDistance => walkStepDistance;
     public float SprintStepDistance => sprintStepDistance;
     public float CrouchStepDistance => crouchStepDistance;
-    public float MaxSlopeAngle => maxSlopeAngle;
+    public float MinFallHeight => minFallHeight;
+
     public AudioEventList AudioEvents => audioEvents;
 }

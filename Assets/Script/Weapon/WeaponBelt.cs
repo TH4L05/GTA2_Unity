@@ -134,7 +134,7 @@ namespace ProjectGTA2_Unity
                         WeaponChanged?.Invoke(weapons[currentweaponIndex].Icon, weapons[currentweaponIndex].CurrentAmmo);
                     }
                
-                    equippedWeapon.IncreaseAmmo(amount);
+                    equippedWeapon.IncreaseAmmoMagazine(amount);
                     WeaponUpdate?.Invoke(equippedWeapon.CurrentAmmo);
                     return;
                 }

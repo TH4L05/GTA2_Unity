@@ -20,5 +20,5 @@ MonoBehaviour:
   walkStepDistance: 0.5
   sprintStepDistance: 0.25
   crouchStepDistance: 1
-  maxSlopeAngle: 45
+  minFallHeight: 2.5
   audioEvents: {fileID: 11400000, guid: 2993b8b190a456e428941f2ae459c89b, type: 2}
