@@ -8,7 +8,7 @@ namespace ProjectGTA2_Unity.Characters
 {
     public class Player : Character
     {
-        public static Action<DamageType> OnDeath;
+        public static Action<DamageType,string> OnDeath;
         public static Action<float,float> OnHealthChanged;
         public static Action<int> OnUpdateMoney;
 
@@ -100,7 +100,7 @@ namespace ProjectGTA2_Unity.Characters
         protected override void Death()
         {
             base.Death();
-            OnDeath?.Invoke(lastDamageType);
+            OnDeath?.Invoke(lastDamageType, gameObject.name);
             
         }
     }

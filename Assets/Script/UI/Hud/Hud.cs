@@ -281,7 +281,7 @@ namespace ProjectGTA2_Unity.UI
             audioEvents.PlayAudioEventOneShot(audioEventName);
         }
 
-        private void PlayerDied(DamageType damageType)
+        private void PlayerDied(DamageType damageType, string playerName)
         {
             string text = string.Empty;
 

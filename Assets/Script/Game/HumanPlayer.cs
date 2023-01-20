@@ -16,6 +16,11 @@ namespace ProjectGTA2_Unity
         [SerializeField] private int moneyMax = 9999999;
         [SerializeField] private Player player;
 
+        public void Initialize()
+        {
+            lifes = lifesMax;
+        }
+
         public void IncreaseMoney(int amount)
         {
             money += amount;
@@ -56,6 +61,11 @@ namespace ProjectGTA2_Unity
             }
         }
 
+        public string GetName()
+        {
+            return name;
+        }
+
         public int GetLifes()
         {
             return lifes;
@@ -64,6 +74,11 @@ namespace ProjectGTA2_Unity
         public int GetMoney()
         {
             return money;
+        }
+
+        public Player GetPlayer()
+        {
+            return player;
         }
 
         public void SetName(string name)

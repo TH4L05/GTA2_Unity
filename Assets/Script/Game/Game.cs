@@ -13,11 +13,9 @@ namespace ProjectGTA2_Unity
         public static Game Instance;
         public Player player;
         public Hud hud;
-        public GameObject playerPrefab;
-        public Color[] carColors;
-        public Transform[] playerSpawns;
-        public string[] infoTexts;
-        public List<HumanPlayer> humanPlayers = new List<HumanPlayer>();
+        public CharacterSpawner characterSpawner;
+
+        public Color[] carColors;          
         private int moneyMultiplier = 0;
 
         #region UnityFunctions
@@ -31,9 +29,7 @@ namespace ProjectGTA2_Unity
 
         private void Start()
         {
-            Initialize();
-            Player.OnDeath += RespawnPlayer;
-            
+            Initialize();                
         }
 
         private void Update()
@@ -61,7 +57,7 @@ namespace ProjectGTA2_Unity
 
         private void OnDestroy()
         {
-            Player.OnDeath -= RespawnPlayer;
+            
             Character.CharacterisDead -= CharacterKilled;
         }
 
@@ -74,51 +70,8 @@ namespace ProjectGTA2_Unity
         }
 
         private void Initialize()
-        {
-            var human = new HumanPlayer();
-            humanPlayers.Add(human);
-            human.SetName("Player0");
-
-            if (playerPrefab == null || playerSpawns.Length == 0)
-            {
-                Debug.LogError("Missing Player Prefab or PlayerSpawns !!!");
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
-            StartCoroutine(SpawnThePlayer(0.5f));         
+        {     
         }
-
-        public int RandomIntNumber(int min, int max)
-        {
-            return UnityEngine.Random.Range(min, max);
-        }
-
-        public float RandomFloatNumber(float min, float max)
-        {
-            return UnityEngine.Random.Range(min, max);
-        }
-
-        IEnumerator SpawnThePlayer(float time)
-        {
-            yield return new WaitForSeconds(time);
-            SpawnPlayer();
-        }
-
-        public void SpawnPlayer()
-        {         
-            int index = RandomIntNumber(0, playerSpawns.Length);
-            Vector3 spawnPosition = playerSpawns[index].position;
-            var newPlayer = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-            player = newPlayer.GetComponent<Player>();
-            humanPlayers[0].SetPlayer(player);
-        }
-
-        public void RespawnPlayer(DamageType type)
-        {
-            Destroy(player.gameObject, 1.95f);
-            player = null;
-           
-            StartCoroutine(SpawnThePlayer(2f));
-        }    
 
         public void CharacterKilled(string tag, string killer)
         {

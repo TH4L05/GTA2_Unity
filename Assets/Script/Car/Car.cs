@@ -35,7 +35,7 @@ namespace ProjectGTA2_Unity
         [SerializeField] protected CarType carType = CarType.Invalid;
         [SerializeField] protected SpriteRenderer sr;
         [SerializeField] protected bool fixedCarColor = false;
-        [SerializeField] protected Color carColor;
+        //[SerializeField] protected Color carColor;
         [SerializeField] protected Sprite destroyedSprite;
         [SerializeField] protected GameObject carDeltasRoot;
         [SerializeField] protected GameObject carDeltasLightsRoot;
@@ -144,11 +144,9 @@ namespace ProjectGTA2_Unity
             rb.isKinematic = true;
             currentHealth = maxHealth;
 
-            if (isParked) carDeltasLightsRoot.SetActive(false);
-
-            if (fixedCarColor) return;
-            GetRandomColor();
-            SetCarColors(carColor);
+            if (isParked) carDeltasLightsRoot.SetActive(false);          
+            Color color = Game.Instance.GetRandomCarColor();
+            SetCarColor(color);
 
         }
 
@@ -235,12 +233,14 @@ namespace ProjectGTA2_Unity
 
         #region Color
 
-        private void GetRandomColor()
+        private void SetCarColor(Color color)
         {
-            carColor = Game.Instance.GetRandomCarColor();
+            if (fixedCarColor) return;
+            var material = sr.material;
+            material.SetColor("_CarColor", color);
         }
 
-        [Space(2),Header("Sprite and Color")]
+        /*[Space(2),Header("Sprite and Color")]
         public Color[] spriteColors;
         public Color[] spriteColors2;
         public Texture2D tex;
@@ -327,7 +327,7 @@ namespace ProjectGTA2_Unity
             var bytesArray = texCol.EncodeToPNG();
 
             Serialization.SaveFileByteArray("testPicture.png", bytesArray);
-        }
+        }*/
 
         #endregion
 
