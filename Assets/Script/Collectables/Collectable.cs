@@ -61,7 +61,7 @@ namespace ProjectGTA2_Unity
              
         protected virtual void Collect(Collider collider)
         {
-            if (collider.gameObject.layer != playerLayer.value - 5) return;
+            if (!collider.CompareTag("Player")) return;
             Debug.Log($"<color=#597FFF>Player collect {type} Collectable </color>");          
             OnCollect();
         }

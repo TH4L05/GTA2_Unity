@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Car
+  - NPC
   layers:
   - Default
   - TransparentFX

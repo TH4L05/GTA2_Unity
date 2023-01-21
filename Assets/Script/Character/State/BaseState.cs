@@ -20,11 +20,19 @@ namespace ProjectGTA2_Unity.Characters.AI
             return name;
         }
 
-        public virtual void Enter() { }
+        public virtual void Enter() 
+        {
+        }
+
 
         public virtual void Exit() { }
 
         public virtual void UpdateState() { }
+
+        public virtual void ParseMono(MonoBehaviour monoBehaviour)
+        {
+            
+        }
     }
 }
 

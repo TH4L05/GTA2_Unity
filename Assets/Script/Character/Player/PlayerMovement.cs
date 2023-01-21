@@ -255,7 +255,7 @@ namespace ProjectGTA2_Unity.Characters
         private void FallDamageCheck(bool wasGrounded)
         {
             float fallHeight = startFallHeight + transform.position.y;
-            Debug.Log(fallHeight);
+            //Debug.Log(fallHeight);
 
             if (!wasGrounded && onGround)
             {           
