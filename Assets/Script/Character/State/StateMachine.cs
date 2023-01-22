@@ -43,6 +43,11 @@ namespace ProjectGTA2_Unity.Characters.AI
             return null;
         }
 
+        protected virtual BaseState GetState(string stateName)
+        {
+            return null;
+        }
+
         public virtual void ParseMono(BaseState state)
         {
             state.ParseMono(this);

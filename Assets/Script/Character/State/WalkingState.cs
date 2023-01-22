@@ -6,6 +6,7 @@ using UnityEngine;
 using ProjectGTA2_Unity.Characters.AI;
 using UnityEngine.AI;
 using Unity.VisualScripting;
+using System.Linq;
 
 namespace ProjectGTA2_Unity
 {
@@ -22,30 +23,33 @@ namespace ProjectGTA2_Unity
         public override void Enter()
         {
             sm.ShowMessage("Enter " + name + " State");
-            //sm.navAgent.isStopped = false;
-            //sm.navAgent.stoppingDistance = 0.15f;
-            //sm.navAgent.speed = sm.charData.Walkspeed;
-            //sm.navAgent.SetDestination(sm.destination);
+            sm.navAgent.isStopped = false;
+            sm.navAgent.stoppingDistance = 0.15f;
+            sm.navAgent.speed = sm.charData.Walkspeed;
+            sm.navAgent.SetDestination(sm.destination);
             sm.groundTiles.Clear();
+            sm.transform.LookAt(sm.destination);
         }
 
         public override void UpdateState()
         {
-            if (NeedsDestination())
+            if(IsPathBlocked() || NeedsDestination())
             {
                 sm.ChangeState(sm.idleState);
-            }
+            }            
+            Debug.DrawRay(sm.transform.position, sm.destination * 10f, Color.green);
+            
+            //sm.transform.Translate(sm.transform.forward * Time.deltaTime * sm.charData.Walkspeed);
 
-            sm.transform.LookAt(sm.destination);
-            Debug.DrawRay(sm.transform.position, sm.direction * 10f, Color.green);
+            
+        }
 
-            sm.transform.Translate(sm.transform.forward * Time.deltaTime * sm.charData.Walkspeed);
-
-            /*if (sm.navAgent.remainingDistance <= sm.navAgent.stoppingDistance)
-            {
-                sm.ShowMessage("Destination Reached");
-                sm.ChangeState(sm.idleState);
-            }*/
+        private bool IsPathBlocked()
+        {
+            /*Ray ray = new Ray(sm.transform.position, sm.transform.forward);
+            var hitSomething = Physics.RaycastAll(ray, 2f, sm.groundLayer);
+            return hitSomething.Any();*/
+            return false;
         }
 
         public override void Exit()
@@ -56,12 +60,16 @@ namespace ProjectGTA2_Unity
 
         private bool NeedsDestination()
         {
-            if (sm.destination == Vector3.zero)
-                return true;
+            if (sm.destination == Vector3.zero) return true;
 
-            var distance = Vector3.Distance(sm.transform.position, sm.destination);
+            /*var distance = Vector3.Distance(sm.transform.position, sm.destination);
             if (distance <= sm._stoppingDistance)
             {
+                return true;
+            }*/
+            if (sm.navAgent.remainingDistance <= sm.navAgent.stoppingDistance)
+            {
+                sm.ShowMessage("Destination Reached");
                 return true;
             }
 

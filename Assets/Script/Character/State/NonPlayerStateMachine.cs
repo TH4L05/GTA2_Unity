@@ -12,24 +12,31 @@ namespace ProjectGTA2_Unity
         [HideInInspector] public WalkingState walkingState;
         [HideInInspector] public RunningState runningState;
 
+        public List<BaseState> states= new List<BaseState>();
         public Transform randomTargetTransform;
         public NavMeshAgent navAgent;
         public CharacterData charData;
         public LayerMask groundLayer;
         public Vector3 destination;
-        public Vector3 direction;
+        public Vector3 lastDestination;
+
+
         public Quaternion desiredRotation;
         public List<Tile> groundTiles = new List<Tile>();
-        public LineRenderer lineRenderer;
         public Color gizmoColor;
 
         public float _stoppingDistance = 1.5f;
+        public bool hasDestination;
 
         private void Awake()
         {
             idleState = new IdleState("idle",this);
             walkingState = new WalkingState("walk", this);
             runningState = new RunningState("run", this);
+
+            states.Add(idleState);
+            states.Add(walkingState);
+            states.Add(runningState);
         }
 
         protected override BaseState GetInitialState()
@@ -45,6 +52,18 @@ namespace ProjectGTA2_Unity
         public override void ShowMessage(string message)
         {
             base.ShowMessage(message);
+        }
+
+        protected override BaseState GetState(string stateName)
+        {
+            foreach (var state in states)
+            {
+                if (state.GetStateName() == stateName)
+                {
+                    return state;
+                }
+            }
+            return base.GetState(stateName);
         }
 
         private void OnDrawGizmosSelected()

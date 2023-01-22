@@ -23,49 +23,17 @@ namespace ProjectGTA2_Unity
         {
             sm.ShowMessage("Enter " + name + " State");
             //sm.navAgent.isStopped = true;
-            sm.destination = Vector3.zero;
-            sm.ParseMono(this);
-            sm.groundTiles.Clear();
+            
+            sm.ParseMono(this);         
             hasNewDestination = false;
         }
 
         public override void UpdateState()
         {
+            sm.hasDestination = hasNewDestination;
             if (!hasNewDestination) return;
 
-            RaycastHit hit;
-            Ray ray = new Ray(sm.destination, Vector3.down);
-            Debug.DrawRay(sm.destination, Vector3.down, Color.red);
-
-            if (Physics.Raycast(ray, out hit, 2f) && sm.destination != Vector3.zero)
-            {
-                var tile = hit.collider.GetComponent<Tile>();
-                if(tile != null)
-                {
-                    Debug.Log("Found new Destination Tile _> " + tile.gameObject.name);
-                    if (tile.GetTileTypeA() == TileTypeA.Floor && tile.GetTileTypeB() == TileTypeB.Pavement)
-                    {
-                        Debug.Log("Found new Walkable Destination Tile");
-                        sm.groundTiles.Add(tile);
-                        sm.ChangeState(sm.walkingState);
-                    }
-                    else
-                    {
-                        hasNewDestination = false;
-                        GetDestination();
-                    }
-                }
-                else
-                {
-                    hasNewDestination = false;
-                    GetDestination();
-                } 
-            }
-            else
-            {
-                hasNewDestination = false;
-                GetDestination();
-            }
+            sm.ChangeState(sm.walkingState);
 
             /*if (sm.destination != Vector3.zero)
             {
@@ -85,6 +53,7 @@ namespace ProjectGTA2_Unity
             GetDestination();
             //sm.destination = GetNewDestination();
         }
+
         public override void ParseMono(MonoBehaviour monoBehaviour)
         {
             monoBehaviour.StartCoroutine(ShortWait());
@@ -132,16 +101,58 @@ namespace ProjectGTA2_Unity
 
         private void GetDestination()
         {
-            Vector3 testPosition = (sm.transform.position + (sm.transform.forward * 4f)) +
-                                   new Vector3(UnityEngine.Random.Range(-4.5f, 4.5f), 0f,
-                                       UnityEngine.Random.Range(-4.5f, 4.5f));
+            hasNewDestination = false;
+            Debug.Log("GetNewDestination");
+            sm.groundTiles.Clear();
+            sm.destination = Vector3.zero;
 
-            sm.destination = new Vector3(testPosition.x, 1f, testPosition.z);
+            Vector3 newDestination = sm.transform.position + (sm.transform.forward * 1.1f);
 
-            sm.direction = Vector3.Normalize(sm.destination - sm.transform.position);
-            sm.direction = new Vector3(sm.direction.x, 0f, sm.direction.z);
-            sm.desiredRotation = Quaternion.LookRotation(sm.direction);
-            hasNewDestination = true;
+            newDestination = new Vector3(newDestination.x, 0.5f, newDestination.z);
+            sm.destination = newDestination;
+
+            CheckDestinationTile();
+        }
+
+        private void CheckDestinationTile()
+        {
+            RaycastHit hit;
+            Ray ray = new Ray(sm.destination, Vector3.down);
+            Debug.DrawRay(sm.destination, Vector3.down * 2f, Color.red);
+
+            if (Physics.Raycast(ray, out hit, 2f) && sm.destination != Vector3.zero)
+            {
+                var tile = hit.collider.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    Debug.Log("Found new Destination Tile _> " + tile.gameObject.name);
+                    if (tile.GetTileTypeA() == TileTypeA.Floor && tile.GetTileTypeB() == TileTypeB.Pavement)
+                    {
+                        Debug.Log("Found new Walkable Destination Tile");
+                        sm.groundTiles.Add(tile);
+                        hasNewDestination = true;
+                        sm.lastDestination = sm.destination;
+
+                        //sm.ParseMono(this);
+
+                    }
+                    else
+                    {
+                        sm.ParseMono(this);
+                        //GetDestination();
+                    }
+                }
+                else
+                {
+                    sm.ParseMono(this);
+                    //GetDestination();
+                }
+            }
+            else
+            {
+                sm.ParseMono(this);
+                //GetDestination();
+            }
         }
     }
 }
