@@ -17,7 +17,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private Rigidbody rb;
         private CharacterData characterData;
-        private TileTypeA tileType;
+        private TileTypeMain tileType;
         private SurfaceType surfaceType;
         private RaycastHit hit;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Characters;
 using ProjectGTA2_Unity.Characters.Data;
+using UnityEngine.AI;
 
 namespace ProjectGTA2_Unity
 {
@@ -22,10 +23,12 @@ namespace ProjectGTA2_Unity
         [SerializeField] private CharacterData charData;
         [SerializeField] private WeaponBelt weaponBelt;
         [SerializeField] private Animator animator;
+        [SerializeField] private NavMeshAgent navAgent;
 
         [SerializeField] private bool canFight;
         [SerializeField] private bool playerIsEnemy;
         [SerializeField] private float enemyDetectRange = 5f;
+        [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private LayerMask npcLayer;
         [SerializeField] private float weaponGunAttackDistance = 3f;
@@ -41,6 +44,7 @@ namespace ProjectGTA2_Unity
         public bool onRotation;
         public bool onChase;
         public bool onFlee;
+        public bool pathBlocked;
 
         public float speed;
         public Quaternion desiredR;
@@ -139,6 +143,7 @@ namespace ProjectGTA2_Unity
 
         private void IdleState()
         {
+            navAgent.isStopped = true;
             animator.SetBool("Walk", false);
             animator.SetBool("Run", false);
 
@@ -150,10 +155,11 @@ namespace ProjectGTA2_Unity
             }
             else
             {
+                pathBlocked = false;
                 SetDestination(destination);
             }
 
-            if (hasDestination) currentstate = State.Walk;
+            if (hasDestination  && !onRotation) currentstate = State.Walk;
         }
 
         #endregion
@@ -162,15 +168,28 @@ namespace ProjectGTA2_Unity
 
         private void WalkState()
         {
+            navAgent.isStopped = false;
             if (weaponBelt != null) animator.SetBool("GunEquiped", weaponBelt.GunEquipped);
             animator.SetBool("Walk", true);
 
+            var color = Color.green;
+            pathBlocked = IsPathBlocked();
+            color = pathBlocked ? Color.red : color;
+            Debug.DrawRay(transform.position, transform.forward * 0.85f, color);
+            /*if (pathBlocked)
+            {
+                currentstate = State.Idle;
+                return;
+            }*/
+
+            LookAtTarget(destination, charData.RotationSensitivity);
             speed = charData.Walkspeed;
             MoveToDestination(destination, speed);
 
             var distance = Vector3.Distance(transform.position, destination);
             if (distance <= 0.25f)
             {
+                navAgent.isStopped = true;
                 hasDestination = false;
                 currentstate = State.Idle;
             }
@@ -184,6 +203,15 @@ namespace ProjectGTA2_Unity
         {
             if(weaponBelt != null) animator.SetBool("GunEquiped", weaponBelt.GunEquipped);
             animator.SetBool("Run", true);
+
+
+            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), transform.forward * 0.65f, Color.red);
+            if (IsPathBlocked())
+            {
+                speed = 0;
+                currentstate = State.Idle;
+                return;
+            }
 
             speed = charData.RunSpeed;
             MoveToDestination(destination, speed);
@@ -248,12 +276,27 @@ namespace ProjectGTA2_Unity
 
         #endregion
 
+        private bool IsPathBlocked()
+        {
+            Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), transform.forward);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 0.85f))
+            {
+                return true;
+            }
+            return false;
+        }
+
         #region Destination
 
         private void MoveToDestination(Vector3 destination, float speed)
         {
-            Debug.Log("MoveNpc");
-            transform.Translate(Time.deltaTime * speed * transform.forward, Space.World);
+            //Debug.Log("MoveNpc");
+            navAgent.speed = speed;
+            navAgent.stoppingDistance = charData.StoppingDistance;
+            navAgent.SetDestination(destination);
+            //transform.Translate(Time.deltaTime * speed * transform.forward, Space.World);
         }
 
         private void GetDestination()
@@ -263,7 +306,7 @@ namespace ProjectGTA2_Unity
             groundTiles.Clear();
             destination = Vector3.zero;
 
-            CheckForward();
+            if(!pathBlocked) CheckForward();
 
             if (!hasDestinationPoint)
             {
@@ -288,9 +331,12 @@ namespace ProjectGTA2_Unity
         private bool CheckForward()
         {
             Vector3 pointForward = transform.position + (transform.forward * 1.1f);
-            pointForward.y = 1f;
+
+            pointForward.x += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointForward.z += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointForward.y += 0.5f;
             hasDestinationPoint = CheckTile(pointForward);
-            pointForward.y = 0f;
+            pointForward.y -= 0.5f;
             destination = pointForward;
             return hasDestinationPoint;
 
@@ -299,9 +345,12 @@ namespace ProjectGTA2_Unity
         private bool CheckBackward()
         {
             Vector3 pointBackward = transform.position + (-transform.forward * 1.1f);
-            pointBackward.y = 1f;
+
+            pointBackward.x += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointBackward.z += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointBackward.y += 0.5f;
             hasDestinationPoint = CheckTile(pointBackward);
-            pointBackward.y = 0f;
+            pointBackward.y -= 0.5f;
             destination = pointBackward;
             return hasDestinationPoint;
         }
@@ -309,9 +358,12 @@ namespace ProjectGTA2_Unity
         private bool CheckLeft()
         {
             Vector3 pointLeft = transform.position + (-transform.right * 1.1f);
-            pointLeft.y = 1f;
+
+            pointLeft.x += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointLeft.z += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointLeft.y += 0.5f;
             hasDestinationPoint = CheckTile(pointLeft);
-            pointLeft.y = 0f;
+            pointLeft.y -= 0.5f;
             destination = pointLeft;
             return hasDestinationPoint;
         }
@@ -319,26 +371,29 @@ namespace ProjectGTA2_Unity
         private bool CheckRight()
         {
             Vector3 pointRight = transform.position + (transform.right * 1.1f);
-            pointRight.y = 1f;
+
+            pointRight.x += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointRight.z += Util.RandomFloatNumber(-0.25f, 0.25f);
+            pointRight.y += 0.5f;
             hasDestinationPoint = CheckTile(pointRight);
-            pointRight.y = 0f;
+            pointRight.y -= 0.5f;
             destination = pointRight;
             return hasDestinationPoint;
         }
 
         private void SetDestination(Vector3 destination)
         {
-            if (OnRotation(destination))
-            {
-                onRotation = true;
-                LookAtTarget(destination, charData.RotationSensitivity);
-            }
-            else
-            {
+            //if (OnRotation(destination))
+            //{
+            //    onRotation = true;
+            //    LookAtTarget(destination, charData.RotationSensitivity);
+            //}
+            //else
+            //{
                 onRotation = false;
                 hasDestinationPoint = false;
                 hasDestination = true;
-            }
+            //}
         }
 
         #endregion
@@ -362,27 +417,27 @@ namespace ProjectGTA2_Unity
             Vector3 direction = Vector3.Normalize(destination - transform.position);
             desiredR = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-            if (transform.rotation != desiredR)
+            if (transform.rotation.eulerAngles.y >= (desiredR.eulerAngles.y - 0.1f) && transform.rotation.eulerAngles.y <= (desiredR.eulerAngles.y + 0.1f))
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         private bool CheckTile(Vector3 pos)
         {
             RaycastHit hit;
             Ray ray = new Ray(pos, Vector3.down);
-            Debug.DrawRay(pos, Vector3.down * 2f, Color.red);
+            //Debug.DrawRay(pos, Vector3.down * 0.5f, Color.red);
 
-            if (Physics.Raycast(ray, out hit, 2f) && pos != Vector3.zero)
+            if (Physics.Raycast(ray, out hit, 0.5f) && pos != Vector3.zero)
             {
                 var tile = hit.collider.GetComponent<Tile>();
                 if (tile != null)
                 {
-                    if (tile.GetTileTypeA() == TileTypeA.Floor && tile.GetTileTypeB() == TileTypeB.Pavement)
+                    if (tile.GetTileTypeA() == TileTypeMain.Floor && (tile.GetTileTypeB() == TileTypeSecond.Pavement || tile.GetTileTypeB() == TileTypeSecond.RoadJunction))
                     {
-                        Debug.Log("Found new Destination Tile _> " + tile.gameObject.name);
+                        //Debug.Log("Found new Destination Tile _> " + tile.gameObject.name);
                         groundTiles.Add(tile);
                         return true;
                     }

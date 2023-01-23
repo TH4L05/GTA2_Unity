@@ -72,7 +72,7 @@ namespace ProjectGTA2_Unity
 
                 if(tile ==null) continue;
 
-                if (tile.GetTileTypeA() == TileTypeA.Floor && tile.GetTileTypeB() == TileTypeB.Pavement)
+                if (tile.GetTileTypeA() == TileTypeMain.Floor && tile.GetTileTypeB() == TileTypeSecond.Pavement)
                 {
                     groundTiles.Add(tile);
                 }
@@ -126,7 +126,7 @@ namespace ProjectGTA2_Unity
                 if (tile != null)
                 {
                     Debug.Log("Found new Destination Tile _> " + tile.gameObject.name);
-                    if (tile.GetTileTypeA() == TileTypeA.Floor && tile.GetTileTypeB() == TileTypeB.Pavement)
+                    if (tile.GetTileTypeA() == TileTypeMain.Floor && tile.GetTileTypeB() == TileTypeSecond.Pavement)
                     {
                         Debug.Log("Found new Walkable Destination Tile");
                         sm.groundTiles.Add(tile);

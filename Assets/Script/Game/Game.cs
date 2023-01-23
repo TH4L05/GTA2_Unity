@@ -14,6 +14,7 @@ namespace ProjectGTA2_Unity
         public Player player;
         public Hud hud;
         public CharacterSpawner characterSpawner;
+        public Camera mainCamera;
 
         public Color[] carColors;          
         private int moneyMultiplier = 0;
