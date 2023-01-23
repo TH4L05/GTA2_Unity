@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 2925046850532560066}
   - component: {fileID: 2925046850532560077}
   m_Layer: 0
-  m_Name: WeaponBelt
+  m_Name: WeaponBeltPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,6 +637,7 @@ MonoBehaviour:
   - {fileID: 2925046850214173123}
   - {fileID: 2925046850593974014}
   - {fileID: 2925046848822298656}
+  isPlayer: 1
 --- !u!1 &2925046850593974012
 GameObject:
   m_ObjectHideFlags: 0

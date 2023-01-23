@@ -1,12 +1,22 @@
 /// <author>Thoams Krahl</author>
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectGTA2_Unity.Characters.Data;
 
 namespace ProjectGTA2_Unity.Characters
 {
+    public enum CharacterType
+    {
+        Invalid = -1,
+        Player,
+        NormalNPC,
+        GangMember,
+        CarThief,
+        Mugger,
+    }
+
     [RequireComponent(typeof(Rigidbody))]
     public class Character : MonoBehaviour, IDamagable
     {
@@ -15,6 +25,7 @@ namespace ProjectGTA2_Unity.Characters
         #region SerializedFields
 
         [Header("Base")]
+        [SerializeField] protected CharacterType characterType = CharacterType.Invalid;
         [SerializeField] protected CharacterData charData;
         [SerializeField] protected Rigidbody rb;
         [SerializeField] protected Animator animator;
@@ -42,6 +53,8 @@ namespace ProjectGTA2_Unity.Characters
 
         #endregion
 
+        
+
         #region private Fields
 
         protected float currentHealth;
@@ -56,6 +69,12 @@ namespace ProjectGTA2_Unity.Characters
         #endregion
 
         #region PublicFields
+
+        public CharacterType CharacterType
+        {
+            get { return characterType; }
+        }
+
         #endregion
 
         #region UnityFunctions
@@ -135,12 +154,6 @@ namespace ProjectGTA2_Unity.Characters
                     break;
 
                 case DamageType.Car:
-                    break;
-
-                case DamageType.CopNormal:
-                    break;
-
-                case DamageType.CopGun:
                     break;
 
                 default:
@@ -269,12 +282,6 @@ namespace ProjectGTA2_Unity.Characters
                     audioEvents.PlayAudioEventOneShot("CarHit");
                     spRend.sprite = deathSprite;
                     if (animator != null) animator.SetTrigger("Dead");
-                    break;
-
-                case DamageType.CopNormal:
-                    break;
-
-                case DamageType.CopGun:
                     break;
 
                 default:

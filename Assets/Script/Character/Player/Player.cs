@@ -22,7 +22,7 @@ namespace ProjectGTA2_Unity.Characters
         {
             if (Input.GetKey(KeyCode.LeftControl))
             {
-                weaponBelt.WeaponAttack();
+                weaponBelt.AttackWithCurrentEquippedWeapon();
             }
 
             if (Input.GetKeyDown(KeyCode.E))

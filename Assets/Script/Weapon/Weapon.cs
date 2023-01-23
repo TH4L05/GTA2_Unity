@@ -13,8 +13,7 @@ namespace ProjectGTA2_Unity
         Water,
         Electro,
         Car,
-        CopNormal,
-        CopGun
+        Fist,
     }
 
     public enum AttackType

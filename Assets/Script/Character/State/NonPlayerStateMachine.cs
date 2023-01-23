@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Characters.AI;
+using ProjectGTA2_Unity.Characters.Data;
 using UnityEngine.AI;
 
 namespace ProjectGTA2_Unity

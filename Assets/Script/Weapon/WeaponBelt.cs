@@ -11,8 +11,8 @@ namespace ProjectGTA2_Unity
         public static Action<Sprite, int> WeaponChanged;
         public static Action<int> WeaponUpdate;
 
-
         [SerializeField] private List<Weapon> weapons = new List<Weapon>();
+        [SerializeField] private bool isPlayer = false;
 
         private int currentweaponIndex = 0;
         public bool GunEquipped { get; private set ;}
@@ -46,7 +46,7 @@ namespace ProjectGTA2_Unity
             }
         }
 
-        public void WeaponAttack()
+        public void AttackWithCurrentEquippedWeapon()
         {
             weapons[currentweaponIndex].Attack();
             if(currentweaponIndex != 0) WeaponUpdate?.Invoke(weapons[currentweaponIndex].CurrentAmmo);

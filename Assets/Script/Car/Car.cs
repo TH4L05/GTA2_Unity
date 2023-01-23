@@ -411,12 +411,6 @@ namespace ProjectGTA2_Unity
                     audioEvents.PlayAudioEventOneShot("ExplosionLarge");
                     break;
 
-                case DamageType.CopNormal:
-                    break;
-
-                case DamageType.CopGun:
-                    break;
-
                 default:
                     break;
             }

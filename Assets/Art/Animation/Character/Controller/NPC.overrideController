@@ -8,4 +8,14 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: NPC
   m_Controller: {fileID: 9100000, guid: 268fab15734ccec418e6670c95fae8e2, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 41a535f7b5344a0439a95abd0af55e2c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 09190a06395a5124989c0251e127df00, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9b86339f3be2b8d4baad0c4219a02582, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7f88a77721474d047ba1ee96e29ec61b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4129717c14f550d4a906d95ca0645144, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: be8e8db896dd50344a4b046b724646d6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 150189a33493a8a42baacb2b5be5e3b5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 92d097a416794fe4a90fd7d5542a776e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7b89ea9ce6f387740a97dbe6bc5da399, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 00b8afae3bd7d604983400f98a0075c8, type: 2}

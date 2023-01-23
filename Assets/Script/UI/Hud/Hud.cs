@@ -308,13 +308,6 @@ namespace ProjectGTA2_Unity.UI
                 case DamageType.Car:
                     break;
 
-                case DamageType.CopNormal:
-                    text = infoTexts[1];
-                    break;
-
-                case DamageType.CopGun:
-                    break;
-
                 default:
                     break;
             }
