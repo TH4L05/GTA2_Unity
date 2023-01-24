@@ -59,6 +59,7 @@ namespace ProjectGTA2_Unity
         protected float currentHealth;
         protected bool isDestroyed;
         protected DamageType lastDamageType;
+        protected Transform charOrgParentTransform;
 
         #endregion
 
@@ -147,7 +148,6 @@ namespace ProjectGTA2_Unity
             if (isParked) carDeltasLightsRoot.SetActive(false);          
             Color color = Game.Instance.GetRandomCarColor();
             SetCarColor(color);
-
         }
 
         #endregion
@@ -159,7 +159,10 @@ namespace ProjectGTA2_Unity
             if(isDestroyed) return;           
             rb.isKinematic = false;
             character.gameObject.SetActive(false);
+            //charOrgParentTransform = character.transform.parent;
+            //character.transform.parent = gameObject.transform;
             passangers.Add(character);
+            gameObject.name = character.gameObject.name;
 
             if (character.CompareTag("Player"))
             {
@@ -199,6 +202,7 @@ namespace ProjectGTA2_Unity
             {
                 CheckCarExit(character);
                 character.gameObject.SetActive(true);
+                //character.transform.parent = charOrgParentTransform;
 
                 //var player = character as Player;
                 //Debug.Log(player.gameObject.name);
@@ -210,6 +214,7 @@ namespace ProjectGTA2_Unity
             }
 
             passangers.Clear();
+            gameObject.name = name;
             gameObject.tag = "Car";
             gameObject.layer = LayerMask.NameToLayer("Car");
         }

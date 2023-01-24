@@ -579,7 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2925046850532560066}
-  - component: {fileID: 2925046850532560077}
+  - component: {fileID: 4772531084962094656}
   m_Layer: 0
   m_Name: WeaponBeltPlayer
   m_TagString: Untagged
@@ -613,7 +613,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2925046850532560077
+--- !u!114 &4772531084962094656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -622,7 +622,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2925046850532560067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 904b4461b7b696742b1940c2a844d801, type: 3}
+  m_Script: {fileID: 11500000, guid: 99168651e87f0a243a41b5b456196c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
@@ -637,7 +637,6 @@ MonoBehaviour:
   - {fileID: 2925046850214173123}
   - {fileID: 2925046850593974014}
   - {fileID: 2925046848822298656}
-  isPlayer: 1
 --- !u!1 &2925046850593974012
 GameObject:
   m_ObjectHideFlags: 0

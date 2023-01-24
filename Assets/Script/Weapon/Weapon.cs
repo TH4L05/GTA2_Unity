@@ -209,7 +209,7 @@ namespace ProjectGTA2_Unity
         private void ProjectileShoot()
         {
             var newProjectile = Instantiate(projectile, projectileSpawn.position, Game.Instance.player.transform.rotation);
-            newProjectile.GetComponent<Projectile>().SetValues(damage, damageType, transform.root.tag);         
+            newProjectile.GetComponent<Projectile>().SetValues(damage, damageType, transform.parent.parent.name);         
         }
 
         private void Throw()

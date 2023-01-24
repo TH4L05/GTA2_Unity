@@ -79,7 +79,7 @@ namespace ProjectGTA2_Unity
         protected virtual void OnImpact(Collider collider)
         {
             if (collider.tag == owner) return;
-            Debug.Log("ProjectileCollide");
+            //Debug.Log("ProjectileCollide");
 
             var damageableTarget = collider.GetComponent<IDamagable>();
             if (damageableTarget != null) damageableTarget.TakeDamage(damage, damageType, owner);

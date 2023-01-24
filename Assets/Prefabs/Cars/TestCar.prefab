@@ -379,7 +379,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9045682802300379213}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.02}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -677,7 +677,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9045682803160332190}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0.05, z: -0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.02}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -833,6 +833,7 @@ GameObject:
   - component: {fileID: 9045682803284159800}
   - component: {fileID: 9045682803284159801}
   - component: {fileID: 9045682803284159802}
+  - component: {fileID: 2132810211108362630}
   m_Layer: 8
   m_Name: TestCar
   m_TagString: Car
@@ -874,7 +875,6 @@ MonoBehaviour:
   carType: 1
   sr: {fileID: 9045682803633348892}
   fixedCarColor: 0
-  carColor: {r: 0, g: 0, b: 0, a: 0}
   destroyedSprite: {fileID: 21300000, guid: eda426fdb621b5048a2694deace3f307, type: 3}
   carDeltasRoot: {fileID: 9045682803134702756}
   carDeltasLightsRoot: {fileID: 9045682803437386653}
@@ -940,7 +940,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9045682803284159805}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -948,6 +948,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!208 &2132810211108362630
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045682803284159805}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.225, y: 0.175, z: 0.455}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.125, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9045682803437386653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1053,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9045682803597275684}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0.02, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.05, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1148,7 +1164,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 987aee63adbaac542abf5bde715899ac, type: 2}
+  - {fileID: 2100000, guid: b2b0a4244c52da14baf13cd0635e27f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1169,7 +1185,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 38e6d845303b39d4ba0611b4d19427e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3049d5093a97cf84bb5714a93fa91c2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1300,7 +1316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9045682803750523197
 Transform:
   m_ObjectHideFlags: 0

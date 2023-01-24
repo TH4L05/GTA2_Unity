@@ -20,7 +20,7 @@ namespace ProjectGTA2_Unity.Characters
     [RequireComponent(typeof(Rigidbody))]
     public class Character : MonoBehaviour, IDamagable
     {
-        public static Action<string,string> CharacterisDead;
+        public static Action<string,string,string> CharacterisDead;
 
         #region SerializedFields
 
@@ -30,8 +30,8 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected Rigidbody rb;
         [SerializeField] protected Animator animator;
         [SerializeField] protected BoxCollider boxCollider;
-        [SerializeField] protected SpriteRenderer spRend;
-        [SerializeField] protected AudioEventList audioEvents; 
+        [SerializeField] protected SpriteRenderer spriteRenderer;
+        [SerializeField] protected AudioEventList audioEventList; 
         [SerializeField] protected float CarEnterDistance = 2f;
 
         [Header("Health")]
@@ -40,8 +40,7 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected bool canRegenHealth = false;
 
         [Header("Death")]
-        [SerializeField] protected Sprite deathSprite;
-        [SerializeField] protected GameObject deathVfx;
+        [SerializeField] protected Sprite deathSpriteNormal;
         [SerializeField] protected float deletionTime = 5f;
 
         [Header("VFX")]
@@ -64,6 +63,7 @@ namespace ProjectGTA2_Unity.Characters
         protected DamageType lastDamageType;
         protected string lastDamageTag;
         protected string dotLastDamageTag;
+        protected string killer;
         protected bool damageOverTime;
 
         #endregion
@@ -132,6 +132,7 @@ namespace ProjectGTA2_Unity.Characters
             if(godMode || isDead) return;
 
             lastDamageType = damageType;
+            killer = character;
 
             switch (damageType)
             {
@@ -167,14 +168,14 @@ namespace ProjectGTA2_Unity.Characters
         private void TakeDamageOverTime()
         {
             DecreaseHealth(10f);
-            audioEvents.PlayAudioEventOneShot("CharacterOnFireScream");
+            audioEventList.PlayAudioEventOneShot("CharacterOnFireScream");
         }
 
         private void DamageOverTime(float repeatTime, string c)
         {
             dotLastDamageTag = c;
             damageOverTime = true;
-            audioEvents.Create3DEvent("CharacterOnFire", transform);
+            audioEventList.Create3DEvent("CharacterOnFire", transform);
             InvokeRepeating("TakeDamageOverTime", 0f, repeatTime);
         }
 
@@ -247,8 +248,12 @@ namespace ProjectGTA2_Unity.Characters
             damageOverTime = false;
             healthRegenActive = false;
             boxCollider.enabled = false;
+
             rb.isKinematic = true;
-            spRend.sortingOrder = 1;
+            rb.velocity = Vector3.zero;
+            rb.drag = 10f;
+            rb.mass = 999f;
+            spriteRenderer.sortingOrder = 1;
 
             CancelInvoke();
             
@@ -258,29 +263,30 @@ namespace ProjectGTA2_Unity.Characters
                     break;
 
                 case DamageType.Normal:
-                    spRend.sprite = deathSprite;
+                    spriteRenderer.sprite = deathSpriteNormal;
                     if (animator != null) animator.SetTrigger("Dead");
+                    if (deathVfxNormal != null) Instantiate(deathVfxNormal, transform.position, Quaternion.Euler(90f,0f,0f), transform);
                     break;
 
                 case DamageType.Fire:
-                    spRend.sprite = deathSprite;
+                    spriteRenderer.sprite = deathSpriteNormal;
                     if (animator != null) animator.SetTrigger("Dead");
                     break;
 
                 case DamageType.Water:
-                    audioEvents.PlayAudioEventOneShot("Splash");
-                    spRend.enabled = false;
+                    audioEventList.PlayAudioEventOneShot("Splash");
+                    spriteRenderer.enabled = false;
                     if (animator != null) animator.SetTrigger("Dead");                  
                     break;
 
                 case DamageType.Electro:
-                    spRend.sprite = deathSprite;
+                    spriteRenderer.sprite = deathSpriteNormal;
                     if (animator != null) animator.SetTrigger("Dead");
                     break;
 
                 case DamageType.Car:
-                    audioEvents.PlayAudioEventOneShot("CarHit");
-                    spRend.sprite = deathSprite;
+                    audioEventList.PlayAudioEventOneShot("CarHit");
+                    spriteRenderer.sprite = deathSpriteNormal;
                     if (animator != null) animator.SetTrigger("Dead");
                     break;
 
@@ -288,8 +294,8 @@ namespace ProjectGTA2_Unity.Characters
                     break;
             }
 
-            CharacterisDead?.Invoke(gameObject.tag, lastDamageTag);
-            audioEvents.RemoveAllEvents();
+            audioEventList.RemoveAllEvents();
+            CharacterisDead?.Invoke(gameObject.name, lastDamageTag, killer);
         }
 
         #endregion

@@ -42,8 +42,8 @@ namespace ProjectGTA2_Unity.UI
 
         private void Awake()
         {
-            WeaponBelt.WeaponChanged += UpdateWeapon;
-            WeaponBelt.WeaponUpdate += UpdateAmmo;
+            WeaponBeltPlayer.WeaponChanged += UpdateWeapon;
+            WeaponBeltPlayer.WeaponUpdate += UpdateAmmo;
             Player.OnDeath += PlayerDied;
             Player.OnUpdateMoney += UpdateMoney;
             Player.OnHealthChanged += UpdateHealth;
@@ -51,8 +51,8 @@ namespace ProjectGTA2_Unity.UI
 
         private void OnDestroy()
         {
-            WeaponBelt.WeaponChanged -= UpdateWeapon;
-            WeaponBelt.WeaponUpdate -= UpdateAmmo;
+            WeaponBeltPlayer.WeaponChanged -= UpdateWeapon;
+            WeaponBeltPlayer.WeaponUpdate -= UpdateAmmo;
             Player.OnDeath -= PlayerDied;
             Player.OnUpdateMoney -= UpdateMoney;
             Player.OnHealthChanged -= UpdateHealth;
@@ -209,13 +209,16 @@ namespace ProjectGTA2_Unity.UI
             if (sprite == null)
             {
                 weaponImage.gameObject.SetActive(false);
-            }
-            else
-            {
-                weaponImage.gameObject.SetActive(true);
-                weaponImage.sprite = sprite;
+                ammoTextField.gameObject.SetActive(false);
+                ammoTextShadowField.gameObject.SetActive(false);
+                return;
             }
 
+            weaponImage.gameObject.SetActive(true);
+            ammoTextField.gameObject.SetActive(true);
+            ammoTextShadowField.gameObject.SetActive(true);
+
+            weaponImage.sprite = sprite;
             UpdateAmmo(ammo);
         }
 
@@ -226,8 +229,6 @@ namespace ProjectGTA2_Unity.UI
                 Debug.LogError("Ammo Text Field Reference is Missing");
                 return;              
             }
-
-
 
             if (ammo <= 0)
             {

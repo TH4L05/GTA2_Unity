@@ -9,7 +9,7 @@ namespace ProjectGTA2_Unity.Characters
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private WeaponBelt weaponBelt;
+        [SerializeField] private WeaponBeltPlayer weaponBelt;
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
         [SerializeField] private Animator animator;

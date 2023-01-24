@@ -16,8 +16,7 @@ namespace ProjectGTA2_Unity
         public CharacterSpawner characterSpawner;
         public Camera mainCamera;
 
-        public Color[] carColors;          
-        private int moneyMultiplier = 0;
+        public Color[] carColors;
 
         #region UnityFunctions
 
@@ -25,7 +24,6 @@ namespace ProjectGTA2_Unity
         {
             Instance = this;
             Application.targetFrameRate = 60;
-            Character.CharacterisDead += CharacterKilled;
         }
 
         private void Start()
@@ -56,40 +54,18 @@ namespace ProjectGTA2_Unity
             }
         }
 
-        private void OnDestroy()
-        {
-            
-            Character.CharacterisDead -= CharacterKilled;
-        }
 
         #endregion
 
         public Color GetRandomCarColor()
         {
-            int rnd = UnityEngine.Random.Range(0, carColors.Length);
+            int rnd = Util.RandomIntNumber(0, carColors.Length);
             return carColors[rnd];
         }
 
         private void Initialize()
         {     
         }
-
-        public void CharacterKilled(string tag, string killer)
-        {
-            if (tag == "Player") return;
-
-            if (tag == "NPC" && killer == "Player")
-            {
-                Debug.Log("Increase Player Money for kill a NPC");
-                player.IncreaseMoney(10);
-            }
-            else if (tag == "Car")
-            {
-                Debug.Log("Increase Player Money for destroy a Car");
-                player.IncreaseMoney(10);
-            }
-        }
-
     }  
 }
 

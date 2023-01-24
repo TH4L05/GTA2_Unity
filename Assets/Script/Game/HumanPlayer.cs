@@ -24,6 +24,7 @@ namespace ProjectGTA2_Unity
         public void IncreaseMoney(int amount)
         {
             money += amount;
+            player.IncreaseMoney(money);
 
             if (money > moneyMax)
             {

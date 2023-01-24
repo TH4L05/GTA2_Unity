@@ -12,7 +12,7 @@ namespace ProjectGTA2_Unity.Characters
         public static Action<float,float> OnHealthChanged;
         public static Action<int> OnUpdateMoney;
 
-        [SerializeField] private WeaponBelt weaponBelt;
+        [SerializeField] private WeaponBeltPlayer weaponBelt;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private int money;
 
@@ -100,8 +100,7 @@ namespace ProjectGTA2_Unity.Characters
         protected override void Death()
         {
             base.Death();
-            OnDeath?.Invoke(lastDamageType, gameObject.name);
-            
+            OnDeath?.Invoke(lastDamageType, gameObject.name);           
         }
     }
 }

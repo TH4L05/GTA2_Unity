@@ -4,6 +4,7 @@ using UnityEngine;
 using ProjectGTA2_Unity.Characters;
 using ProjectGTA2_Unity.Characters.Data;
 using UnityEngine.AI;
+using Unity.Burst.CompilerServices;
 
 namespace ProjectGTA2_Unity
 {
@@ -20,7 +21,11 @@ namespace ProjectGTA2_Unity
             Flee,
         }
 
+        #region SerializedFields
+
         [SerializeField] private CharacterData charData;
+        [SerializeField] private Rigidbody rb;
+        [SerializeField] protected Transform groundCheck;
         [SerializeField] private WeaponBelt weaponBelt;
         [SerializeField] private Animator animator;
         [SerializeField] private NavMeshAgent navAgent;
@@ -34,8 +39,26 @@ namespace ProjectGTA2_Unity
         [SerializeField] private float weaponGunAttackDistance = 3f;
         [SerializeField] private float weaponFistAttackDistance = 0.55f;
 
+        #endregion
+
+        #region PrivateFields
+
+        private RaycastHit hit;
+        private SurfaceType surfaceType;
         private float attackDistance;
- 
+        private bool onGround;
+        private bool onSlope;
+        private bool onJump;
+        private bool onCar;
+        private float startFallHeight;
+        private bool isFalling => !onGround && rb.velocity.y < 0;
+        private bool wasFalling;
+
+        #endregion
+
+        #region PublicFields
+        public bool IsDead { get; set; }
+
         [Header("Info")]
         public State currentstate;
         public Vector3 destination;
@@ -53,11 +76,14 @@ namespace ProjectGTA2_Unity
         public Color gizmoColor;
         public Transform target;
 
+        #endregion
+
         #region UnityFunctions
 
         private void Awake()
         {
             currentstate = State.Idle;
+            rb = GetComponent<Rigidbody>();
         }
 
         private void Start()
@@ -66,11 +92,28 @@ namespace ProjectGTA2_Unity
 
         private void Update()
         {
+            if (IsDead) return;
+
+            bool wasGrounded = onGround;
+
+            GroundCheck();
+            if (!wasFalling && isFalling) startFallHeight = transform.position.y;
+            FallDamageCheck(wasGrounded);
+            wasFalling = isFalling;
+
             AggroCHeck();
             UpdateState();
         }
 
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = gizmoColor;
+            Gizmos.DrawCube(destination, new Vector3(0.3f, 0.3f, 0.3f));
+        }
+
         #endregion
+
+        #region States
 
         private void UpdateState()
         {
@@ -136,8 +179,6 @@ namespace ProjectGTA2_Unity
             }
             return false;
         }
-
-        #region States
 
         #region Idle
 
@@ -276,18 +317,6 @@ namespace ProjectGTA2_Unity
 
         #endregion
 
-        private bool IsPathBlocked()
-        {
-            Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), transform.forward);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, 0.85f))
-            {
-                return true;
-            }
-            return false;
-        }
-
         #region Destination
 
         private void MoveToDestination(Vector3 destination, float speed)
@@ -396,6 +425,75 @@ namespace ProjectGTA2_Unity
             //}
         }
 
+        private bool IsPathBlocked()
+        {
+            Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), transform.forward);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 0.85f))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void GroundCheck()
+        {
+            onGround = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
+            animator.SetBool("OnGround", onGround);
+            onCar = false;
+
+            Vector3 rayOrigin = groundCheck.position;
+            Vector3 rayDirection = Vector3.down;
+            Ray ray = new Ray(rayOrigin, rayDirection);
+
+            if (Physics.Raycast(ray, out hit, 0.2f))
+            {
+                SlopeCheck(hit);
+
+                var tile = hit.collider.gameObject.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    surfaceType = tile.GetSurfaceType();
+                    //return;
+                }
+
+                var car = hit.collider.gameObject.GetComponent<Car>();
+                if (car)
+                {
+                    onCar = true;
+                }
+            }
+
+            if (onJump && onGround)
+            {
+                onJump = false;
+                animator.SetBool("Jump", false);
+            }
+        }
+
+        private void SlopeCheck(RaycastHit hit)
+        {
+            onSlope = false;
+            if (hit.normal != Vector3.up)
+            {
+                onSlope = true;
+            }
+        }
+
+        private void FallDamageCheck(bool wasGrounded)
+        {
+            float fallHeight = startFallHeight + transform.position.y;
+
+            if (!wasGrounded && onGround)
+            {
+                if (fallHeight > charData.MinFallHeight)
+                {
+                    //Game.Instance.player.TakeDamage(fallHeight * 10f, DamageType.Normal, gameObject.tag);
+                }
+            }
+        }
+
         #endregion
 
         #region Other
@@ -449,12 +547,6 @@ namespace ProjectGTA2_Unity
         }
 
         #endregion
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = gizmoColor;
-            Gizmos.DrawCube(destination, new Vector3(0.3f, 0.3f, 0.3f));
-        }
     }
 }
 
