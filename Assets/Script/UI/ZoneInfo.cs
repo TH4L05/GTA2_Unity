@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using ProjectGTA2_Unity.Cars;
 
 namespace ProjectGTA2_Unity
 {

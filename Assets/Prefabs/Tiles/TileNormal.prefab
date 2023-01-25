@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 2411712239888922077}
   m_Layer: 6
   m_Name: TileNormal
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -130,9 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b4a235b483f2743bc9376654c1b3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileTypeA: 0
-  tileTypeB: 1
+  tileTypeMain: -1
+  tileTypeSecond: -1
   surfaceType: 0
+  roadDirections: 
 --- !u!212 &942646517488451936
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -171,8 +172,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1105158661
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 939582ffe50d0c44b89d6f24edbbb590, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

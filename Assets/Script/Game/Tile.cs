@@ -34,25 +34,41 @@ namespace ProjectGTA2_Unity
         RoadJunction
     }
 
+    public enum RoadDirection
+    {
+        Invalid = -1,
+        None,
+        Up,
+        Down,
+        Left,
+        Right,
+    }
+
     public class Tile : MonoBehaviour
     {
-        [SerializeField] private TileTypeMain tileTypeA = TileTypeMain.Invalid;
-        [SerializeField] private TileTypeSecond tileTypeB = TileTypeSecond.Invalid;
+        [SerializeField] private TileTypeMain tileTypeMain = TileTypeMain.Invalid;
+        [SerializeField] private TileTypeSecond tileTypeSecond = TileTypeSecond.Invalid;
         [SerializeField] private SurfaceType surfaceType = SurfaceType.Invalid;
+        [SerializeField] private RoadDirection[] roadDirections;
 
         public TileTypeMain GetTileTypeA()
         {
-            return tileTypeA;
+            return tileTypeMain;
         }
 
         public TileTypeSecond GetTileTypeB()
         {
-            return tileTypeB;
+            return tileTypeSecond;
         }
 
         public SurfaceType GetSurfaceType()
         {
             return surfaceType;
+        }
+
+        public RoadDirection[] GetRoadDirections()
+        {
+            return roadDirections;
         }
     }
 }

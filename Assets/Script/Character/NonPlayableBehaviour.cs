@@ -1,10 +1,10 @@
-using System.Collections;
+/// <author>Thoams Krahl</author>
+
 using System.Collections.Generic;
 using UnityEngine;
-using ProjectGTA2_Unity.Characters;
-using ProjectGTA2_Unity.Characters.Data;
 using UnityEngine.AI;
-using Unity.Burst.CompilerServices;
+using ProjectGTA2_Unity.Characters.Data;
+using ProjectGTA2_Unity.Cars;
 
 namespace ProjectGTA2_Unity
 {
@@ -26,7 +26,7 @@ namespace ProjectGTA2_Unity
         [SerializeField] private CharacterData charData;
         [SerializeField] private Rigidbody rb;
         [SerializeField] protected Transform groundCheck;
-        [SerializeField] private WeaponBelt weaponBelt;
+        [SerializeField] private Armoury weaponBelt;
         [SerializeField] private Animator animator;
         [SerializeField] private NavMeshAgent navAgent;
 
@@ -505,6 +505,7 @@ namespace ProjectGTA2_Unity
 
         private void LookAtTarget(Vector3 targetposition, float ratio)
         {
+            if (targetposition == Vector3.zero) return;
             Vector3 direction = (targetposition - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * ratio);

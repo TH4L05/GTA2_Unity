@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 946253836185721217}
   m_Layer: 4
   m_Name: TileWater
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 23
@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d0bd250d318b148a976d15557d32fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileTypeA: 0
-  tileTypeB: -1
+  tileTypeMain: -1
+  tileTypeSecond: -1
   surfaceType: 3
+  roadDirections: 
 --- !u!212 &1023293471893660488
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -88,8 +89,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1105158661
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: eb786fd80e63ece428a57e3dcc65812e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

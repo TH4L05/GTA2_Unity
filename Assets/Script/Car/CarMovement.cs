@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static ProjectGTA2_Unity.Car;
+/// <author>Thoams Krahl</author>
 
-namespace ProjectGTA2_Unity
+using UnityEngine;
+
+namespace ProjectGTA2_Unity.Cars
 {
     [RequireComponent(typeof(Rigidbody))]
     public class CarMovement : MonoBehaviour

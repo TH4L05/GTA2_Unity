@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Car
   - NPC
+  - Tile
   layers:
   - Default
   - TransparentFX
@@ -44,9 +45,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: CarsAndCharacters
+  - name: Tile
+    uniqueID: 1105158661
+    locked: 0
+  - name: Collectable
+    uniqueID: 553557279
+    locked: 0
+  - name: Projectile
+    uniqueID: 3306547125
+    locked: 0
+  - name: Player
     uniqueID: 1272297729
     locked: 0
-  - name: Over
-    uniqueID: 553557279
+  - name: NPC
+    uniqueID: 2081535147
+    locked: 0
+  - name: Cars
+    uniqueID: 2503957641
+    locked: 0
+  - name: Other
+    uniqueID: 3697961355
     locked: 0

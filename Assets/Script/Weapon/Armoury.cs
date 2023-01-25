@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ProjectGTA2_Unity
 {
-    public class WeaponBelt : MonoBehaviour
+    public class Armoury : MonoBehaviour
     {            
         [SerializeField] protected List<Weapon> weapons = new List<Weapon>();
 

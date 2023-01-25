@@ -2,7 +2,7 @@
 
 using UnityEngine;
 using ProjectGTA2_Unity.Characters;
-using Unity.Burst.CompilerServices;
+using ProjectGTA2_Unity.Cars;
 
 namespace ProjectGTA2_Unity
 {
@@ -78,7 +78,7 @@ namespace ProjectGTA2_Unity
 
         protected virtual void OnImpact(Collider collider)
         {
-            if (collider.tag == owner) return;
+            if (collider.gameObject.name == owner) return;
             //Debug.Log("ProjectileCollide");
 
             var damageableTarget = collider.GetComponent<IDamagable>();

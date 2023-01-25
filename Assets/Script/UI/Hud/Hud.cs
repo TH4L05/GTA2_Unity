@@ -42,8 +42,8 @@ namespace ProjectGTA2_Unity.UI
 
         private void Awake()
         {
-            WeaponBeltPlayer.WeaponChanged += UpdateWeapon;
-            WeaponBeltPlayer.WeaponUpdate += UpdateAmmo;
+            ArmouryPlayer.WeaponChanged += UpdateWeapon;
+            ArmouryPlayer.WeaponUpdate += UpdateAmmo;
             Player.OnDeath += PlayerDied;
             Player.OnUpdateMoney += UpdateMoney;
             Player.OnHealthChanged += UpdateHealth;
@@ -51,8 +51,8 @@ namespace ProjectGTA2_Unity.UI
 
         private void OnDestroy()
         {
-            WeaponBeltPlayer.WeaponChanged -= UpdateWeapon;
-            WeaponBeltPlayer.WeaponUpdate -= UpdateAmmo;
+            ArmouryPlayer.WeaponChanged -= UpdateWeapon;
+            ArmouryPlayer.WeaponUpdate -= UpdateAmmo;
             Player.OnDeath -= PlayerDied;
             Player.OnUpdateMoney -= UpdateMoney;
             Player.OnHealthChanged -= UpdateHealth;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Characters.Data;
+using ProjectGTA2_Unity.Cars;
 
 namespace ProjectGTA2_Unity.Characters
 {
@@ -162,7 +163,7 @@ namespace ProjectGTA2_Unity.Characters
             }
 
             DecreaseHealth(damageAmount);         
-            Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount.ToString("0")} damage by {character}</color>");
+            Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount} {damageType} damage by {character}</color>");
         }
 
         private void TakeDamageOverTime()

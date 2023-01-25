@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1322824239110668383}
   - component: {fileID: 1322824239110668382}
   - component: {fileID: 1322824239110668381}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2081535147
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8ba935f079cc02747b7ce170e137b573, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 1322824239291594779}
   - component: {fileID: 1322824239291594772}
   m_Layer: 0
-  m_Name: WeaponBelt
+  m_Name: Armoury
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 1322824239977015354}
-  isPlayer: 0
 --- !u!1 &1322824239346174627
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1322824240239271661}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4db5661da147ce4184f79cfb7af5621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: -1
+  characterType: 1
   charData: {fileID: 11400000, guid: e4cb940a2c6f3474f980a6c6fb341376, type: 2}
   rb: {fileID: 1322824240491747221}
   animator: {fileID: 1322824239110668381}

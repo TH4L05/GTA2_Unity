@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Characters;
 using System;
+using static ProjectGTA2_Unity.Cars.CarCollider;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.Cars
 {
     public enum CarType
     {
@@ -31,23 +32,29 @@ namespace ProjectGTA2_Unity
 
         #region SerializedFields
 
+        [Header("Ref")]
+        [SerializeField] protected LayerMask groundLayer;
+        [SerializeField] protected CarMovement carMovementComponent;
+        [SerializeField] protected AudioEventList audioEvents;
+        [SerializeField] protected CarCollider[] carColliders;
+ 
+        [Header("Settings")]
         [SerializeField] protected new string name;
         [SerializeField] protected CarType carType = CarType.Invalid;
-        [SerializeField] protected SpriteRenderer sr;
-        [SerializeField] protected bool fixedCarColor = false;
-        //[SerializeField] protected Color carColor;
-        [SerializeField] protected Sprite destroyedSprite;
-        [SerializeField] protected GameObject carDeltasRoot;
-        [SerializeField] protected GameObject carDeltasLightsRoot;
-
         [SerializeField] protected float maxHealth;
-        [SerializeField] protected CarMovement carMovementComponent;
+        [SerializeField] protected bool fixedCarColor = false;
         [SerializeField] protected Transform[] carEntryPoints;
-        [SerializeField] protected GameObject[] destroyVFX;
-        [SerializeField] protected SpriteRenderer[] damageSpriteRenderers;
-        [SerializeField] protected LayerMask groundLayer;
-        [SerializeField] protected AudioEventList audioEvents;
         [SerializeField] protected bool isParked = false;
+
+        [Header("Visuals")]
+        [SerializeField] protected GameObject carDeltasRoot;
+        [SerializeField] protected SpriteRenderer spriteRendererMain;
+        [SerializeField] protected Sprite destroyedSprite;
+        [SerializeField] protected SpriteRenderer[] damageSpriteRenderers;
+        [SerializeField] protected SpriteRenderer[] lightSpriteRenderers;
+
+        [Header("VFX")]
+        [SerializeField] protected GameObject[] destroyVFX;
 
         #endregion
 
@@ -82,6 +89,14 @@ namespace ProjectGTA2_Unity
             if (Input.GetKeyDown(KeyCode.E))
             {
                 CharacterExit();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var carCollider in carColliders)
+            {
+                carCollider.onHit -= OnHit;
             }
         }
 
@@ -127,8 +142,14 @@ namespace ProjectGTA2_Unity
             }
             else
             {
+                var tile = collision.collider.GetComponent<Tile>();
 
+                if (tile && tile.GetTileTypeA() == TileTypeMain.Wall)
+                {
+                }
             }
+
+
         }
 
         #endregion
@@ -138,14 +159,20 @@ namespace ProjectGTA2_Unity
         private void Initialize()
         {
             rb = GetComponent<Rigidbody>();
+
+            foreach (var carCollider in carColliders)
+            {
+                carCollider.onHit += OnHit;
+            }
         }
 
         private void StartSetup()
         {
-            rb.isKinematic = true;
             currentHealth = maxHealth;
+            rb.isKinematic = true;
 
-            if (isParked) carDeltasLightsRoot.SetActive(false);          
+            if (isParked) EnableDisableCarLights(false);   
+            EnableDisableCarDamage(false);
             Color color = Game.Instance.GetRandomCarColor();
             SetCarColor(color);
         }
@@ -228,7 +255,7 @@ namespace ProjectGTA2_Unity
         private void StartEngine()
         {
             audioEvents.PlayAudioEventOneShot("StartEngine1");
-            carDeltasLightsRoot.SetActive(true);
+            EnableDisableCarLights(true);
             isActive = true;
             isParked = false;
             carMovementComponent.SetActive(isActive);
@@ -241,98 +268,16 @@ namespace ProjectGTA2_Unity
         private void SetCarColor(Color color)
         {
             if (fixedCarColor) return;
-            var material = sr.material;
+            var material = spriteRendererMain.material;
             material.SetColor("_CarColor", color);
+
+            foreach (var spriteRenderer in damageSpriteRenderers)
+            {
+                material = spriteRenderer.material;
+                material.SetColor("_CarColor", color);
+            }
+
         }
-
-        /*[Space(2),Header("Sprite and Color")]
-        public Color[] spriteColors;
-        public Color[] spriteColors2;
-        public Texture2D tex;
-        public Texture2D tex2;
-        public Sprite carSprite;
-        public List<string> colorStrings = new List<string>();
-        public Color[] ignoredColors;
-
-
-        private void SetCarColors(Color color)
-        {
-            if (sr != null) sr.color = carColor;
-
-            foreach (var sr in damageSpriteRenderers)
-            {
-                sr.color = carColor;
-            }
-
-
-            //Color Test
-
-            colorStrings = Serialization.LoadFromFileTextByLine("77.pal");
-            ignoredColors = new Color[colorStrings.Count-1];
-
-            for (int i = 0; i < 4; i++)
-            {
-                colorStrings.RemoveAt(0);
-            }
-         
-            for (int i = 0; i < colorStrings.Count - 1; i++)
-            {
-                string[] tempString = colorStrings[i].Split(' ');
-                float r = float.Parse(tempString[0]) * 100 / colorStrings.Count;
-                float g = float.Parse(tempString[1]) * 100 / colorStrings.Count;
-                float b = float.Parse(tempString[2]) * 100 / colorStrings.Count;
-                ignoredColors[i] = new Color(r /100, g/100, b/100, 1f);
-            }
-       
-            tex = carSprite.texture;
-
-            spriteColors = tex.GetPixels(0,0,carSprite.texture.width, carSprite.texture.height, 0);
-            spriteColors2 = tex.GetPixels(0, 0, carSprite.texture.width, carSprite.texture.height, 0);
-
-            for (int i = 0; i < spriteColors2.Length; i++)
-            {
-                bool ignored = false;
-
-                if (spriteColors2[i].a == 0)
-                {
-                    Debug.Log("TransparentPixel");
-                    ignored = true;
-                }
-                if (spriteColors2[i] == Color.white)
-                {
-                    Debug.Log("WhitePixel");
-                    ignored = true;
-                }
-
-                for (int x = 0; x < ignoredColors.Length; x++)
-                {
-                    if (spriteColors2[i] == ignoredColors[x])
-                    {
-                        ignored = true;
-                        Debug.Log("IgnoredPixel");
-                        break;
-                    }
-                }
-
-                if (ignored) continue;
-
-                Color newCol = (spriteColors2[i] + color) / 2;
-                //Color newCol = Color.Lerp(spriteColors2[i], color, 0.75f);
-                spriteColors2[i] = newCol;
-            }
-
-            Texture2D texCol = new Texture2D(tex.width, tex.height, TextureFormat.ARGB32, false);
-            texCol.SetPixels(spriteColors2, 0);
-            texCol.Apply();
-            tex2 = texCol;         
-            Sprite coloredCarSprite = Sprite.Create(texCol, carSprite.rect, carSprite.pivot);
-            coloredCarSprite.name = "COLORED-" + carSprite.name;
-            sr.sprite = carSprite;
-
-            var bytesArray = texCol.EncodeToPNG();
-
-            Serialization.SaveFileByteArray("testPicture.png", bytesArray);
-        }*/
 
         #endregion
 
@@ -378,23 +323,23 @@ namespace ProjectGTA2_Unity
 
                 case DamageType.Normal:
                     Destroy(gameObject, 60f);
-                    sr.color = Color.white;
-                    sr.sprite = destroyedSprite;
+                    spriteRendererMain.color = Color.white;
+                    spriteRendererMain.sprite = destroyedSprite;
                     SpawnDestroyVFX();
                     audioEvents.PlayAudioEventOneShot("ExplosionLarge");
                     break;
 
                 case DamageType.Fire:
                     Destroy(gameObject, 60f);
-                    sr.color = Color.white;
-                    sr.sprite = destroyedSprite;
+                    spriteRendererMain.color = Color.white;
+                    spriteRendererMain.sprite = destroyedSprite;
                     SpawnDestroyVFX();
                     audioEvents.PlayAudioEventOneShot("ExplosionLarge");
                     break;
 
                 case DamageType.Water:
                     Destroy(gameObject, 5f);
-                    sr.enabled = false;
+                    spriteRendererMain.enabled = false;
                     var collider = GetComponent<Collider>() as BoxCollider;
                     collider.enabled = false;
                     audioEvents.PlayAudioEventOneShot("Splash");
@@ -402,16 +347,16 @@ namespace ProjectGTA2_Unity
 
                 case DamageType.Electro:
                     Destroy(gameObject, 60f);
-                    sr.color = Color.white;
-                    sr.sprite = destroyedSprite;
+                    spriteRendererMain.color = Color.white;
+                    spriteRendererMain.sprite = destroyedSprite;
                     SpawnDestroyVFX();
                     audioEvents.PlayAudioEventOneShot("ExplosionLarge");
                     break;
 
                 case DamageType.Car:
                     Destroy(gameObject, 60f);
-                    sr.color = Color.white;
-                    sr.sprite = destroyedSprite;
+                    spriteRendererMain.color = Color.white;
+                    spriteRendererMain.sprite = destroyedSprite;
                     SpawnDestroyVFX();
                     audioEvents.PlayAudioEventOneShot("ExplosionLarge");
                     break;
@@ -433,5 +378,103 @@ namespace ProjectGTA2_Unity
 
         #endregion
 
+        public void EnteredWorkshop(WorkshopType type)
+        {
+            switch (type)
+            {
+                case WorkshopType.Invalid:
+                    break;
+                case WorkshopType.ColorChange:
+                    int rndIndex = Util.RandomIntNumber(0, Game.Instance.carColors.Length);
+                    Color newColor = Game.Instance.carColors[rndIndex];
+                    SetCarColor(newColor);
+                    EnableDisableCarDamage(false);
+                    EnableDisableCarLights(true);
+                    break;
+                case WorkshopType.Bomb:
+                    break;
+                case WorkshopType.Macgun:
+                    break;
+                case WorkshopType.Oil:
+                    break;
+                case WorkshopType.Mines:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #region Lights and Damage Sprites
+        private void OnHit(HitDirection hitDirection)
+        {           
+            (float, float, float, CarMovement.MovementDirection) movementValues = carMovementComponent.MovementValues;
+
+            switch (movementValues.Item4)
+            {
+                case CarMovement.MovementDirection.Forward:
+                    if (movementValues.Item1 < movementValues.Item2 * 0.45f) return;
+                    break;
+                case CarMovement.MovementDirection.Backward:
+                    if (movementValues.Item1 < movementValues.Item3 * 0.45f) return;
+                    break;
+
+                default:
+                    return;
+            }
+
+            Debug.Log(hitDirection.ToString());
+            switch (hitDirection)
+            {
+                case HitDirection.FontLeft:
+                   
+                    EnableDisableCarLights(false, 0);
+                    EnableDisableCarDamage(true, 0);
+                    break;
+                case HitDirection.FrontRight:
+                    EnableDisableCarLights(false, 1);
+                    EnableDisableCarDamage(true, 1);
+                    break;
+                case HitDirection.BackLeft:
+                    EnableDisableCarLights(false, 2);
+                    EnableDisableCarDamage(true, 2);
+                    break;
+                case HitDirection.BackRight:
+                    EnableDisableCarLights(false, 3);
+                    EnableDisableCarDamage(true, 3);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void EnableDisableCarLights(bool enabled)
+        {
+            foreach (var sp in lightSpriteRenderers)
+            {
+                sp.enabled = enabled;
+            }
+        }
+
+        private void EnableDisableCarLights(bool enabled, int index)
+        {
+            if (index < 0 || index > lightSpriteRenderers.Length) return;
+            lightSpriteRenderers[index].enabled = enabled;
+        }
+
+        private void EnableDisableCarDamage(bool enabled)
+        {
+            foreach (var sp in damageSpriteRenderers)
+            {
+                sp.enabled = enabled;
+            }
+        }
+
+        private void EnableDisableCarDamage(bool enabled, int index)
+        {
+            if (index < 0 || index > damageSpriteRenderers.Length) return;
+            damageSpriteRenderers[index].enabled = enabled;
+        }
+
+        #endregion
     }
 }

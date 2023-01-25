@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ProjectGTA2_Unity
 {
-    public class WeaponBeltPlayer : WeaponBelt
+    public class ArmouryPlayer : Armoury
     {
         public static Action<int> WeaponUpdate;
         public static Action<Sprite, int> WeaponChanged;

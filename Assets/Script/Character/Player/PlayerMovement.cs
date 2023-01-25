@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 using ProjectGTA2_Unity.Characters.Data;
+using ProjectGTA2_Unity.Cars;
 
 namespace ProjectGTA2_Unity.Characters
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private WeaponBeltPlayer weaponBelt;
+        [SerializeField] private ArmouryPlayer weaponBelt;
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
         [SerializeField] private Animator animator;
@@ -63,6 +63,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private void FixedUpdate()
         {
+            rb.useGravity = onGround;
             if (!onGround)
             {
                 if (onCar)

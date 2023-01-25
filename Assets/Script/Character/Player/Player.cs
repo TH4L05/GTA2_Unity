@@ -12,7 +12,7 @@ namespace ProjectGTA2_Unity.Characters
         public static Action<float,float> OnHealthChanged;
         public static Action<int> OnUpdateMoney;
 
-        [SerializeField] private WeaponBeltPlayer weaponBelt;
+        [SerializeField] private ArmouryPlayer weaponBelt;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private int money;
 
