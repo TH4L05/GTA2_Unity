@@ -4,6 +4,18 @@ using UnityEngine;
 
 namespace ProjectGTA2_Unity.Cars
 {
+    [System.Serializable]
+    public struct Gear
+    {
+        public Gear(float sp)
+        {
+            speedOffset = sp;
+        }
+        public float speedOffset;
+    }
+
+
+
     [RequireComponent(typeof(Rigidbody))]
     public class CarMovement : MonoBehaviour
     {
@@ -24,17 +36,23 @@ namespace ProjectGTA2_Unity.Cars
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
         [SerializeField] protected float gravityFactor = 15f;
+        [SerializeField] protected Gear[] gears = {new Gear(0.33f), new Gear(0.55f), new Gear(1f) };
 
         #endregion
 
         #region PrivateFields
 
         private Rigidbody rb;
-        private bool isActive = false;
+        [SerializeField] private bool isActive = false;
         private float currentSpeed;
+        private int currentGear = 0;
         private Vector2 input = Vector2.zero;
         private MovementDirection movementDirection;
-        private bool onGround;
+        [SerializeField] private bool onGround;
+        [SerializeField] private bool isPlayerControlled;
+        [SerializeField] private RoadDirection[] roadDirections;
+        [SerializeField] private Vector3 destination;
+        [SerializeField] private SurfaceType surfaceType;
 
         #endregion
 
@@ -54,15 +72,22 @@ namespace ProjectGTA2_Unity.Cars
         private void Update()
         {
             GroundCheck();
-            UpdatePosition();
-            Rotation();
-
+           
             if (!onGround)
             {
                 rb.AddForce(new Vector3(0, -1, 0) * gravityFactor, ForceMode.Acceleration);
             }
 
             if (!isActive) return;
+
+            UpdatePosition();
+            Rotation();
+
+            if (!isPlayerControlled)
+            {
+                NpcControl();
+                return;
+            }
             InputCheck();           
         }
 
@@ -74,13 +99,109 @@ namespace ProjectGTA2_Unity.Cars
 
         #endregion
 
-        public void SetActive(bool active)
+        public void SetActive(bool active, bool playerControlled)
         {
             isActive = active;
+            isPlayerControlled = playerControlled;
+        }
+
+        private void NpcControl()
+        {
+            if (roadDirections.Length == 0)
+            {
+                CheckRoadDirections(RoadDirection.None);
+                return;
+            }
+
+            if (roadDirections.Length < 2)
+            {
+                CheckRoadDirections(roadDirections[0]);
+            }
+            else
+            {
+                int r = Util.RandomIntNumber(0, roadDirections.Length);
+                CheckRoadDirections(roadDirections[r]);
+            }         
+        }
+
+        private void CheckRoadDirections(RoadDirection direction)
+        {
+            Vector3 vec = Vector3.zero;
+
+            switch (direction)
+            {
+                case RoadDirection.Invalid:
+                    vec = Vector3.zero;
+                    break;
+                case RoadDirection.None:
+                    vec = Vector3.zero;
+                    break;
+                case RoadDirection.Up:
+                    vec = Vector3.forward;
+                    break;
+                case RoadDirection.Down:
+                    vec = -Vector3.forward;
+                    break;
+                case RoadDirection.Left:
+                    vec = -Vector3.right;
+                    break;
+                case RoadDirection.Right:
+                    vec = Vector3.right;
+                    break;
+                default:
+                    break;
+            }
+
+            if(vec == Vector3.zero)
+            {
+                Brake(brakePower);
+                return;
+            }
+
+            if (transform.forward.normalized == vec)
+            {
+                Debug.Log("forwardDirection");
+                Accerlate();
+            }
+            else
+            {
+                NpcRotate(vec);
+            }
+        }
+
+        private void NpcRotate(Vector3 vec)
+        {
+            float step = Time.deltaTime * 2.2f;
+            Vector3 direction = Vector3.RotateTowards(transform.forward.normalized, vec, step, 0f);
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+
+        private bool CheckTile(Vector3 pos)
+        {
+            RaycastHit hit;
+            Ray ray = new Ray(pos, Vector3.down);
+            //Debug.DrawRay(pos, Vector3.down * 0.5f, Color.red);
+
+            if (Physics.Raycast(ray, out hit, 0.5f) && pos != Vector3.zero)
+            {
+                var tile = hit.collider.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    if (tile.GetTileTypeA() == TileTypeMain.Floor && (tile.GetTileTypeB() == TileTypeSecond.Road || tile.GetTileTypeB() == TileTypeSecond.RoadJunction))
+                    {
+                        //Debug.Log("Found new Destination Tile _> " + tile.gameObject.name);                       
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            return false;
         }
 
         private void InputCheck()
         {
+            if (!isPlayerControlled) return;
             //move = Vector3.zero;
 
             input.x = Input.GetAxis("Horizontal");
@@ -120,14 +241,26 @@ namespace ProjectGTA2_Unity.Cars
         private void Accerlate()
         {
             currentSpeed += Time.deltaTime * accerlation;
-
+ 
             switch (movementDirection)
             {
                 case MovementDirection.Forward:
-                    if (currentSpeed >= maxForwardSpeed)
+
+                    float currentMax = maxForwardSpeed * gears[currentGear].speedOffset;
+
+                    if(isPlayerControlled && currentGear< gears.Length - 1 && currentSpeed >= currentMax)
+                    {
+                        IncreaseGear();
+                    }
+                    else if(currentSpeed >= currentMax)
+                    {
+                        currentSpeed = currentMax;
+                    }
+
+                    /*if (currentSpeed >= maxForwardSpeed)
                     {
                         currentSpeed = maxForwardSpeed;
-                    }
+                    }*/
                     break;
 
                 case MovementDirection.Backward:
@@ -142,6 +275,16 @@ namespace ProjectGTA2_Unity.Cars
             }
         }
 
+        private void IncreaseGear()
+        {
+            currentGear++;
+            
+            if (currentGear >= gears.Length)
+            {
+                currentGear = gears.Length - 1;
+            }
+        }
+
         private void Brake(float brakePower)
         {
             currentSpeed -= Time.deltaTime * brakePower;
@@ -149,6 +292,7 @@ namespace ProjectGTA2_Unity.Cars
             if (currentSpeed <= 0.1f)
             {
                 currentSpeed = 0;
+                currentGear = 0;
             }
         }
 
@@ -159,6 +303,7 @@ namespace ProjectGTA2_Unity.Cars
             if (currentSpeed <= 0.1f)
             {
                 currentSpeed = 0;
+                currentGear = 0;
             }
         }
 
@@ -238,8 +383,9 @@ namespace ProjectGTA2_Unity.Cars
                 //SlopeCheck(hit);
 
                 var tile = hit.collider.gameObject.GetComponent<Tile>();
+                roadDirections = tile.GetRoadDirections();
                 //if (tile == null) return;
-                //surfaceType = tile.GetSurfaceType();
+                surfaceType = tile.GetSurfaceType();
             }
         }
     }

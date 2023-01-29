@@ -122,9 +122,21 @@ MonoBehaviour:
   OnCollection:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 21a2c1004cc9db34f996dc4375f7312d, type: 2}
-        m_TargetAssemblyTypeName: ProjectGTA2_Unity.AudioEventList, Assembly-CSharp
-        m_MethodName: PlayAudioEventOneShot
+      - m_Target: {fileID: 11400000, guid: ad4364fa5c321c24180982d30657c28f, type: 2}
+        m_TargetAssemblyTypeName: ProjectGTA2_Unity.Audio.AudioEventListSO, Assembly-CSharp
+        m_MethodName: SetAttachedGameObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: ad4364fa5c321c24180982d30657c28f, type: 2}
+        m_TargetAssemblyTypeName: ProjectGTA2_Unity.Audio.AudioEventListSO, Assembly-CSharp
+        m_MethodName: PlayAudioEventOneShotAttached
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -140,6 +152,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  audioEventList: {fileID: 11400000, guid: ad4364fa5c321c24180982d30657c28f, type: 2}
 --- !u!65 &5774003389457113679
 BoxCollider:
   m_ObjectHideFlags: 0

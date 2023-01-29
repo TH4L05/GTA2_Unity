@@ -1,10 +1,12 @@
 /// <author>Thoams Krahl</author>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Characters.Data;
 using ProjectGTA2_Unity.Cars;
+using ProjectGTA2_Unity.Audio;
 
 namespace ProjectGTA2_Unity.Characters
 {
@@ -32,7 +34,7 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected Animator animator;
         [SerializeField] protected BoxCollider boxCollider;
         [SerializeField] protected SpriteRenderer spriteRenderer;
-        [SerializeField] protected AudioEventList audioEventList; 
+        [SerializeField] protected AudioEventList audioEvents; 
         [SerializeField] protected float CarEnterDistance = 2f;
 
         [Header("Health")]
@@ -141,7 +143,7 @@ namespace ProjectGTA2_Unity.Characters
                     break;
 
                 case DamageType.Normal:
-                    charData.AudioEvents.PlayAudioEventOneShot("DamageNormal");
+                    audioEvents.PlayAudioEventOneShotAttached("DamageNormal", gameObject);
                     break;
 
                 case DamageType.Fire:
@@ -166,18 +168,23 @@ namespace ProjectGTA2_Unity.Characters
             Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount} {damageType} damage by {character}</color>");
         }
 
-        private void TakeDamageOverTime()
+        private IEnumerator TakeDamageOverTime(float repeatTime)
         {
-            DecreaseHealth(10f);
-            audioEventList.PlayAudioEventOneShot("CharacterOnFireScream");
+            while (currentHealth > 0)
+            {
+                yield return new WaitForSeconds(repeatTime);
+                DecreaseHealth(10f);
+                audioEvents.PlayAudioEventOneShotAttached("CharacterOnFireScream", gameObject);
+            }        
         }
 
         private void DamageOverTime(float repeatTime, string c)
         {
             dotLastDamageTag = c;
             damageOverTime = true;
-            audioEventList.Create3DEvent("CharacterOnFire", transform);
-            InvokeRepeating("TakeDamageOverTime", 0f, repeatTime);
+            audioEvents.Create3DEvent("CharacterOnFire", transform);
+            StartCoroutine(TakeDamageOverTime(repeatTime));
+            //InvokeRepeating("TakeDamageOverTime", 0f, repeatTime);
         }
 
         #endregion
@@ -256,6 +263,7 @@ namespace ProjectGTA2_Unity.Characters
             rb.mass = 999f;
             spriteRenderer.sortingOrder = 1;
 
+            audioEvents.RemoveAllEvents();
             CancelInvoke();
             
             switch (lastDamageType)
@@ -275,7 +283,7 @@ namespace ProjectGTA2_Unity.Characters
                     break;
 
                 case DamageType.Water:
-                    audioEventList.PlayAudioEventOneShot("Splash");
+                    audioEvents.PlayAudioEventOneShotAttached("Splash", gameObject);
                     spriteRenderer.enabled = false;
                     if (animator != null) animator.SetTrigger("Dead");                  
                     break;
@@ -286,7 +294,7 @@ namespace ProjectGTA2_Unity.Characters
                     break;
 
                 case DamageType.Car:
-                    audioEventList.PlayAudioEventOneShot("CarHit");
+                    audioEvents.PlayAudioEventOneShotAttached("CarHit", gameObject);
                     spriteRenderer.sprite = deathSpriteNormal;
                     if (animator != null) animator.SetTrigger("Dead");
                     break;
@@ -295,7 +303,7 @@ namespace ProjectGTA2_Unity.Characters
                     break;
             }
 
-            audioEventList.RemoveAllEvents();
+            
             CharacterisDead?.Invoke(gameObject.name, lastDamageTag, killer);
         }
 

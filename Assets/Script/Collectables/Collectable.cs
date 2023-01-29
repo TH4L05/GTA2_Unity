@@ -1,3 +1,4 @@
+using ProjectGTA2_Unity.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,7 +48,8 @@ namespace ProjectGTA2_Unity
         [SerializeField] protected int amount = 1;
         [SerializeField] protected float duration = 0f;
         [SerializeField] protected LayerMask playerLayer;
-
+        [SerializeField] protected AudioEventListSO audioEventList;
+ 
         #endregion
 
         #region UnityFunctions
@@ -68,6 +70,7 @@ namespace ProjectGTA2_Unity
 
         public virtual void OnCollect()
         {
+            if(audioEventList != null) audioEventList.PlayAudioEventOneShotAttached("Collect" + type, gameObject);
             OnCollection?.Invoke();
             CollectableGathered?.Invoke(type, amount, 0f);
             Collected?.Invoke();

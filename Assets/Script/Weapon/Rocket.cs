@@ -9,7 +9,7 @@ namespace ProjectGTA2_Unity
     {
         protected override void PlayImpactSound(Collider collider)
         {
-            audioEventList.PlayAudioEventOneShot("Explosion");
+            if (audioEventListSO != null) audioEventListSO.PlayAudioEventOneShotAttached("Explosion", collider.gameObject);
         }
     }
 }

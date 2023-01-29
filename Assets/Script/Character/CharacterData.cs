@@ -17,8 +17,6 @@ namespace ProjectGTA2_Unity.Characters.Data
         [SerializeField] private float sprintStepDistance = 0.25f;
         [SerializeField] private float crouchStepDistance = 1.0f;
         [SerializeField] private float minFallHeight = 2f;
-        [SerializeField] private AudioEventList audioEvents;
-
 
         public float Walkspeed => walkSpeed;
         public float RunSpeed => runSpeed;
@@ -30,8 +28,6 @@ namespace ProjectGTA2_Unity.Characters.Data
         public float SprintStepDistance => sprintStepDistance;
         public float CrouchStepDistance => crouchStepDistance;
         public float MinFallHeight => minFallHeight;
-
-        public AudioEventList AudioEvents => audioEvents;
     }
 }
 

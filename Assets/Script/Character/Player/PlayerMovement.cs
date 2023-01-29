@@ -3,17 +3,19 @@
 using UnityEngine;
 using ProjectGTA2_Unity.Characters.Data;
 using ProjectGTA2_Unity.Cars;
+using ProjectGTA2_Unity.Audio;
 
 namespace ProjectGTA2_Unity.Characters
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private ArmouryPlayer weaponBelt;
+        [SerializeField] private ArmouryPlayer armoury;
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
         [SerializeField] private Animator animator;
         [SerializeField] private Transform groundRaycast;
+        [SerializeField] private AudioEventList audioEvents;
 
         private Rigidbody rb;
         private CharacterData characterData;
@@ -63,7 +65,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private void FixedUpdate()
         {
-            rb.useGravity = onGround;
+            //rb.useGravity = onGround;
             if (!onGround)
             {
                 if (onCar)
@@ -197,19 +199,19 @@ namespace ProjectGTA2_Unity.Characters
                         break;
 
                     case SurfaceType.Normal:
-                        characterData.AudioEvents.PlayAudioEventOneShot("FootstepsConcrete");
+                        audioEvents.PlayAudioEventOneShotAttached("FootstepsConcrete", gameObject);
                         break;
 
                     case SurfaceType.Grass:
-                        characterData.AudioEvents.PlayAudioEventOneShot("FootstepsGrass");
+                        audioEvents.PlayAudioEventOneShotAttached("FootstepsGrass", gameObject);
                         break;
 
                     case SurfaceType.Metal:
-                        characterData.AudioEvents.PlayAudioEventOneShot("FootstepsSolid");
+                        audioEvents.PlayAudioEventOneShotAttached("FootstepsSolid", gameObject);
                         break;
 
                     case SurfaceType.Wood:
-                        characterData.AudioEvents.PlayAudioEventOneShot("FootstepsWood");
+                        audioEvents.PlayAudioEventOneShotAttached("FootstepsWood", gameObject);
                         break;
 
                     case SurfaceType.Electrified:
@@ -235,7 +237,7 @@ namespace ProjectGTA2_Unity.Characters
             if (move != Vector3.zero && onGround)
             {
                 animator.SetBool("GunEquiped", false);
-                if (weaponBelt.GunEquipped)
+                if (armoury.GunEquipped)
                 {
                     animator.SetBool("GunEquiped", true);
                 }

@@ -121,25 +121,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnCollection:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 21a2c1004cc9db34f996dc4375f7312d, type: 2}
-        m_TargetAssemblyTypeName: ProjectGTA2_Unity.AudioEventList, Assembly-CSharp
-        m_MethodName: PlayAudioEventOneShot
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: CollectFlamethrower
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   type: 10
   amount: 40
   duration: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  audioEventList: {fileID: 11400000, guid: ad4364fa5c321c24180982d30657c28f, type: 2}
 --- !u!65 &997636395650154908
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ namespace ProjectGTA2_Unity.Characters
         public static Action<float,float> OnHealthChanged;
         public static Action<int> OnUpdateMoney;
 
-        [SerializeField] private ArmouryPlayer weaponBelt;
+        [SerializeField] private ArmouryPlayer armoury;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private int money;
 
@@ -22,7 +22,7 @@ namespace ProjectGTA2_Unity.Characters
         {
             if (Input.GetKey(KeyCode.LeftControl))
             {
-                weaponBelt.AttackWithCurrentEquippedWeapon();
+                armoury.AttackWithCurrentEquippedWeapon();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -82,7 +82,7 @@ namespace ProjectGTA2_Unity.Characters
         private void CollectableGathered(CollectableType pickupType, int amount, float time)
         {
             Debug.Log("PickUpCollected");
-            weaponBelt.AddAmmo(pickupType.ToString(), amount);                
+            armoury.AddAmmo(pickupType.ToString(), amount);                
         }
 
         protected override void DecreaseHealth(float amount)

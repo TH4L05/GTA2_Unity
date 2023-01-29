@@ -1,10 +1,10 @@
 /// <author>Thoams Krahl</author>
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Characters;
-using System;
-using static ProjectGTA2_Unity.Cars.CarCollider;
+using ProjectGTA2_Unity.Audio;
 
 namespace ProjectGTA2_Unity.Cars
 {
@@ -67,6 +67,7 @@ namespace ProjectGTA2_Unity.Cars
         protected bool isDestroyed;
         protected DamageType lastDamageType;
         protected Transform charOrgParentTransform;
+        [SerializeField] protected bool playerControlled;
 
         #endregion
 
@@ -86,7 +87,7 @@ namespace ProjectGTA2_Unity.Cars
         {
             if(!isActive) return;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (playerControlled && Input.GetKeyDown(KeyCode.E))
             {
                 CharacterExit();
             }
@@ -186,8 +187,6 @@ namespace ProjectGTA2_Unity.Cars
             if(isDestroyed) return;           
             rb.isKinematic = false;
             character.gameObject.SetActive(false);
-            //charOrgParentTransform = character.transform.parent;
-            //character.transform.parent = gameObject.transform;
             passangers.Add(character);
             gameObject.name = character.gameObject.name;
 
@@ -197,10 +196,12 @@ namespace ProjectGTA2_Unity.Cars
                 gameObject.tag = "Player";
                 gameObject.layer = character.gameObject.layer;
                 PlayerEntersCar?.Invoke(name);
+                playerControlled = true;
             }
             else
             {
                 gameObject.tag = "NPC";
+                playerControlled = false;
             }
                               
             if (passangers.Count > 1) return;
@@ -212,7 +213,7 @@ namespace ProjectGTA2_Unity.Cars
             else
             {
                 isActive = true;
-                carMovementComponent.SetActive(isActive);
+                carMovementComponent.SetActive(isActive, playerControlled);
             }
         }
 
@@ -221,7 +222,7 @@ namespace ProjectGTA2_Unity.Cars
             if (passangers.Count < 2)
             {
                 isActive = false;
-                carMovementComponent.SetActive(isActive);
+                carMovementComponent.SetActive(isActive, false);
                 rb.isKinematic = true;
             }
 
@@ -254,11 +255,11 @@ namespace ProjectGTA2_Unity.Cars
         
         private void StartEngine()
         {
-            audioEvents.PlayAudioEventOneShot("StartEngine1");
+            audioEvents.PlayAudioEventOneShotAttached("StartEngine1", gameObject);
             EnableDisableCarLights(true);
             isActive = true;
             isParked = false;
-            carMovementComponent.SetActive(isActive);
+            carMovementComponent.SetActive(isActive, playerControlled);
         }
 
         #endregion
@@ -315,55 +316,49 @@ namespace ProjectGTA2_Unity.Cars
             {
                 charInside.TakeDamage(999f, lastDamageType, gameObject.tag);
             }
-                  
+            passangers.Clear();
+
+            string audioEventName = string.Empty;
+            float deleteTime = 60f;
+
             switch (lastDamageType)
             {
                 case DamageType.Invalid:
                     break;
 
                 case DamageType.Normal:
-                    Destroy(gameObject, 60f);
-                    spriteRendererMain.color = Color.white;
-                    spriteRendererMain.sprite = destroyedSprite;
-                    SpawnDestroyVFX();
-                    audioEvents.PlayAudioEventOneShot("ExplosionLarge");
+                    audioEventName = "ExplosionLarge";
                     break;
 
                 case DamageType.Fire:
-                    Destroy(gameObject, 60f);
-                    spriteRendererMain.color = Color.white;
-                    spriteRendererMain.sprite = destroyedSprite;
-                    SpawnDestroyVFX();
-                    audioEvents.PlayAudioEventOneShot("ExplosionLarge");
+                    audioEventName = "ExplosionLarge";
                     break;
 
                 case DamageType.Water:
-                    Destroy(gameObject, 5f);
                     spriteRendererMain.enabled = false;
                     var collider = GetComponent<Collider>() as BoxCollider;
                     collider.enabled = false;
-                    audioEvents.PlayAudioEventOneShot("Splash");
+                    deleteTime = 5f;
+                    audioEventName = "Splash";
                     break;
 
                 case DamageType.Electro:
-                    Destroy(gameObject, 60f);
-                    spriteRendererMain.color = Color.white;
-                    spriteRendererMain.sprite = destroyedSprite;
-                    SpawnDestroyVFX();
-                    audioEvents.PlayAudioEventOneShot("ExplosionLarge");
+                    audioEventName = "ExplosionLarge";
                     break;
 
-                case DamageType.Car:
-                    Destroy(gameObject, 60f);
-                    spriteRendererMain.color = Color.white;
-                    spriteRendererMain.sprite = destroyedSprite;
-                    SpawnDestroyVFX();
-                    audioEvents.PlayAudioEventOneShot("ExplosionLarge");
+                case DamageType.Car:               
+                    audioEventName = "ExplosionLarge";
                     break;
 
                 default:
                     break;
             }
+
+            SetMainSprite(destroyedSprite, Color.white);
+            SpawnDestroyVFX();
+            if (string.IsNullOrEmpty(audioEventName)) return;
+            audioEvents.PlayAudioEventOneShotAttached("ExplosionLarge", gameObject);
+            Destroy(gameObject, deleteTime);
         }
 
         private void SpawnDestroyVFX()
@@ -377,6 +372,12 @@ namespace ProjectGTA2_Unity.Cars
         }
 
         #endregion
+
+        private void SetMainSprite(Sprite sprite, Color color)
+        {
+            spriteRendererMain.color = color;
+            spriteRendererMain.sprite = sprite;
+        }
 
         public void EnteredWorkshop(WorkshopType type)
         {
@@ -405,7 +406,7 @@ namespace ProjectGTA2_Unity.Cars
         }
 
         #region Lights and Damage Sprites
-        private void OnHit(HitDirection hitDirection)
+        private void OnHit(CarCollider.HitDirection hitDirection)
         {           
             (float, float, float, CarMovement.MovementDirection) movementValues = carMovementComponent.MovementValues;
 
@@ -425,20 +426,20 @@ namespace ProjectGTA2_Unity.Cars
             Debug.Log(hitDirection.ToString());
             switch (hitDirection)
             {
-                case HitDirection.FontLeft:
+                case CarCollider.HitDirection.FontLeft:
                    
                     EnableDisableCarLights(false, 0);
                     EnableDisableCarDamage(true, 0);
                     break;
-                case HitDirection.FrontRight:
+                case CarCollider.HitDirection.FrontRight:
                     EnableDisableCarLights(false, 1);
                     EnableDisableCarDamage(true, 1);
                     break;
-                case HitDirection.BackLeft:
+                case CarCollider.HitDirection.BackLeft:
                     EnableDisableCarLights(false, 2);
                     EnableDisableCarDamage(true, 2);
                     break;
-                case HitDirection.BackRight:
+                case CarCollider.HitDirection.BackRight:
                     EnableDisableCarLights(false, 3);
                     EnableDisableCarDamage(true, 3);
                     break;

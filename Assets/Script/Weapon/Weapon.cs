@@ -2,6 +2,7 @@
 
 using System;
 using UnityEngine;
+using ProjectGTA2_Unity.Audio;
 
 namespace ProjectGTA2_Unity
 {
@@ -47,7 +48,7 @@ namespace ProjectGTA2_Unity
 
         [SerializeField] private GameObject projectile;
         [SerializeField] private Sprite icon;
-        [SerializeField] private AudioEventList audioEventList;
+        [SerializeField] private AudioEventListSO audioEventListSO;
         [SerializeField] private Transform projectileSpawn;
 
         #endregion
@@ -144,7 +145,7 @@ namespace ProjectGTA2_Unity
             if (canShoot && shootTimer >= rof)
             {
                 shootTimer = 0.0f;
-                if(audioEventList != null) audioEventList.PlayAudioEventOneShot(name + "Attack");
+                if(audioEventListSO != null) audioEventListSO.PlayAudioEventOneShotAttached(name + "Attack", transform.parent.gameObject);
 
                 switch (attackType)
                 {

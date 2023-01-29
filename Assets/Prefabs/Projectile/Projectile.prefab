@@ -135,7 +135,7 @@ MonoBehaviour:
   damageType: 0
   speed: 10
   damage: 20
-  audioEventList: {fileID: 11400000, guid: 9d99c3c121ddf5347aaa36f9afe9ccf1, type: 2}
+  audioEventListSO: {fileID: 11400000, guid: 0ff2757a65713af4e99425bc553dea8f, type: 2}
   impactVFX: {fileID: 0}
 --- !u!65 &5153419211907330854
 BoxCollider:

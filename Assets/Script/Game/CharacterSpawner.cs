@@ -10,7 +10,7 @@ namespace ProjectGTA2_Unity
     public class CharacterSpawner : MonoBehaviour
     {
         [Header("Base")]
-        [SerializeField] private Transform charactersRootObject;
+        [SerializeField] private Transform charactersParentObject;
         [SerializeField] private LayerMask groundLayer;
 
         [Space(2f), Header("Player")]
@@ -86,7 +86,7 @@ namespace ProjectGTA2_Unity
             for (int i = 0; i < humanPlayers.Count; i++)
             {
                 Vector3 spawnPosition = GetSpawnPosition();
-                GameObject newPlayerObj = Instantiate(playerPrefab, spawnPosition, Quaternion.identity, charactersRootObject);
+                GameObject newPlayerObj = Instantiate(playerPrefab, spawnPosition, Quaternion.identity, charactersParentObject);
 
                 Player player = newPlayerObj.GetComponent<Player>();
                 humanPlayers[i].SetPlayer(player);
@@ -169,7 +169,7 @@ namespace ProjectGTA2_Unity
             }
 
             Vector3 spawnPosition = RandomSpawnPosition(tilePositions);  
-            GameObject newNpc = Instantiate(npcPrefabs[0], spawnPosition, Quaternion.identity, charactersRootObject);
+            GameObject newNpc = Instantiate(npcPrefabs[0], spawnPosition, Quaternion.identity, charactersParentObject);
             newNpc.name = "NPC" + Time.time;
             spawnedNpcs.Add(newNpc);
         }

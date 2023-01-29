@@ -3,6 +3,7 @@
 using UnityEngine;
 using ProjectGTA2_Unity.Characters;
 using ProjectGTA2_Unity.Cars;
+using ProjectGTA2_Unity.Audio;
 
 namespace ProjectGTA2_Unity
 {
@@ -14,7 +15,7 @@ namespace ProjectGTA2_Unity
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected float speed = 20f;
         [SerializeField] protected float damage = 1f;
-        [SerializeField] protected AudioEventList audioEventList;
+        [SerializeField] protected AudioEventListSO audioEventListSO;
         [SerializeField] protected GameObject impactVFX;
 
         #endregion
@@ -93,7 +94,7 @@ namespace ProjectGTA2_Unity
         {
             var character = collider.GetComponent<Character>();
             var car = collider.GetComponent<Car>();
-            var tile = collider.GetComponent<Tile>();
+            string eventName = string.Empty;
 
             if (character)
             {
@@ -101,38 +102,16 @@ namespace ProjectGTA2_Unity
             }
             else if (car)
             {
-                PlayAudio("BulletCarImpact");
+                eventName = "BulletCarImpact";
             }
             else
             {
-                var impactSurface = tile.GetSurfaceType();
-                switch (impactSurface)
-                {
-                    case SurfaceType.Invalid:
-                        break;
-
-                    case SurfaceType.Normal:
-                        PlayAudio("BulletWallImpact");
-                        break;
-
-                    case SurfaceType.Grass:
-                        PlayAudio("BulletWallImpact");
-                        break;
-
-                    case SurfaceType.Metal:
-                        PlayAudio("BulletWallImpact");
-                        break;
-
-                    default:
-                        break;
-                }
+                eventName = "BulletWallImpact";
             }
-            
-        }
 
-        private void PlayAudio(string eventName)
-        {
-            if (audioEventList != null) audioEventList.PlayAudioEventOneShot(eventName);
+            if (string.IsNullOrEmpty(eventName)) return;
+            if (audioEventListSO != null) audioEventListSO.PlayAudioEventOneShotAttached(eventName, gameObject);
+
         }
 
         protected virtual void CreateImpactVFX()
