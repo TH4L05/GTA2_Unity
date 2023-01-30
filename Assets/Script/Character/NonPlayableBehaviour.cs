@@ -23,21 +23,24 @@ namespace ProjectGTA2_Unity
 
         #region SerializedFields
 
+        [Header("Ref")]
         [SerializeField] private CharacterData charData;
         [SerializeField] private Rigidbody rb;
         [SerializeField] protected Transform groundCheck;
         [SerializeField] private Armoury weaponBelt;
         [SerializeField] private Animator animator;
         [SerializeField] private NavMeshAgent navAgent;
-
-        [SerializeField] private bool canFight;
-        [SerializeField] private bool playerIsEnemy;
-        [SerializeField] private float enemyDetectRange = 5f;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private LayerMask npcLayer;
-        [SerializeField] private float weaponGunAttackDistance = 3f;
-        [SerializeField] private float weaponFistAttackDistance = 0.55f;
+
+        [Space(2f), Header("Settings")]
+        [SerializeField] private bool canFight;
+        [SerializeField] private bool playerIsEnemy;
+        [Range(1.0f, 10.0f), SerializeField] private float enemyDetectRange = 5f;       
+        [SerializeField, Range(0.5f, 10.0f)] private float weaponGunAttackDistance = 3f;
+        [SerializeField] private float weaponFistAttackDistance = 0.35f;
+        [SerializeField, Range(0.1f, 2.0f)] private float obstacleCheckDistance = 0.55f;
 
         #endregion
 
@@ -360,6 +363,10 @@ namespace ProjectGTA2_Unity
         private bool CheckForward()
         {
             Vector3 pointForward = transform.position + (transform.forward * 1.1f);
+            if (onSlope)
+            {
+                pointForward =  Vector3.ProjectOnPlane(pointForward, hit.normal);
+            }
 
             pointForward.x += Util.RandomFloatNumber(-0.25f, 0.25f);
             pointForward.z += Util.RandomFloatNumber(-0.25f, 0.25f);
@@ -374,6 +381,10 @@ namespace ProjectGTA2_Unity
         private bool CheckBackward()
         {
             Vector3 pointBackward = transform.position + (-transform.forward * 1.1f);
+            if (onSlope)
+            {
+                pointBackward = Vector3.ProjectOnPlane(pointBackward, hit.normal);
+            }
 
             pointBackward.x += Util.RandomFloatNumber(-0.25f, 0.25f);
             pointBackward.z += Util.RandomFloatNumber(-0.25f, 0.25f);
@@ -387,6 +398,10 @@ namespace ProjectGTA2_Unity
         private bool CheckLeft()
         {
             Vector3 pointLeft = transform.position + (-transform.right * 1.1f);
+            if (onSlope)
+            {
+                pointLeft = Vector3.ProjectOnPlane(pointLeft, hit.normal);
+            }
 
             pointLeft.x += Util.RandomFloatNumber(-0.25f, 0.25f);
             pointLeft.z += Util.RandomFloatNumber(-0.25f, 0.25f);
@@ -400,6 +415,10 @@ namespace ProjectGTA2_Unity
         private bool CheckRight()
         {
             Vector3 pointRight = transform.position + (transform.right * 1.1f);
+            if (onSlope)
+            {
+                pointRight = Vector3.ProjectOnPlane(pointRight, hit.normal);
+            }
 
             pointRight.x += Util.RandomFloatNumber(-0.25f, 0.25f);
             pointRight.z += Util.RandomFloatNumber(-0.25f, 0.25f);
@@ -430,7 +449,7 @@ namespace ProjectGTA2_Unity
             Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), transform.forward);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 0.85f))
+            if (Physics.Raycast(ray, out hit, obstacleCheckDistance))
             {
                 return true;
             }
@@ -529,8 +548,8 @@ namespace ProjectGTA2_Unity
             Ray ray = new Ray(pos, Vector3.down);
             //Debug.DrawRay(pos, Vector3.down * 0.5f, Color.red);
 
-            if (Physics.Raycast(ray, out hit, 0.5f) && pos != Vector3.zero)
-            {
+            if (Physics.Raycast(ray, out hit, 0.6f, groundLayer) && pos != Vector3.zero)
+            {                
                 var tile = hit.collider.GetComponent<Tile>();
                 if (tile != null)
                 {

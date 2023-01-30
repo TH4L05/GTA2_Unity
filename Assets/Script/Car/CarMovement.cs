@@ -4,18 +4,6 @@ using UnityEngine;
 
 namespace ProjectGTA2_Unity.Cars
 {
-    [System.Serializable]
-    public struct Gear
-    {
-        public Gear(float sp)
-        {
-            speedOffset = sp;
-        }
-        public float speedOffset;
-    }
-
-
-
     [RequireComponent(typeof(Rigidbody))]
     public class CarMovement : MonoBehaviour
     {
@@ -27,14 +15,16 @@ namespace ProjectGTA2_Unity.Cars
 
         #region SerializedFields
 
-        //[SerializeField] private float mass;
-        [SerializeField] private float accerlation;
-        [SerializeField] private float brakePower;
-        [SerializeField] private float turnRatio;
-        [SerializeField] private float maxForwardSpeed;
-        [SerializeField] private float maxBackwardSpeed;
+        [Header("Base")]
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
+
+        [Header("Values")]
+        [SerializeField] protected float accerlation;
+        [SerializeField] protected float brakePower;
+        [SerializeField] protected float turnRatio;
+        [SerializeField] protected float maxForwardSpeed;
+        [SerializeField] protected float maxBackwardSpeed;    
         [SerializeField] protected float gravityFactor = 15f;
         [SerializeField] protected Gear[] gears = {new Gear(0.33f), new Gear(0.55f), new Gear(1f) };
 
@@ -42,17 +32,14 @@ namespace ProjectGTA2_Unity.Cars
 
         #region PrivateFields
 
-        private Rigidbody rb;
-        [SerializeField] private bool isActive = false;
-        private float currentSpeed;
-        private int currentGear = 0;
-        private Vector2 input = Vector2.zero;
-        private MovementDirection movementDirection;
-        [SerializeField] private bool onGround;
-        [SerializeField] private bool isPlayerControlled;
-        [SerializeField] private RoadDirection[] roadDirections;
-        [SerializeField] private Vector3 destination;
-        [SerializeField] private SurfaceType surfaceType;
+        protected Rigidbody rb;
+        [SerializeField] protected bool isActive = false;
+        protected float currentSpeed;
+        protected int currentGear = 0;        
+        protected MovementDirection movementDirection;
+        [SerializeField] protected bool onGround;
+        [SerializeField] protected RoadDirection[] roadDirections;      
+        [SerializeField] protected SurfaceType surfaceType;
 
         #endregion
 
@@ -64,181 +51,46 @@ namespace ProjectGTA2_Unity.Cars
 
         #region UnityFunctions
 
-        private void Awake()
+        protected void Awake()
+        {
+            Initialize();
+        }
+
+        protected void Update()
+        {
+            OnUpdate();
+        }
+
+        #endregion
+
+        #region Setup
+
+        public virtual void SetActive(bool active)
+        {
+            isActive = active;
+        }
+
+        protected virtual void Initialize()
         {
             rb = GetComponent<Rigidbody>();
         }
 
-        private void Update()
+        protected virtual void OnUpdate()
         {
             GroundCheck();
-           
+
             if (!onGround)
             {
                 rb.AddForce(new Vector3(0, -1, 0) * gravityFactor, ForceMode.Acceleration);
             }
 
             if (!isActive) return;
-
-            UpdatePosition();
-            Rotation();
-
-            if (!isPlayerControlled)
-            {
-                NpcControl();
-                return;
-            }
-            InputCheck();           
+            UpdatePosition();                 
         }
-
-        /*private void FixedUpdate()
-        {
-            if (!isActive) return;
-            //UpdatePosition();
-        }*/
 
         #endregion
 
-        public void SetActive(bool active, bool playerControlled)
-        {
-            isActive = active;
-            isPlayerControlled = playerControlled;
-        }
-
-        private void NpcControl()
-        {
-            if (roadDirections.Length == 0)
-            {
-                CheckRoadDirections(RoadDirection.None);
-                return;
-            }
-
-            if (roadDirections.Length < 2)
-            {
-                CheckRoadDirections(roadDirections[0]);
-            }
-            else
-            {
-                int r = Util.RandomIntNumber(0, roadDirections.Length);
-                CheckRoadDirections(roadDirections[r]);
-            }         
-        }
-
-        private void CheckRoadDirections(RoadDirection direction)
-        {
-            Vector3 vec = Vector3.zero;
-
-            switch (direction)
-            {
-                case RoadDirection.Invalid:
-                    vec = Vector3.zero;
-                    break;
-                case RoadDirection.None:
-                    vec = Vector3.zero;
-                    break;
-                case RoadDirection.Up:
-                    vec = Vector3.forward;
-                    break;
-                case RoadDirection.Down:
-                    vec = -Vector3.forward;
-                    break;
-                case RoadDirection.Left:
-                    vec = -Vector3.right;
-                    break;
-                case RoadDirection.Right:
-                    vec = Vector3.right;
-                    break;
-                default:
-                    break;
-            }
-
-            if(vec == Vector3.zero)
-            {
-                Brake(brakePower);
-                return;
-            }
-
-            if (transform.forward.normalized == vec)
-            {
-                Debug.Log("forwardDirection");
-                Accerlate();
-            }
-            else
-            {
-                NpcRotate(vec);
-            }
-        }
-
-        private void NpcRotate(Vector3 vec)
-        {
-            float step = Time.deltaTime * 2.2f;
-            Vector3 direction = Vector3.RotateTowards(transform.forward.normalized, vec, step, 0f);
-            transform.rotation = Quaternion.LookRotation(direction);
-        }
-
-        private bool CheckTile(Vector3 pos)
-        {
-            RaycastHit hit;
-            Ray ray = new Ray(pos, Vector3.down);
-            //Debug.DrawRay(pos, Vector3.down * 0.5f, Color.red);
-
-            if (Physics.Raycast(ray, out hit, 0.5f) && pos != Vector3.zero)
-            {
-                var tile = hit.collider.GetComponent<Tile>();
-                if (tile != null)
-                {
-                    if (tile.GetTileTypeA() == TileTypeMain.Floor && (tile.GetTileTypeB() == TileTypeSecond.Road || tile.GetTileTypeB() == TileTypeSecond.RoadJunction))
-                    {
-                        //Debug.Log("Found new Destination Tile _> " + tile.gameObject.name);                       
-                        return true;
-                    }
-                    return false;
-                }
-                return false;
-            }
-            return false;
-        }
-
-        private void InputCheck()
-        {
-            if (!isPlayerControlled) return;
-            //move = Vector3.zero;
-
-            input.x = Input.GetAxis("Horizontal");
-            input.y = Input.GetAxis("Vertical");
-
-            if (input.y > 0)
-            {
-                if (movementDirection == MovementDirection.Backward)
-                {
-                    Brake(brakePower * 1.5f);
-                    if (currentSpeed < 0.1f) movementDirection = MovementDirection.Forward;
-                }
-                else
-                {
-                    Accerlate();
-                }
-            }
-            else if (input.y < 0)
-            {
-                if (movementDirection == MovementDirection.Forward)
-                {
-                    Brake(brakePower);
-                    if (currentSpeed < 0.1f) movementDirection = MovementDirection.Backward;
-
-                }
-                else
-                {
-                    Accerlate();
-                }
-            }
-            else
-            {
-                EngineBreak();
-            }
-        }
-
-        private void Accerlate()
+        protected virtual void Accerlate()
         {
             currentSpeed += Time.deltaTime * accerlation;
  
@@ -248,19 +100,10 @@ namespace ProjectGTA2_Unity.Cars
 
                     float currentMax = maxForwardSpeed * gears[currentGear].speedOffset;
 
-                    if(isPlayerControlled && currentGear< gears.Length - 1 && currentSpeed >= currentMax)
-                    {
-                        IncreaseGear();
-                    }
-                    else if(currentSpeed >= currentMax)
+                    if(currentSpeed >= currentMax)
                     {
                         currentSpeed = currentMax;
                     }
-
-                    /*if (currentSpeed >= maxForwardSpeed)
-                    {
-                        currentSpeed = maxForwardSpeed;
-                    }*/
                     break;
 
                 case MovementDirection.Backward:
@@ -275,7 +118,7 @@ namespace ProjectGTA2_Unity.Cars
             }
         }
 
-        private void IncreaseGear()
+        protected void IncreaseGear()
         {
             currentGear++;
             
@@ -285,7 +128,7 @@ namespace ProjectGTA2_Unity.Cars
             }
         }
 
-        private void Brake(float brakePower)
+        protected virtual void Brake(float brakePower)
         {
             currentSpeed -= Time.deltaTime * brakePower;
 
@@ -296,7 +139,7 @@ namespace ProjectGTA2_Unity.Cars
             }
         }
 
-        private void EngineBreak()
+        protected virtual void EngineBreak()
         {
             currentSpeed -= Time.deltaTime * brakePower * 2;
 
@@ -307,7 +150,7 @@ namespace ProjectGTA2_Unity.Cars
             }
         }
 
-        private void UpdatePosition()
+        protected virtual void UpdatePosition()
         {
             if (currentSpeed != 0)
             {
@@ -327,49 +170,19 @@ namespace ProjectGTA2_Unity.Cars
             }
         }
 
-        private void ForwardMove()
+        protected virtual void ForwardMove()
         {
             //rb.velocity = currentSpeed * transform.forward;          
             transform.Translate(Time.deltaTime * currentSpeed * transform.forward, Space.World);
         }
 
-        private void BackwardMove()
+        protected virtual void BackwardMove()
         {
             //rb.velocity = currentSpeed * -transform.forward;
             transform.Translate(Time.deltaTime * currentSpeed * -transform.forward, Space.World);
         }
-
-        private void Rotation()
-        {
-            //if (!onGround) return;
-            if (currentSpeed < 0.65f) return;
-
-            var rotationY = 0f;
-
-            switch (movementDirection)
-            {
-                case MovementDirection.Forward:
-                    rotationY = input.x * turnRatio;
-                    break;
-
-                case MovementDirection.Backward:
-                    rotationY = (input.x * -1) * turnRatio;
-                    break;
-
-                default:
-                    break;
-            }
-            
-            //rotation = new Vector3(0f, rotationY, 0f);
-            //rotation *= Time.deltaTime;
-            rotationY *= Time.deltaTime;
-
-            //transform.Rotate(rotation);
-            transform.rotation *= Quaternion.AngleAxis(rotationY, transform.up);
-
-        }
-
-        private void GroundCheck()
+        
+        protected virtual void GroundCheck()
         {
             onGround = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
           
@@ -381,13 +194,21 @@ namespace ProjectGTA2_Unity.Cars
             if (Physics.Raycast(ray, out hit, 0.2f, groundLayer))
             {
                 //SlopeCheck(hit);
-
                 var tile = hit.collider.gameObject.GetComponent<Tile>();
                 roadDirections = tile.GetRoadDirections();
-                //if (tile == null) return;
                 surfaceType = tile.GetSurfaceType();
             }
         }
+    }
+
+    [System.Serializable]
+    public struct Gear
+    {
+        public Gear(float sp)
+        {
+            speedOffset = sp;
+        }
+        public float speedOffset;
     }
 }
 

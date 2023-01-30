@@ -34,7 +34,8 @@ namespace ProjectGTA2_Unity.Cars
 
         [Header("Ref")]
         [SerializeField] protected LayerMask groundLayer;
-        [SerializeField] protected CarMovement carMovementComponent;
+        [SerializeField] protected CarMovementPlayer carMovementPlayer;
+        [SerializeField] protected CarMovementNpc carMovementNpc;
         [SerializeField] protected AudioEventList audioEvents;
         [SerializeField] protected CarCollider[] carColliders;
  
@@ -107,7 +108,17 @@ namespace ProjectGTA2_Unity.Cars
           
             if (damagable != null)
             {
-                (float, float, float, CarMovement.MovementDirection) carValues = carMovementComponent.MovementValues;
+                (float, float, float, CarMovement.MovementDirection) carValues = (0f,0f,0f, CarMovement.MovementDirection.Forward);
+
+                if (playerControlled)
+                {
+                    carValues = carMovementPlayer.MovementValues;
+                }
+                else
+                {
+                    carValues = carMovementNpc.MovementValues;
+                }
+                
 
                 if (carValues.Item1 == 0) return;
                 bool hit = false;
@@ -206,15 +217,7 @@ namespace ProjectGTA2_Unity.Cars
                               
             if (passangers.Count > 1) return;
 
-            if (isParked)
-            {
-                StartEngine();
-            }
-            else
-            {
-                isActive = true;
-                carMovementComponent.SetActive(isActive, playerControlled);
-            }
+            StartEngine();
         }
 
         public void CharacterExit()
@@ -222,7 +225,8 @@ namespace ProjectGTA2_Unity.Cars
             if (passangers.Count < 2)
             {
                 isActive = false;
-                carMovementComponent.SetActive(isActive, false);
+                carMovementPlayer.SetActive(isActive);
+                carMovementNpc.SetActive(isActive);
                 rb.isKinematic = true;
             }
 
@@ -253,15 +257,6 @@ namespace ProjectGTA2_Unity.Cars
             character.gameObject.transform.position = carEntryPoints[0].position;
         }
         
-        private void StartEngine()
-        {
-            audioEvents.PlayAudioEventOneShotAttached("StartEngine1", gameObject);
-            EnableDisableCarLights(true);
-            isActive = true;
-            isParked = false;
-            carMovementComponent.SetActive(isActive, playerControlled);
-        }
-
         #endregion
 
         #region Color
@@ -373,43 +368,21 @@ namespace ProjectGTA2_Unity.Cars
 
         #endregion
 
-        private void SetMainSprite(Sprite sprite, Color color)
-        {
-            spriteRendererMain.color = color;
-            spriteRendererMain.sprite = sprite;
-        }
-
-        public void EnteredWorkshop(WorkshopType type)
-        {
-            switch (type)
-            {
-                case WorkshopType.Invalid:
-                    break;
-                case WorkshopType.ColorChange:
-                    int rndIndex = Util.RandomIntNumber(0, Game.Instance.carColors.Length);
-                    Color newColor = Game.Instance.carColors[rndIndex];
-                    SetCarColor(newColor);
-                    EnableDisableCarDamage(false);
-                    EnableDisableCarLights(true);
-                    break;
-                case WorkshopType.Bomb:
-                    break;
-                case WorkshopType.Macgun:
-                    break;
-                case WorkshopType.Oil:
-                    break;
-                case WorkshopType.Mines:
-                    break;
-                default:
-                    break;
-            }
-        }
-
         #region Lights and Damage Sprites
-        private void OnHit(CarCollider.HitDirection hitDirection)
-        {           
-            (float, float, float, CarMovement.MovementDirection) movementValues = carMovementComponent.MovementValues;
 
+        private void OnHit(CarCollider.HitDirection hitDirection)
+        {
+            (float, float, float, CarMovement.MovementDirection) movementValues;
+
+            if (playerControlled)
+            {
+                movementValues = carMovementPlayer.MovementValues;
+            }
+            else
+            {
+                movementValues = carMovementNpc.MovementValues;
+            }
+            
             switch (movementValues.Item4)
             {
                 case CarMovement.MovementDirection.Forward:
@@ -423,7 +396,7 @@ namespace ProjectGTA2_Unity.Cars
                     return;
             }
 
-            Debug.Log(hitDirection.ToString());
+            //Debug.Log(hitDirection.ToString());
             switch (hitDirection)
             {
                 case CarCollider.HitDirection.FontLeft:
@@ -477,5 +450,68 @@ namespace ProjectGTA2_Unity.Cars
         }
 
         #endregion
+
+        private void StartEngine()
+        {
+            if (!isParked)
+            {
+                ChangeMovementComponentStatus(true, playerControlled);
+                return;
+            }
+
+
+            audioEvents.PlayAudioEventOneShotAttached("StartEngine1", gameObject);
+            isParked = false;
+            EnableDisableCarLights(true);
+            ChangeMovementComponentStatus(true, playerControlled);
+
+        }
+
+        protected void ChangeMovementComponentStatus(bool active, bool playerControlled)
+        {
+            isActive = active;
+
+            if (playerControlled)
+            {
+                carMovementPlayer.SetActive(isActive);
+            }
+            else
+            {
+                carMovementNpc.SetActive(isActive);
+            }
+        }
+
+        private void SetMainSprite(Sprite sprite, Color color)
+        {
+            spriteRendererMain.color = color;
+            spriteRendererMain.sprite = sprite;
+        }
+
+        public void EnteredWorkshop(WorkshopType type)
+        {
+            switch (type)
+            {
+                case WorkshopType.Invalid:
+                    break;
+                case WorkshopType.ColorChange:
+                    int rndIndex = Util.RandomIntNumber(0, Game.Instance.carColors.Length);
+                    Color newColor = Game.Instance.carColors[rndIndex];
+                    SetCarColor(newColor);
+                    EnableDisableCarDamage(false);
+                    EnableDisableCarLights(true);
+                    break;
+                case WorkshopType.Bomb:
+                    break;
+                case WorkshopType.Macgun:
+                    break;
+                case WorkshopType.Oil:
+                    break;
+                case WorkshopType.Mines:
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }

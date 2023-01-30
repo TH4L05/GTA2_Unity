@@ -1077,7 +1077,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9045682803284159804}
   - component: {fileID: 9045682803284159803}
-  - component: {fileID: 9045682803284159800}
+  - component: {fileID: 796825086514692102}
+  - component: {fileID: 6720599438700104894}
   - component: {fileID: 9045682803284159801}
   - component: {fileID: 9045682803284159802}
   - component: {fileID: 2132810211108362630}
@@ -1128,7 +1129,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  carMovementComponent: {fileID: 9045682803284159800}
+  carMovementPlayer: {fileID: 796825086514692102}
+  carMovementNpc: {fileID: 6720599438700104894}
   audioEvents: {fileID: 8841096123704669604}
   carColliders:
   - {fileID: 6489713394861921509}
@@ -1160,7 +1162,7 @@ MonoBehaviour:
   - {fileID: 1700068147033449755, guid: 2e96b78e9a127c4448e660e9d4429af3, type: 3}
   - {fileID: 8340612986028254124, guid: 7c6ba32d40a6d944caa5e5ba48e2b3c4, type: 3}
   playerControlled: 0
---- !u!114 &9045682803284159800
+--- !u!114 &796825086514692102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1169,18 +1171,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 9045682803284159805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b7b70068fe2c5e4e865d48292541e4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ca7efbe9ba4b5746a42045684cc8ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accerlation: 2.45
-  brakePower: 2.8
-  turnRatio: 95
-  maxForwardSpeed: 3
-  maxBackwardSpeed: 1.65
   groundCheck: {fileID: 7168754670797616231}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  accerlation: 2.15
+  brakePower: 2.8
+  turnRatio: 95
+  maxForwardSpeed: 3
+  maxBackwardSpeed: 1.65
   gravityFactor: 15
   gears:
   - speedOffset: 0.33
@@ -1188,10 +1190,39 @@ MonoBehaviour:
   - speedOffset: 1
   isActive: 0
   onGround: 0
-  isPlayerControlled: 0
   roadDirections: 
-  destination: {x: 0, y: 0, z: 0}
   surfaceType: 0
+--- !u!114 &6720599438700104894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045682803284159805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d90f03d09ddc8d4c9b55188e1f3c0ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundCheck: {fileID: 7168754670797616231}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  accerlation: 2.15
+  brakePower: 2.8
+  turnRatio: 95
+  maxForwardSpeed: 3
+  maxBackwardSpeed: 1.65
+  gravityFactor: 15
+  gears:
+  - speedOffset: 0.33
+  - speedOffset: 0.55
+  - speedOffset: 1
+  isActive: 0
+  onGround: 0
+  roadDirections: 
+  surfaceType: 0
+  turnRatioNpcNormal: 2.2
 --- !u!65 &9045682803284159801
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -190,7 +190,7 @@ namespace ProjectGTA2_Unity
             
             foreach (var npc in spawnedNpcs)
             {
-                Vector3 camPos = PlayerCamera.targetObj.transform.position;
+                Vector3 camPos =Camera.main.transform.position;
                 Vector3 npcPos = npc.transform.position;
 
                 float distance = Util.GetDistance(npcPos, camPos);
