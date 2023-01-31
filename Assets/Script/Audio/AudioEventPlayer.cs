@@ -12,7 +12,7 @@ namespace ProjectGTA2_Unity.Audio
         {
             if (eventPath.IsNull) return;
             RuntimeManager.PlayOneShot(eventPath);
-            Debug.Log("PlayAudioEvent");
+            //Debug.Log("PlayAudioEvent");
         }
 
         public static void PlayAudioEventOneShotAttached(EventReference eventPath, GameObject gameObject)
@@ -20,7 +20,7 @@ namespace ProjectGTA2_Unity.Audio
             if (eventPath.IsNull) return;
             if (gameObject == null) return;
             RuntimeManager.PlayOneShotAttached(eventPath, gameObject);
-            Debug.Log("PlayAudioEvent");
+            //Debug.Log("PlayAudioEvent");
         }
 
         public static void PlayAudioEvent(EventReference eventPath)
@@ -31,7 +31,7 @@ namespace ProjectGTA2_Unity.Audio
             i = RuntimeManager.CreateInstance(eventPath);
             i.start();
             i.release();
-            Debug.Log("PlayAudioEvent");
+            //Debug.Log("PlayAudioEvent");
         }
 
         public static void PlayAudioEventAttached(EventReference eventPath, GameObject gameObject)
@@ -44,7 +44,7 @@ namespace ProjectGTA2_Unity.Audio
             i.start();
             i.release();
             RuntimeManager.AttachInstanceToGameObject(i, gameObject.transform);
-            Debug.Log("PlayAudioEvent");
+            //Debug.Log("PlayAudioEvent");
         }
 
         public static EventInstance CreateEvent(EventReference eventPath)

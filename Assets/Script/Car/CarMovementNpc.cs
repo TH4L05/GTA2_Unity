@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ProjectGTA2_Unity.Cars
@@ -7,10 +9,21 @@ namespace ProjectGTA2_Unity.Cars
     public class CarMovementNpc : CarMovement
     {
         [SerializeField] protected float turnRatioNpcNormal = 2.2f;
+        [SerializeField, Range(0.1f, 2.0f)] private float obstacleCheckDistance = 0.55f;
+        [SerializeField] private Vector3 obstacleCheckRayOffset = new Vector3(0f, 0.2f, 0.5f);
+        public bool pathIsBlocked;
+        public Color color;
 
         protected override void OnUpdate()
         {
             base.OnUpdate();
+
+            pathIsBlocked = IsPathBlocked();
+            if (pathIsBlocked)
+            {
+                Brake(brakePower);
+                return;
+            }                   
             NpcControl();
         }
 
@@ -85,7 +98,7 @@ namespace ProjectGTA2_Unity.Cars
             transform.rotation = Quaternion.LookRotation(direction);
         }
 
-        protected bool CheckTile(Vector3 pos)
+        /*protected bool CheckTile(Vector3 pos)
         {
             RaycastHit hit;
             Ray ray = new Ray(pos, Vector3.down);
@@ -106,6 +119,37 @@ namespace ProjectGTA2_Unity.Cars
                 return false;
             }
             return false;
+        }*/
+
+
+        public Transform obstacleCheckOrigin;
+        private bool IsPathBlocked()
+        {
+            //Vector3 rayOrigin = obstacleCheckOrigin.position;         
+            Vector3 rayDirection = transform.forward;
+            //Ray ray= new Ray(rayOriginCenter, rayDirection);
+            RaycastHit hit;
+
+            bool blocked = false;
+            
+
+            if (Physics.BoxCast(obstacleCheckOrigin.position, obstacleCheckRayOffset, rayDirection, out hit, transform.rotation, obstacleCheckDistance))
+            {
+                if (hit.collider.gameObject.name != gameObject.name)
+                {
+                    blocked = true;
+                }
+            }        
+
+            color = blocked? new Color(1f,0f,0f,0.65f) : new Color(0f, 1f, 0f, 0.65f);
+            return blocked;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.matrix = obstacleCheckOrigin.localToWorldMatrix;
+            Gizmos.color = color;
+            Gizmos.DrawCube(Vector3.zero, obstacleCheckRayOffset);
         }
     }
 }

@@ -181,7 +181,7 @@ namespace ProjectGTA2_Unity.Cars
         private void StartSetup()
         {
             currentHealth = maxHealth;
-            rb.isKinematic = true;
+            //rb.isKinematic = true;
 
             if (isParked) EnableDisableCarLights(false);   
             EnableDisableCarDamage(false);

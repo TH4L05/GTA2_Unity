@@ -40,7 +40,8 @@ namespace ProjectGTA2_Unity
         [Range(1.0f, 10.0f), SerializeField] private float enemyDetectRange = 5f;       
         [SerializeField, Range(0.5f, 10.0f)] private float weaponGunAttackDistance = 3f;
         [SerializeField] private float weaponFistAttackDistance = 0.35f;
-        [SerializeField, Range(0.1f, 2.0f)] private float obstacleCheckDistance = 0.55f;
+        [SerializeField] private float obstacleCheckDistance = 1f;
+        [SerializeField] private Vector3 obstacleCheckRayOffset = new Vector3(0f, 0.2f, 0.5f);
 
         #endregion
 
@@ -219,7 +220,7 @@ namespace ProjectGTA2_Unity
             var color = Color.green;
             pathBlocked = IsPathBlocked();
             color = pathBlocked ? Color.red : color;
-            Debug.DrawRay(transform.position, transform.forward * 0.85f, color);
+            Debug.DrawRay(transform.position, transform.forward * obstacleCheckDistance, color);
             /*if (pathBlocked)
             {
                 currentstate = State.Idle;
@@ -446,7 +447,9 @@ namespace ProjectGTA2_Unity
 
         private bool IsPathBlocked()
         {
-            Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), transform.forward);
+            Vector3 rayOrigin = new Vector3(transform.position.x + obstacleCheckRayOffset.x, transform.position.y + obstacleCheckRayOffset.y, transform.position.z + obstacleCheckRayOffset.z);
+            Vector3 rayDirection = transform.forward;
+            Ray ray = new Ray(rayOrigin, rayDirection);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, obstacleCheckDistance))
