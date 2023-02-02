@@ -34,8 +34,7 @@ namespace ProjectGTA2_Unity.Cars
 
         [Header("Ref")]
         [SerializeField] protected LayerMask groundLayer;
-        [SerializeField] protected CarMovementPlayer carMovementPlayer;
-        [SerializeField] protected CarMovementNpc carMovementNpc;
+        [SerializeField] protected CarMovement carMovement;
         [SerializeField] protected AudioEventList audioEvents;
         [SerializeField] protected CarCollider[] carColliders;
  
@@ -110,15 +109,8 @@ namespace ProjectGTA2_Unity.Cars
             {
                 (float, float, float, CarMovement.MovementDirection) carValues = (0f,0f,0f, CarMovement.MovementDirection.Forward);
 
-                if (playerControlled)
-                {
-                    carValues = carMovementPlayer.MovementValues;
-                }
-                else
-                {
-                    carValues = carMovementNpc.MovementValues;
-                }
-                
+                carValues = carMovement.MovementValues;
+
 
                 if (carValues.Item1 == 0) return;
                 bool hit = false;
@@ -225,8 +217,7 @@ namespace ProjectGTA2_Unity.Cars
             if (passangers.Count < 2)
             {
                 isActive = false;
-                carMovementPlayer.SetActive(isActive);
-                carMovementNpc.SetActive(isActive);
+                carMovement.SetActive(false, isActive);
                 rb.isKinematic = true;
             }
 
@@ -368,21 +359,12 @@ namespace ProjectGTA2_Unity.Cars
 
         #endregion
 
-        #region Lights and Damage Sprites
+        #region LightsAndDamageSprites
 
         private void OnHit(CarCollider.HitDirection hitDirection)
         {
-            (float, float, float, CarMovement.MovementDirection) movementValues;
+            var movementValues = carMovement.MovementValues;
 
-            if (playerControlled)
-            {
-                movementValues = carMovementPlayer.MovementValues;
-            }
-            else
-            {
-                movementValues = carMovementNpc.MovementValues;
-            }
-            
             switch (movementValues.Item4)
             {
                 case CarMovement.MovementDirection.Forward:
@@ -451,11 +433,12 @@ namespace ProjectGTA2_Unity.Cars
 
         #endregion
 
+
         private void StartEngine()
         {
             if (!isParked)
             {
-                ChangeMovementComponentStatus(true, playerControlled);
+                ChangeActivationAndMovementStatus(true, playerControlled);
                 return;
             }
 
@@ -463,22 +446,14 @@ namespace ProjectGTA2_Unity.Cars
             audioEvents.PlayAudioEventOneShotAttached("StartEngine1", gameObject);
             isParked = false;
             EnableDisableCarLights(true);
-            ChangeMovementComponentStatus(true, playerControlled);
+            ChangeActivationAndMovementStatus(true, playerControlled);
 
         }
 
-        protected void ChangeMovementComponentStatus(bool active, bool playerControlled)
+        public void ChangeActivationAndMovementStatus(bool active, bool playerControlled)
         {
             isActive = active;
-
-            if (playerControlled)
-            {
-                carMovementPlayer.SetActive(isActive);
-            }
-            else
-            {
-                carMovementNpc.SetActive(isActive);
-            }
+            carMovement.SetActive(playerControlled, isActive);         
         }
 
         private void SetMainSprite(Sprite sprite, Color color)

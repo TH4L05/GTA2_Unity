@@ -32,7 +32,7 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected CharacterData charData;
         [SerializeField] protected Rigidbody rb;
         [SerializeField] protected Animator animator;
-        [SerializeField] protected BoxCollider boxCollider;
+        [SerializeField] protected Collider[] colliders;
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] protected AudioEventList audioEvents; 
         [SerializeField] protected float CarEnterDistance = 2f;
@@ -255,7 +255,10 @@ namespace ProjectGTA2_Unity.Characters
             isDead = true;
             damageOverTime = false;
             healthRegenActive = false;
-            boxCollider.enabled = false;
+            foreach (var coll in colliders)
+            {
+                coll.enabled = false;
+            }
 
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;

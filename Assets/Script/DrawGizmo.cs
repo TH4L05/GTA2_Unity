@@ -20,6 +20,7 @@ public class DrawGizmo : MonoBehaviour
 
     [SerializeField] private GizmoType type = GizmoType.UseCollider;
     [SerializeField] private Color gizmoColor = new Color(0.25f, 0.45f, 0.65f, 0.55f);
+    [SerializeField] private Vector3 offset = Vector3.zero;
 
     [Header("Collider")]
     [SerializeField] private bool drawWired;
@@ -37,10 +38,11 @@ public class DrawGizmo : MonoBehaviour
 
     [Header("Icon")]
     [SerializeField] private string iconName = "Icon";
+    [SerializeField] private bool allowScaling = true;
+    [SerializeField] private Color tint = Color.white;
 
     [Header("Mesh")]
     [SerializeField] private Mesh mesh;
-    [SerializeField] private Vector3 position = Vector3.zero;
     [SerializeField] private Quaternion rotation = Quaternion.Euler(0, 0, 0);
     [SerializeField] private Vector3 scale = Vector3.one;
 
@@ -101,11 +103,11 @@ public class DrawGizmo : MonoBehaviour
 
                 if (drawWired)
                 {
-                    Gizmos.DrawWireCube(Vector3.zero, boxColl.size);
+                    Gizmos.DrawWireCube(offset, boxColl.size);
                 }
                 else
                 {
-                    Gizmos.DrawCube(Vector3.zero, boxColl.size);
+                    Gizmos.DrawCube(offset, boxColl.size);
                 }
                 break;
 
@@ -115,11 +117,11 @@ public class DrawGizmo : MonoBehaviour
 
                 if (drawWired)
                 {
-                    Gizmos.DrawWireSphere(Vector3.zero, sphereColl.radius);
+                    Gizmos.DrawWireSphere(offset, sphereColl.radius);
                 }
                 else
                 {
-                    Gizmos.DrawSphere(Vector3.zero, sphereColl.radius);
+                    Gizmos.DrawSphere(offset, sphereColl.radius);
                 }
                 break;
 
@@ -129,11 +131,11 @@ public class DrawGizmo : MonoBehaviour
 
                 if (drawWired)
                 {
-                    Gizmos.DrawWireSphere(Vector3.zero, capsuleColl.radius);
+                    Gizmos.DrawWireSphere(offset, capsuleColl.radius);
                 }
                 else
                 {
-                    Gizmos.DrawSphere(Vector3.zero, capsuleColl.radius);
+                    Gizmos.DrawSphere(offset, capsuleColl.radius);
                 }
                 break;
 
@@ -151,22 +153,22 @@ public class DrawGizmo : MonoBehaviour
 
     private void DrawCubeGizmo()
     {
-        Gizmos.DrawCube(Vector3.zero, size);
+        Gizmos.DrawCube(offset, size);
     }
 
     private void DrawCubeGizmoWired()
     {
-        Gizmos.DrawWireCube(Vector3.zero, size);
+        Gizmos.DrawWireCube(offset, size);
     }
 
     private void DrawSphereGizmo()
     {
-        Gizmos.DrawSphere(Vector3.zero, radius);
+        Gizmos.DrawSphere(offset, radius);
     }
 
     private void DrawSphereGizmoWired()
     {
-        Gizmos.DrawWireSphere(Vector3.zero, radius);
+        Gizmos.DrawWireSphere(offset, radius);
     }
 
     private void DrawLineGizmo()
@@ -176,12 +178,12 @@ public class DrawGizmo : MonoBehaviour
 
     private void DrawIconGizmo()
     {
-        Gizmos.DrawIcon(Vector3.zero, iconName, true);
+        Gizmos.DrawIcon(offset, iconName, allowScaling, tint);
     }
 
     private void DrawMeshGizmo()
     {
-        Gizmos.DrawMesh(mesh, 0, position, rotation, scale);
+        Gizmos.DrawMesh(mesh, 0, offset, rotation, scale);
     }
 }
 

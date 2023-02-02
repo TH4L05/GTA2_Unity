@@ -13,7 +13,7 @@ namespace ProjectGTA2_Unity
         public static Game Instance;
         public Player player;
         public Hud hud;
-        public CharacterSpawner characterSpawner;
+        public UnitSpawner characterSpawner;
         public Camera mainCamera;
 
         public Color[] carColors;

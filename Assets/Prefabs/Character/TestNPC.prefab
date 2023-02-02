@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1322824240491747216}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!212 &1322824239110668382
 SpriteRenderer:
@@ -160,7 +160,7 @@ MonoBehaviour:
   attackRate: 1
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: e05ba849bb57598488f3441c9d976d50, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824239291594778
 GameObject:
@@ -203,7 +203,7 @@ Transform:
   - {fileID: 1322824239221920294}
   - {fileID: 1322824241006247160}
   m_Father: {fileID: 1322824240491747216}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1322824239291594772
 MonoBehaviour:
@@ -274,7 +274,7 @@ MonoBehaviour:
   attackRate: 585
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: 7a9876738bb61c846b78b4ca66f12e37, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824239580589336
 GameObject:
@@ -331,7 +331,7 @@ MonoBehaviour:
   attackRate: 585
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: ec489fb2bd8e0394f8f9247929b48e97, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824239718593121
 GameObject:
@@ -388,7 +388,7 @@ MonoBehaviour:
   attackRate: 75
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: a903c493e951c5d4e98fe2d482037888, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824239977015352
 GameObject:
@@ -445,7 +445,7 @@ MonoBehaviour:
   attackRate: 0
   projectile: {fileID: 0}
   icon: {fileID: 0}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 0}
 --- !u!1 &1322824240120632626
 GameObject:
@@ -502,7 +502,7 @@ MonoBehaviour:
   attackRate: 585
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: 51b598633897ab340930fb461c413fe5, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824240239271660
 GameObject:
@@ -533,7 +533,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1322824240491747216}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1322824240306847104
 GameObject:
@@ -590,7 +590,7 @@ MonoBehaviour:
   attackRate: 75
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: f62c6f2a6d384f14180278531e140c3d, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824240491747227
 GameObject:
@@ -602,10 +602,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1322824240491747216}
   - component: {fileID: 1322824240491747222}
-  - component: {fileID: 1322824240491747221}
-  - component: {fileID: 1322824240491747220}
   - component: {fileID: 1322824240491747223}
+  - component: {fileID: 7333090021349818248}
+  - component: {fileID: 1322824240491747221}
   - component: {fileID: 6038396129884195536}
+  - component: {fileID: 7884020440023234925}
   m_Layer: 9
   m_Name: TestNPC
   m_TagString: NPC
@@ -625,6 +626,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 8310486856365796575}
   - {fileID: 1322824239110668383}
   - {fileID: 1322824240239271661}
   - {fileID: 1322824239291594779}
@@ -648,9 +650,11 @@ MonoBehaviour:
   charData: {fileID: 11400000, guid: e4cb940a2c6f3474f980a6c6fb341376, type: 2}
   rb: {fileID: 1322824240491747221}
   animator: {fileID: 1322824239110668381}
-  boxCollider: {fileID: 1322824240491747220}
+  colliders:
+  - {fileID: 7333090021349818248}
+  - {fileID: 7414317034070282698}
   spriteRenderer: {fileID: 1322824239110668382}
-  audioEventList: {fileID: 11400000, guid: 2993b8b190a456e428941f2ae459c89b, type: 2}
+  audioEvents: {fileID: 0}
   CarEnterDistance: 2
   godMode: 0
   maxHealth: 100
@@ -664,35 +668,6 @@ MonoBehaviour:
   deathVfxElectro: {fileID: 0}
   onGround: 0
   npcBehaviour: {fileID: 1322824240491747223}
---- !u!54 &1322824240491747221
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322824240491747227}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!65 &1322824240491747220
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322824240491747227}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.255, y: 0.25, z: 0.155}
-  m_Center: {x: 0, y: 0.125, z: 0}
 --- !u!114 &1322824240491747223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,9 +686,6 @@ MonoBehaviour:
   weaponBelt: {fileID: 1322824239291594772}
   animator: {fileID: 1322824239110668381}
   navAgent: {fileID: 6038396129884195536}
-  canFight: 0
-  playerIsEnemy: 0
-  enemyDetectRange: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -723,8 +695,13 @@ MonoBehaviour:
   npcLayer:
     serializedVersion: 2
     m_Bits: 512
+  canFight: 0
+  playerIsEnemy: 0
+  enemyDetectRange: 5
   weaponGunAttackDistance: 3
   weaponFistAttackDistance: 0.55
+  obstacleCheckDistance: 1
+  obstacleCheckRayOffset: {x: 0, y: 0.2, z: 0.5}
   currentstate: 0
   destination: {x: 0, y: 0, z: 0}
   hasDestination: 0
@@ -738,6 +715,36 @@ MonoBehaviour:
   groundTiles: []
   gizmoColor: {r: 1, g: 0.72830945, b: 0.56078434, a: 0.43137255}
   target: {fileID: 0}
+--- !u!136 &7333090021349818248
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322824240491747227}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 0.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.125, z: 0}
+--- !u!54 &1322824240491747221
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322824240491747227}
+  serializedVersion: 2
+  m_Mass: 80
+  m_Drag: 1
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!195 &6038396129884195536
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -760,6 +767,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7884020440023234925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322824240491747227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816cd2d6b71ccb64b90ddb096e756067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coll: {fileID: 7333090021349818248}
+  collBlock: {fileID: 7414317034070282698}
 --- !u!1 &1322824240629622047
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +836,7 @@ MonoBehaviour:
   attackRate: 110
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: d06a04e4a8c9a3a4fa631dd4cf73bd0c, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824240644770734
 GameObject:
@@ -846,7 +867,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1322824240491747216}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1322824240706483353
 GameObject:
@@ -903,7 +924,7 @@ MonoBehaviour:
   attackRate: 585
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: 7b53f256a194fcd43918e9a329e3410e, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824241006247167
 GameObject:
@@ -960,7 +981,7 @@ MonoBehaviour:
   attackRate: 1
   projectile: {fileID: 3850313777436521770, guid: 77ffff2b0a4908e4ca9098949602fa93, type: 3}
   icon: {fileID: 21300000, guid: fb51eeed4a369c64e8bf6f2579cd2ed8, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
 --- !u!1 &1322824241114642242
 GameObject:
@@ -1017,5 +1038,68 @@ MonoBehaviour:
   attackRate: 15
   projectile: {fileID: 8091104468570349087, guid: a48021fd1f5b0ed4da4c28b2c54326ff, type: 3}
   icon: {fileID: 21300000, guid: 4b21cc26206181a409c8ec1b0960289b, type: 3}
-  audioEventList: {fileID: 11400000, guid: b172bce29d769b348adae4047cc683f9, type: 2}
+  audioEventListSO: {fileID: 0}
   projectileSpawn: {fileID: 1322824240644770735}
+--- !u!1 &6988394427542680908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8310486856365796575}
+  - component: {fileID: 7414317034070282698}
+  - component: {fileID: 2187814467423531050}
+  m_Layer: 31
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8310486856365796575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988394427542680908}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 2.0000405, y: 0, z: 1.0000204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1322824240491747216}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7414317034070282698
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988394427542680908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.155
+  m_Height: 0.25
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.125, z: 0}
+--- !u!54 &2187814467423531050
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988394427542680908}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -68,16 +68,16 @@ namespace ProjectGTA2_Unity.Characters
             //rb.useGravity = onGround;
             if (!onGround)
             {
-                if (onCar)
-                {
-                    Vector3 v = rb.velocity;
-                    rb.AddForce(rb.velocity, ForceMode.Impulse);
-                    rb.velocity = v;
-                }
-                else
-                {
-                    rb.AddForce(new Vector3(0, -1, 0) * characterData.GravityFactor, ForceMode.Acceleration);
-                }
+                //if (onCar)
+                //{
+                //    Vector3 v = rb.velocity;
+                //    rb.AddForce(rb.velocity, ForceMode.Impulse);
+                //    rb.velocity = v;
+                //}
+                //else
+                //{
+                    rb.AddForce(new Vector3(0, -1, 0) * characterData.GravityFactor, ForceMode.Force);
+                //}
 
                 return;
             }
@@ -91,7 +91,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private void ForwardBackwardMovement()
         {
-            move = Vector3.zero;
+            //move = Vector3.zero;
             input.y = Input.GetAxis("Vertical");
 
             move = transform.forward * input.y * characterData.RunSpeed;
@@ -138,7 +138,7 @@ namespace ProjectGTA2_Unity.Characters
             onGround = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
             animator.SetBool("OnGround", onGround);
             onCar = false;
-
+         
             Vector3 rayOrigin = groundRaycast.position;
             Vector3 rayDirection = Vector3.down;
             Ray ray = new Ray(rayOrigin, rayDirection);
