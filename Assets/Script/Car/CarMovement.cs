@@ -1,5 +1,6 @@
 /// <author>Thoams Krahl</author>
 
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace ProjectGTA2_Unity.Cars
@@ -13,51 +14,70 @@ namespace ProjectGTA2_Unity.Cars
             Backward
         }
 
+        public enum CarState
+        {
+            Invalid = -1,
+            Parked,
+            Idle,
+            Brake,
+            DriveForward,
+            DriveBackward,
+            Rotate,
+        }
+
         #region SerializedFields
 
         [Header("Base")]
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
+        [SerializeField] protected bool isActive = false;
+        [SerializeField] protected bool playerControlled;
+        [SerializeField] protected bool npcControlled;
+        [SerializeField] protected CarState currentState;
 
         [Header("Values")]
         [SerializeField] protected float accerlation;
         [SerializeField] protected float brakePower;
         [SerializeField] protected float turnRatio;
         [SerializeField] protected float maxForwardSpeed;
-        [SerializeField] protected float maxBackwardSpeed;    
+        [SerializeField] protected float maxBackwardSpeed;
         [SerializeField] protected float gravityFactor = 15f;
-        [SerializeField] protected Gear[] gears = {new Gear(0.33f), new Gear(0.55f), new Gear(1f) };
+        [SerializeField] protected Gear[] gears = { new Gear(0.33f), new Gear(0.55f), new Gear(1f) };
 
         [Header("NPC")]
         [SerializeField] protected float turnRatioNpcNormal = 2.2f;
-        [SerializeField, Range(0.1f, 2.0f)] private float obstacleCheckDistance = 0.55f;
-        [SerializeField] private Vector3 obstacleCheckRayOffset = new Vector3(0f, 0.2f, 0.5f);
-        public bool pathIsBlocked;
-        public Color color;
-        public Transform obstacleCheckOrigin;
+        [SerializeField] protected float turnSpeed = 1.5f;
+        [SerializeField] protected int maxGear = 1;
+        [SerializeField] private Vector3 obstacleCheckBoxHalfExtents = new Vector3(0.50f, 0.075f, 0.20f);
+        [SerializeField] protected Color color;
+        [SerializeField] protected Transform obstacleCheckOrigin;
 
         #endregion
 
         #region PrivateFields
 
         protected Rigidbody rb;
-        [SerializeField] protected bool isActive = false;
-        protected float currentSpeed;
-        protected int currentGear = 0;        
-        protected MovementDirection movementDirection;
-        [SerializeField] protected bool onGround;
-        [SerializeField] protected RoadDirection[] roadDirections;      
-        [SerializeField] protected SurfaceType surfaceType;
 
-        [SerializeField] protected bool playerControlled;
-        [SerializeField] protected bool npcControlled;
+        protected bool onGround;
+        protected MovementDirection movementDirection;
+        protected float currentSpeed;
+        protected float currentBrakePower;
+        protected int currentGear = 0;
+        protected SurfaceType surfaceType;
+
+
+        //player
         protected Vector2 input = Vector2.zero;
 
-        Vector3 vec = Vector3.zero;
-        Vector3 vecLast;
-
-        Vector3 tilePos;
-        Vector3 tileLast;
+        //npc
+        protected RoadDirection[] roadDirections = new RoadDirection[0];    
+        protected bool pathIsBlocked;
+        protected bool onTurn;
+        protected Vector3 dirVec = Vector3.zero;
+        protected Vector3 dirVecLast;
+        protected Vector3 tilePos;
+        protected Vector3 tilePosLast;
+        protected Vector3 direction;
 
         #endregion
 
@@ -84,7 +104,7 @@ namespace ProjectGTA2_Unity.Cars
             if (obstacleCheckOrigin == null) return;
             Gizmos.matrix = obstacleCheckOrigin.localToWorldMatrix;
             Gizmos.color = color;
-            Gizmos.DrawCube(Vector3.zero, obstacleCheckRayOffset);
+            Gizmos.DrawCube(Vector3.zero, obstacleCheckBoxHalfExtents);
         }
 
         #endregion
@@ -110,6 +130,15 @@ namespace ProjectGTA2_Unity.Cars
         private void Initialize()
         {
             rb = GetComponent<Rigidbody>();
+            if (!isActive)
+            {
+                currentState = CarState.Parked;
+            }
+            else
+            {
+                currentState = CarState.Idle;
+            }
+
         }
 
         private void OnUpdate()
@@ -122,94 +151,88 @@ namespace ProjectGTA2_Unity.Cars
             }
 
             if (!isActive) return;
-            UpdatePosition();  
-            
+                                
             if (playerControlled)
             {
+                PlayerInputCheck();
                 Rotation();
-                InputCheck();
-                return;
             }
 
             if(npcControlled)
             {
-                pathIsBlocked = IsPathBlocked();
-                if (pathIsBlocked)
-                {
-                    Brake(brakePower);
-                    return;
-                }
+               
                 NpcControl();
             }
+
+            UpdateState();
         }
 
-        #endregion
-
-        #region Main
-
-        private void Accerlate()
+        private void UpdateState()
         {
-            currentSpeed += Time.deltaTime * accerlation;
- 
-            switch (movementDirection)
+            switch (currentState)
             {
-                case MovementDirection.Forward:
-
-                    float currentMax = maxForwardSpeed * gears[currentGear].speedOffset;
-
-                    if(currentSpeed >= currentMax)
-                    {
-                        currentSpeed = currentMax;
-                    }
+                case CarState.Invalid:
                     break;
 
-                case MovementDirection.Backward:
-                    if (currentSpeed >= maxBackwardSpeed)
-                    {
-                        currentSpeed = maxBackwardSpeed;
-                    }
+                case CarState.Parked:
+                    OnParked();
                     break;
 
+                case CarState.Idle:
+                    OnIdle();
+                    break;
+
+                case CarState.Brake:
+                    OnBrake();
+                    break;
+
+                case CarState.DriveForward:
+                    OnDriveForward();
+                    break;
+
+                case CarState.DriveBackward:
+                    OnDriveBackward();
+                    break;
+
+                case CarState.Rotate:
+                    OnRotation();
+                    break;
                 default:
                     break;
             }
         }
 
-        protected void IncreaseGear()
+        #endregion
+
+        #region States
+
+        private void OnParked()
         {
-            currentGear++;
-            
-            if (currentGear >= gears.Length)
-            {
-                currentGear = gears.Length - 1;
-            }
+            currentSpeed = 0;
+            currentGear = 0;
         }
 
-        private void Brake(float brakePower)
+        private void OnIdle()
         {
-            currentSpeed -= Time.deltaTime * brakePower;
+            Debug.Log("ON IDLE");
+            currentBrakePower = brakePower;
+            currentSpeed = 0;
+            currentGear = 0;
+        }
+
+        private void OnBrake()
+        {
+            Debug.Log("ON BRAKE");
+            Brake(currentBrakePower);
 
             if (currentSpeed <= 0.1f)
             {
                 currentSpeed = 0;
                 currentGear = 0;
+                currentState = CarState.Idle;
             }
-        }
-
-        private void EngineBreak()
-        {
-            currentSpeed -= Time.deltaTime * brakePower * 2;
-
-            if (currentSpeed <= 0.1f)
-            {
-                currentSpeed = 0;
-                currentGear = 0;
-            }
-        }
-
-        private void UpdatePosition()
-        {
-            if (currentSpeed != 0)
+ 
+            if (playerControlled)
             {
                 switch (movementDirection)
                 {
@@ -224,25 +247,119 @@ namespace ProjectGTA2_Unity.Cars
                     default:
                         break;
                 }
+            }     
+        }
+
+        private void OnDriveForward()
+        {
+            float currentMax = maxForwardSpeed * gears[currentGear].speedOffset;
+            Accerlate(currentMax);
+            ForwardMove();   
+        }
+
+        private void OnDriveBackward()
+        {
+            float currentMax = maxBackwardSpeed;
+            Accerlate(currentMax);
+            BackwardMove();
+        }
+
+        private void OnRotation()
+        {
+            if (npcControlled)
+            {
+                if (currentSpeed > turnSpeed)
+                {
+                    Brake(brakePower * 3);
+                    //return;
+                }
+                else
+                {
+                    NpcRotate(dirVec);
+                }
+
+                ForwardMove();
             }
+        }
+        
+        #endregion
+
+        #region Main
+
+        private void Accerlate(float currentmaxSpeed)
+        {
+            currentSpeed += Time.deltaTime * accerlation;
+
+            if (currentSpeed >= currentmaxSpeed)
+            {
+                currentSpeed = currentmaxSpeed;
+
+                if (movementDirection != MovementDirection.Forward) return;
+
+                if (playerControlled && currentGear < gears.Length - 1)
+                {
+                    IncreaseGear();
+                    return;
+                }
+
+                if (npcControlled && currentGear < maxGear)
+                {
+                    IncreaseGear();
+                }
+            }
+        }
+
+        private void IncreaseGear()
+        {
+            currentGear++;
+
+            if (currentGear >= gears.Length)
+            {
+                currentGear = gears.Length - 1;
+            }
+        }
+
+        private void DecraseGear()
+        {         
+            if (currentGear > 0)
+            {
+                currentGear--;
+            }
+        }
+
+        private void Brake(float brakePower)
+        {
+            currentSpeed -= Time.deltaTime * brakePower;
+
+            Debug.Log("BRAKE -> " + currentSpeed);
+
+            float currentMax = maxForwardSpeed * gears[currentGear].speedOffset;
+            if (movementDirection == MovementDirection.Forward && currentSpeed < currentMax)
+            {              
+                DecraseGear();
+            }
+
+
         }
 
         private void ForwardMove()
         {
             //rb.velocity = currentSpeed * transform.forward;          
             transform.Translate(Time.deltaTime * currentSpeed * transform.forward, Space.World);
+            movementDirection = MovementDirection.Forward;
         }
 
         private void BackwardMove()
         {
             //rb.velocity = currentSpeed * -transform.forward;
             transform.Translate(Time.deltaTime * currentSpeed * -transform.forward, Space.World);
+            movementDirection = MovementDirection.Backward;
         }
         
         private void GroundCheck()
         {
             onGround = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
-            tileLast = tilePos;
+            tilePosLast = tilePos;
 
             Vector3 rayOrigin = groundCheck.position;
             Vector3 rayDirection = Vector3.down;
@@ -264,7 +381,7 @@ namespace ProjectGTA2_Unity.Cars
 
         #region Player
 
-        protected void InputCheck()
+        protected void PlayerInputCheck()
         {
             if (!isActive) return;
             //move = Vector3.zero;
@@ -274,61 +391,53 @@ namespace ProjectGTA2_Unity.Cars
 
             if (input.y > 0)
             {
-                if (movementDirection == MovementDirection.Backward)
+                if (currentState == CarState.DriveBackward)
                 {
+                    currentState = CarState.Brake;
                     Brake(brakePower * 1.5f);
-                    if (currentSpeed < 0.1f) movementDirection = MovementDirection.Forward;
+                    if (currentSpeed < 0.1f) currentState = CarState.DriveForward;
                 }
-                else
-                {
-                    Accerlate();
-                }
+                 currentState = CarState.DriveForward;
             }
             else if (input.y < 0)
             {
-                if (movementDirection == MovementDirection.Forward)
+                if (currentState == CarState.DriveForward)
                 {
-                    Brake(brakePower);
-                    if (currentSpeed < 0.1f) movementDirection = MovementDirection.Backward;
+                    currentState= CarState.Brake;
+                    if (currentSpeed < 0.1f) currentState = CarState.DriveBackward;
 
                 }
-                else
-                {
-                    Accerlate();
-                }
+                currentState = CarState.DriveBackward;
+
+            }
+            else if(currentSpeed >= 0.1f)
+            {
+                currentBrakePower = brakePower * currentSpeed;
+                currentState = CarState.Brake;
             }
             else
             {
-                EngineBreak();
+                currentState = CarState.Idle;
             }
         }
 
         protected void Rotation()
         {
-            //if (!onGround) return;
+            if (!onGround) return;
             if (currentSpeed < 0.65f) return;
 
             var rotationY = 0f;
 
-            switch (movementDirection)
+            if (currentState == CarState.DriveForward)
             {
-                case MovementDirection.Forward:
-                    rotationY = input.x * turnRatio;
-                    break;
-
-                case MovementDirection.Backward:
-                    rotationY = (input.x * -1) * turnRatio;
-                    break;
-
-                default:
-                    break;
+                rotationY = input.x * turnRatio;
             }
-
-            //rotation = new Vector3(0f, rotationY, 0f);
-            //rotation *= Time.deltaTime;
+            else if(currentState == CarState.DriveBackward)
+            {
+                rotationY = (input.x * -1) * turnRatio;
+            }
+      
             rotationY *= Time.deltaTime;
-
-            //transform.Rotate(rotation);
             transform.rotation *= Quaternion.AngleAxis(rotationY, transform.up);
 
         }
@@ -339,41 +448,46 @@ namespace ProjectGTA2_Unity.Cars
 
         protected void NpcControl()
         {
-            if (tileLast != tilePos || vecLast == Vector3.zero)
+            pathIsBlocked = IsPathBlocked();
+            if (pathIsBlocked)
+            {
+                currentState = CarState.Brake;
+                return;
+            }
+
+            if (tilePosLast != tilePos || dirVecLast == Vector3.zero)
             {
                 if (roadDirections.Length == 0)
                 {
-                    vec = CheckRoadDirections(RoadDirection.None);
+                    dirVec = CheckRoadDirections(RoadDirection.None);
                     return;
                 }
 
                 if (roadDirections.Length == 1)
                 {
-                    vec = CheckRoadDirections(roadDirections[0]);
+                    dirVec = CheckRoadDirections(roadDirections[0]);
                 }
                 else
                 {
                     int r = Util.RandomIntNumber(0, roadDirections.Length);
-                    vec = CheckRoadDirections(roadDirections[r]);
+                    dirVec = CheckRoadDirections(roadDirections[r]);
                 }
-                vecLast = vec;
+                dirVecLast = dirVec;
             }
                         
-            if (vec == Vector3.zero)
+            if (dirVec == Vector3.zero)
             {
-                Brake(brakePower);
+                onTurn = false;
+                currentState = CarState.Brake;
+                return;
+            }
+            else if (transform.forward.normalized != dirVec)
+            {
+                currentState = CarState.Rotate;
                 return;
             }
 
-            if (transform.forward.normalized == vec)
-            {
-                //Debug.Log("forwardDirection");
-                Accerlate();
-            }
-            else
-            {
-                NpcRotate(vec);
-            }         
+            currentState = CarState.DriveForward;           
         }
 
         protected Vector3 CheckRoadDirections(RoadDirection direction)
@@ -411,8 +525,13 @@ namespace ProjectGTA2_Unity.Cars
         protected void NpcRotate(Vector3 vec)
         {
             float step = Time.deltaTime * turnRatioNpcNormal;
-            Vector3 direction = Vector3.RotateTowards(transform.forward.normalized, vec, step, 0f);
+            direction = Vector3.RotateTowards(transform.forward.normalized, vec, step, 0f);
             transform.rotation = Quaternion.LookRotation(direction);
+
+            if (transform.forward.normalized == vec)
+            {
+                currentState = CarState.DriveForward;
+            }
         }
 
         /*protected bool CheckTile(Vector3 pos)
@@ -438,33 +557,37 @@ namespace ProjectGTA2_Unity.Cars
             return false;
         }*/
 
-
-        
+        public LayerMask carLayer;
+        public Collider[] pathBlocker;
         private bool IsPathBlocked()
         {
             //Vector3 rayOrigin = obstacleCheckOrigin.position;         
-            Vector3 rayDirection = transform.forward;
+            //Vector3 rayDirection = transform.forward;
             //Ray ray= new Ray(rayOriginCenter, rayDirection);
-            RaycastHit hit;
+            //RaycastHit hit;
 
             bool blocked = false;
 
+            pathBlocker = Physics.OverlapBox(obstacleCheckOrigin.position, obstacleCheckBoxHalfExtents, transform.rotation, ~ carLayer);
 
-            if (Physics.BoxCast(obstacleCheckOrigin.position, obstacleCheckRayOffset, rayDirection, out hit, transform.rotation, obstacleCheckDistance))
+            if (pathBlocker.Length != 0)
+            {
+                blocked = true;
+            }
+
+            /*if (Physics.BoxCast(obstacleCheckOrigin.position, obstacleCheckRayOffset, rayDirection, out hit, transform.rotation, obstacleCheckDistance))
             {
                 if (hit.collider.gameObject.name != gameObject.name)
                 {
                     blocked = true;
                 }
-            }
+            }*/
 
             color = blocked ? new Color(1f, 0f, 0f, 0.65f) : new Color(0f, 1f, 0f, 0.65f);
             return blocked;
         }
 
-        #endregion
-
-        
+        #endregion      
     }
 
     [System.Serializable]

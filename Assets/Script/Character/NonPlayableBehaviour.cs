@@ -529,7 +529,10 @@ namespace ProjectGTA2_Unity
         {
             if (targetposition == Vector3.zero) return;
             Vector3 direction = (targetposition - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            direction = new Vector3(direction.x, 0, direction.z);
+            if (direction == Vector3.zero) return;
+
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * ratio);
         }
 

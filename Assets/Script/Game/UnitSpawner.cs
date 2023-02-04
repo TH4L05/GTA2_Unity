@@ -269,6 +269,7 @@ namespace ProjectGTA2_Unity
             newCar.name = "Car" + Time.time;
 
             Vector3 rot = Vector3.zero;
+            if (rd.Length == 0) return;
             switch (rd[0])
             {
                 case RoadDirection.None:

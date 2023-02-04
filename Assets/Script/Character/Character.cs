@@ -315,6 +315,7 @@ namespace ProjectGTA2_Unity.Characters
         protected void CheckNearbyCarsToEnter()
         {
             Collider[] carColliders = Physics.OverlapSphere(transform.position, CarEnterDistance, 1 << 8);
+            List<Car> cars = new List<Car>();
 
             if (carColliders.Length < 1)
             {
@@ -322,13 +323,22 @@ namespace ProjectGTA2_Unity.Characters
                 return;
             }
 
+            foreach (var item in carColliders)
+            {
+                var car = item.gameObject.GetComponent<Car>();
+
+                if (car != null) cars.Add(car);
+            }
+
+            if (cars.Count == 0) return;
+
             int index = 0;
             float distance = 999f;
 
-            for (int i = 0; i < carColliders.Length; i++)
+            for (int i = 0; i < cars.Count; i++)
             {
                 float lastDistance = distance;
-                distance = Vector3.Distance(transform.position, carColliders[i].transform.position);
+                distance = Vector3.Distance(transform.position, cars[i].transform.position);
 
                 if (distance < lastDistance)
                 {
@@ -336,25 +346,7 @@ namespace ProjectGTA2_Unity.Characters
                 }
             }
 
-            //Debug.Log(carColliders[index].gameObject.name);
-
-            List<Component> results = new List<Component>();
-
-            foreach (var item in results)
-            {
-                Debug.Log(item.name);
-            }
-
-            var car = carColliders[index].gameObject.GetComponent<Car>();
-
-            if (car != null)
-            {
-                car.CharacterEnter(this);
-            }
-            else
-            {
-                Debug.Log("NO CAR");
-            }
+            cars[index].CharacterEnter(this);           
         }
     }
 }
