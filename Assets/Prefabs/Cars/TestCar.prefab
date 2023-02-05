@@ -128,7 +128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6501208320579542868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.125, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0.11, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1225,13 +1225,14 @@ MonoBehaviour:
   turnRatioNpcNormal: 2.2
   turnSpeed: 1.1
   maxGear: 0
-  obstacleCheckBoxHalfExtents: {x: 0.5, y: 0.075, z: 0.2}
+  obstacleCheckBoxHalfExtents: {x: 0.3, y: 0.075, z: 0.1}
   color: {r: 0.21560162, g: 0.8018868, b: 0.21560162, a: 0.47058824}
   obstacleCheckOrigin: {fileID: 3660483618706631082}
   carLayer:
     serializedVersion: 2
     m_Bits: 256
   pathBlocker: []
+  relevantColliders: []
 --- !u!65 &9045682803284159801
 BoxCollider:
   m_ObjectHideFlags: 0

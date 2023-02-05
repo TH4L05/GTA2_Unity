@@ -1,5 +1,6 @@
 /// <author>Thoams Krahl</author>
 
+using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace ProjectGTA2_Unity.Cars
             DriveForward,
             DriveBackward,
             Rotate,
+            OnTrafficLightJunction,
         }
 
         #region SerializedFields
@@ -59,6 +61,7 @@ namespace ProjectGTA2_Unity.Cars
         protected Rigidbody rb;
 
         protected bool onGround;
+        protected bool onRedTrafficLight;
         protected MovementDirection movementDirection;
         protected float currentSpeed;
         protected float currentBrakePower;
@@ -71,6 +74,7 @@ namespace ProjectGTA2_Unity.Cars
 
         //npc
         protected RoadDirection[] roadDirections = new RoadDirection[0];    
+        protected RoadDirection lastRoadDirection;
         protected bool pathIsBlocked;
         protected bool onTurn;
         protected Vector3 dirVec = Vector3.zero;
@@ -104,12 +108,12 @@ namespace ProjectGTA2_Unity.Cars
             if (obstacleCheckOrigin == null) return;
             Gizmos.matrix = obstacleCheckOrigin.localToWorldMatrix;
             Gizmos.color = color;
-            Gizmos.DrawCube(Vector3.zero, obstacleCheckBoxHalfExtents);
+            Gizmos.DrawCube(Vector3.zero, obstacleCheckBoxHalfExtents * 2);
         }
 
         #endregion
 
-        #region Setup
+        #region SetupAndUpdate
 
         public void SetActive(bool player, bool active)
         {
@@ -123,6 +127,11 @@ namespace ProjectGTA2_Unity.Cars
             {
                 playerControlled = false;
                 npcControlled = isActive;
+            }
+
+            if (!isActive)
+            {
+                currentState = CarState.Parked;
             }
 
         }
@@ -151,20 +160,21 @@ namespace ProjectGTA2_Unity.Cars
             }
 
             if (!isActive) return;
-                                
+            ControlCheck();
+            UpdateState();
+        }
+
+        private void ControlCheck()
+        {
             if (playerControlled)
             {
                 PlayerInputCheck();
                 Rotation();
             }
-
-            if(npcControlled)
+            else if (npcControlled)
             {
-               
                 NpcControl();
             }
-
-            UpdateState();
         }
 
         private void UpdateState()
@@ -202,6 +212,24 @@ namespace ProjectGTA2_Unity.Cars
             }
         }
 
+        public void OnTrafficLightJunction(TrafficLight.TrafficLightState state)
+        {
+            switch (state)
+            {
+                case TrafficLight.TrafficLightState.Disabled:
+                    return;
+
+                case TrafficLight.TrafficLightState.Green:
+                    onRedTrafficLight = false;
+                    break;
+                case TrafficLight.TrafficLightState.Red:
+                    onRedTrafficLight = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #endregion
 
         #region States
@@ -214,7 +242,6 @@ namespace ProjectGTA2_Unity.Cars
 
         private void OnIdle()
         {
-            Debug.Log("ON IDLE");
             currentBrakePower = brakePower;
             currentSpeed = 0;
             currentGear = 0;
@@ -222,7 +249,6 @@ namespace ProjectGTA2_Unity.Cars
 
         private void OnBrake()
         {
-            Debug.Log("ON BRAKE");
             Brake(currentBrakePower);
 
             if (currentSpeed <= 0.1f)
@@ -331,7 +357,7 @@ namespace ProjectGTA2_Unity.Cars
         {
             currentSpeed -= Time.deltaTime * brakePower;
 
-            Debug.Log("BRAKE -> " + currentSpeed);
+            //Debug.Log("BRAKE -> " + currentSpeed);
 
             float currentMax = maxForwardSpeed * gears[currentGear].speedOffset;
             if (movementDirection == MovementDirection.Forward && currentSpeed < currentMax)
@@ -384,7 +410,6 @@ namespace ProjectGTA2_Unity.Cars
         protected void PlayerInputCheck()
         {
             if (!isActive) return;
-            //move = Vector3.zero;
 
             input.x = Input.GetAxis("Horizontal");
             input.y = Input.GetAxis("Vertical");
@@ -449,7 +474,8 @@ namespace ProjectGTA2_Unity.Cars
         protected void NpcControl()
         {
             pathIsBlocked = IsPathBlocked();
-            if (pathIsBlocked)
+
+            if (pathIsBlocked || onRedTrafficLight)
             {
                 currentState = CarState.Brake;
                 return;
@@ -459,20 +485,49 @@ namespace ProjectGTA2_Unity.Cars
             {
                 if (roadDirections.Length == 0)
                 {
-                    dirVec = CheckRoadDirections(RoadDirection.None);
+                    dirVec = GetRoadDirectionVector(RoadDirection.None);
+                    lastRoadDirection = RoadDirection.None;
                     return;
                 }
 
                 if (roadDirections.Length == 1)
                 {
-                    dirVec = CheckRoadDirections(roadDirections[0]);
+                    dirVec = GetRoadDirectionVector(roadDirections[0]);
+                    lastRoadDirection = roadDirections[0];
                 }
                 else
                 {
-                    int r = Util.RandomIntNumber(0, roadDirections.Length);
-                    dirVec = CheckRoadDirections(roadDirections[r]);
+                    int z = Util.RandomIntNumber(0, 100);
+
+                    if (z > 66)
+                    {
+                        int r = Util.RandomIntNumber(0, roadDirections.Length);
+                        dirVec = GetRoadDirectionVector(roadDirections[r]);
+                        lastRoadDirection = roadDirections[r];
+                    }
+                    else
+                    {
+                        dirVec = Vector3.zero;
+
+                        for (int i = 0; i < roadDirections.Length; i++)
+                        {
+                            if (roadDirections[i] == lastRoadDirection)
+                            {
+                                dirVec = GetRoadDirectionVector(lastRoadDirection);
+                                break;
+                            }
+                        }
+
+                        if (dirVec == Vector3.zero)
+                        {
+                            int r = Util.RandomIntNumber(0, roadDirections.Length);
+                            dirVec = GetRoadDirectionVector(roadDirections[r]);
+                            lastRoadDirection = roadDirections[r];
+                        }
+                    }
                 }
-                dirVecLast = dirVec;
+
+                dirVecLast = dirVec;              
             }
                         
             if (dirVec == Vector3.zero)
@@ -490,7 +545,7 @@ namespace ProjectGTA2_Unity.Cars
             currentState = CarState.DriveForward;           
         }
 
-        protected Vector3 CheckRoadDirections(RoadDirection direction)
+        protected Vector3 GetRoadDirectionVector(RoadDirection direction)
         {
             
             Vector3 vec = Vector3.zero;
@@ -559,6 +614,7 @@ namespace ProjectGTA2_Unity.Cars
 
         public LayerMask carLayer;
         public Collider[] pathBlocker;
+        public List<Collider> relevantColliders = new List<Collider>();
         private bool IsPathBlocked()
         {
             //Vector3 rayOrigin = obstacleCheckOrigin.position;         
@@ -567,10 +623,20 @@ namespace ProjectGTA2_Unity.Cars
             //RaycastHit hit;
 
             bool blocked = false;
+            relevantColliders.Clear();
+            //pathBlocker = Physics.OverlapBox(obstacleCheckOrigin.position, obstacleCheckBoxHalfExtents, transform.rotation, ~ carLayer);
+            pathBlocker = Physics.OverlapBox(obstacleCheckOrigin.position, obstacleCheckBoxHalfExtents, transform.rotation);
+          
+            for (int i = 0; i < pathBlocker.Length; i++)
+            {
+                if (pathBlocker[i].gameObject.layer == LayerMask.NameToLayer("Trigger")) continue;
+                if (pathBlocker[i].gameObject.layer == LayerMask.NameToLayer("TrafficLightTrigger")) continue;
 
-            pathBlocker = Physics.OverlapBox(obstacleCheckOrigin.position, obstacleCheckBoxHalfExtents, transform.rotation, ~ carLayer);
+                relevantColliders.Add(pathBlocker[i]);
+            }
 
-            if (pathBlocker.Length != 0)
+            //Debug.Log(relevantColliders.Count);
+            if (relevantColliders.Count != 0)
             {
                 blocked = true;
             }

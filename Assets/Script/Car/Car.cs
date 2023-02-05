@@ -45,6 +45,7 @@ namespace ProjectGTA2_Unity.Cars
         [SerializeField] protected bool fixedCarColor = false;
         [SerializeField] protected Transform[] carEntryPoints;
         [SerializeField] protected bool isParked = false;
+        [SerializeField] protected bool playerControlled;
 
         [Header("Visuals")]
         [SerializeField] protected GameObject carDeltasRoot;
@@ -67,7 +68,15 @@ namespace ProjectGTA2_Unity.Cars
         protected bool isDestroyed;
         protected DamageType lastDamageType;
         protected Transform charOrgParentTransform;
-        [SerializeField] protected bool playerControlled;
+
+        #endregion
+
+        #region PublicFields
+
+        public bool IsParked => isParked;
+        public bool IsPlayerControlled => playerControlled;
+        public bool IsDestroyed => isDestroyed;
+        public CarMovement CarMovement => carMovement;
 
         #endregion
 
@@ -233,9 +242,11 @@ namespace ProjectGTA2_Unity.Cars
                 if (character.CompareTag("Player"))
                 {
                     PlayerCamera.SetCameraTarget(character.transform);
+                    playerControlled = false;
                 }              
             }
 
+            ChangeActivationAndMovementStatus(false, playerControlled);
             passangers.Clear();
             gameObject.name = name;
             gameObject.tag = "Car";
