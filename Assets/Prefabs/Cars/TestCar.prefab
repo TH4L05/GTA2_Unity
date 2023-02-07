@@ -1170,11 +1170,12 @@ MonoBehaviour:
   name: TestCar
   carType: 1
   maxHealth: 100
-  fixedCarColor: 1
+  fixedCarColor: 0
   carEntryPoints:
   - {fileID: 9045682802558704841}
   - {fileID: 9045682803504059491}
   isParked: 0
+  playerControlled: 0
   carDeltasRoot: {fileID: 9045682803134702756}
   spriteRendererMain: {fileID: 9045682803633348892}
   destroyedSprite: {fileID: 21300000, guid: eda426fdb621b5048a2694deace3f307, type: 3}
@@ -1191,7 +1192,6 @@ MonoBehaviour:
   destroyVFX:
   - {fileID: 1700068147033449755, guid: 2e96b78e9a127c4448e660e9d4429af3, type: 3}
   - {fileID: 8340612986028254124, guid: 7c6ba32d40a6d944caa5e5ba48e2b3c4, type: 3}
-  playerControlled: 0
 --- !u!114 &8627597239013647343
 MonoBehaviour:
   m_ObjectHideFlags: 0

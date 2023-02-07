@@ -17,9 +17,6 @@ public class Trigger : MonoBehaviour
     public UnityEvent OnObjectTriggerStay;
     public UnityEvent OnObjectTriggerExit;
 
-    [Space(5)][Header("Dev")]
-    [SerializeField] private Color gizmoColor = Color.cyan;
- 
     [HideInInspector]public GameObject objInZone;
 
     #endregion
@@ -97,29 +94,5 @@ public class Trigger : MonoBehaviour
 
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.color = gizmoColor;
-
-        Collider coll = GetComponent<Collider>();
-        switch (coll)
-        {
-            case BoxCollider:
-                var boxColl = coll as BoxCollider;
-                //Gizmos.DrawCube(transform.position, boxColl.bounds.size);
-                Gizmos.DrawCube(Vector3.zero, boxColl.size);
-                break;
-
-            case SphereCollider:
-                var sphereColl = coll as SphereCollider;
-                Gizmos.DrawSphere(Vector3.zero, sphereColl.radius);
-                break;
-
-            default:
-                Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
-                break;
-        }
-    }
 
 }

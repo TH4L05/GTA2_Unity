@@ -1,8 +1,8 @@
 /// <author>Thoams Krahl</author>
 
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
+using ProjectGTA2_Unity.Tiles;
 
 namespace ProjectGTA2_Unity.Cars
 {

@@ -5,7 +5,7 @@ using ProjectGTA2_Unity.Characters;
 using ProjectGTA2_Unity.Cars;
 using ProjectGTA2_Unity.Audio;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.Weapons.Projectiles
 {
     public class Projectile : MonoBehaviour
     {

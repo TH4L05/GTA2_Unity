@@ -3,10 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectGTA2_Unity.Tiles;
 using ProjectGTA2_Unity.Characters;
 using ProjectGTA2_Unity.Cars;
-using UnityEngine.UIElements;
-using System.Collections.Specialized;
+using ProjectGTA2_Unity.Weapons;
 
 namespace ProjectGTA2_Unity
 {
@@ -17,6 +17,7 @@ namespace ProjectGTA2_Unity
         [SerializeField] private Transform carsParentObject;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float maxDistanceToPlayer = 20f;
+        [SerializeField] private Vector3 size = new Vector3(15f, 1f, 10f);   
 
         [Space(2f), Header("Player")]
         [SerializeField] private List<HumanPlayer> humanPlayers = new List<HumanPlayer>();
@@ -42,13 +43,21 @@ namespace ProjectGTA2_Unity
         public bool NpcSpawnIsActive;
         public bool CarSpawnIsActive;
 
-        Transform target => PlayerCamera.targetObj.transform;
+        Transform target
+        {
+            get 
+            { 
+                if (PlayerCamera.targetObj != null) return PlayerCamera.targetObj.transform;              
+                return null;                                
+            }
+        }
 
         private void Awake()
         {
             NpcSpawnIsActive = false;
             Player.OnDeath += RespawnPlayer;
             Character.CharacterisDead += CharacterDied;
+            Weapon.WeaponAttacked += AWeaponWasFired;
         }
 
         private void Start()
@@ -75,6 +84,7 @@ namespace ProjectGTA2_Unity
         {
             Player.OnDeath -= RespawnPlayer;
             Character.CharacterisDead -= CharacterDied;
+            Weapon.WeaponAttacked -= AWeaponWasFired;
         }
 
         /*private void OnDrawGizmosSelected()
@@ -83,6 +93,8 @@ namespace ProjectGTA2_Unity
             Gizmos.color = new Color(1f, 0f, 0f, 0.45f);
             Gizmos.DrawWireCube(player.transform.position, new Vector3(maDistanceToPlayer, 3f, maDistanceToPlayer));
         }*/
+
+        #region Setup
 
         private void Initialize()
         {
@@ -99,6 +111,8 @@ namespace ProjectGTA2_Unity
          
             StartCoroutine(SpawnThePlayer(0.5f,0));
         }
+
+        #endregion
 
         #region Player
 
@@ -331,6 +345,7 @@ namespace ProjectGTA2_Unity
 
         #endregion
 
+
         private Vector3 RandomSpawnPositionWithOffset(Vector3 position, Vector2 minMaxOffset)
         {
             float xOffset = Util.RandomFloatNumber(minMaxOffset.x, minMaxOffset.y);
@@ -343,7 +358,7 @@ namespace ProjectGTA2_Unity
             List<Tile> tilePositions = new List<Tile>();          
             if (target == null) return tilePositions;
 
-            Collider[] colliders = Physics.OverlapBox(target.position, new Vector3(15f, 1f, 10f), target.rotation, groundLayer);
+            Collider[] colliders = Physics.OverlapBox(target.position, size, target.rotation, groundLayer);
 
             foreach (var collider in colliders)
             {
@@ -356,6 +371,27 @@ namespace ProjectGTA2_Unity
             }
             
             return tilePositions;
+        }
+
+        private void AWeaponWasFired(GameObject initiator, Weapon.AttackTypes attackType)
+        {
+            if (attackType == Weapon.AttackTypes.Melee) return;
+            if (spawnedNpcs.Count == 0) return;
+
+            Vector3 attackPos = initiator.transform.position;
+
+            foreach (var npc in spawnedNpcs)
+            {             
+                Vector3 npcPos = npc.transform.position;
+
+                float distance = Util.GetDistance(npcPos, attackPos);
+
+                if (distance < 8f)
+                {
+                    var npcBehaviour = npc.GetComponent<NonPlayableBehaviour>();
+                    npcBehaviour.GunWasFiredNearby(initiator, attackType);
+                }
+            }
         }
     }
 }

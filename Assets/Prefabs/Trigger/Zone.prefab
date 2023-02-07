@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1966551789696970474}
   - component: {fileID: 6007352405818104797}
   - component: {fileID: 154868373757141479}
+  - component: {fileID: 2573806114267852492}
   m_Layer: 10
   m_Name: Zone
   m_TagString: Untagged
@@ -82,7 +83,6 @@ MonoBehaviour:
   OnObjectTriggerExit:
     m_PersistentCalls:
       m_Calls: []
-  gizmoColor: {r: 0.9921568, g: 0.49667996, b: 0.31372544, a: 0.3529412}
   objInZone: {fileID: 0}
 --- !u!65 &154868373757141479
 BoxCollider:
@@ -95,5 +95,31 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 1, z: 3}
+  m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2573806114267852492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447405871837773343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cab67ad8fee9ed247820c47d4357fca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  gizmoColor: {r: 0.6509804, g: 0.35576028, b: 0.25098038, a: 0.55}
+  offset: {x: 0, y: 0, z: 0}
+  drawWired: 0
+  size: {x: 1, y: 1, z: 1}
+  radius: 0.5
+  startPosition: {x: 0, y: 0, z: 0}
+  endPosition: {x: 1, y: 1, z: 1}
+  iconName: Icon
+  allowScaling: 1
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  mesh: {fileID: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  scale: {x: 1, y: 1, z: 1}

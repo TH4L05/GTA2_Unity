@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectGTA2_Unity.Weapons;
 
 namespace ProjectGTA2_Unity
 {
@@ -21,7 +22,7 @@ namespace ProjectGTA2_Unity
         protected void GunEquippedCheck()
         {
             
-            if (weapons[currentweaponIndex].AttackType == AttackType.ShootProjectile)
+            if (weapons[currentweaponIndex].AttackType == Weapon.AttackTypes.ShootProjectile)
             {
                 GunEquipped = true;
             }

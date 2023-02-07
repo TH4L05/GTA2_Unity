@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectGTA2_Unity.Collectables;
+using ProjectGTA2_Unity.Weapons;
 
 namespace ProjectGTA2_Unity.Characters
 {
@@ -28,6 +30,11 @@ namespace ProjectGTA2_Unity.Characters
             if (Input.GetKeyDown(KeyCode.E))
             {
                 CheckNearbyCarsToEnter();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                audioEvents.PlayAudioEventOneShot("BurpFart");
             }
         }
 
@@ -79,10 +86,9 @@ namespace ProjectGTA2_Unity.Characters
 
         #endregion
 
-        private void CollectableGathered(CollectableType pickupType, int amount, float time)
+        private void CollectableGathered(CollectableTypes collectableType, int amount, float time)
         {
-            Debug.Log("PickUpCollected");
-            armoury.AddAmmo(pickupType.ToString(), amount);                
+            armoury.AddAmmo(collectableType.ToString(), amount);                
         }
 
         protected override void DecreaseHealth(float amount)

@@ -2,6 +2,7 @@
 
 using System;
 using UnityEngine;
+using ProjectGTA2_Unity.Tiles;
 
 namespace ProjectGTA2_Unity.Cars
 {

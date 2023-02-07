@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>Thoams Krahl</author>
+
 using UnityEngine;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.Weapons.Projectiles
 {
     public class FlameThrowerFlame : Projectile
     {

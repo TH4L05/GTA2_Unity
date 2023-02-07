@@ -3,8 +3,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using ProjectGTA2_Unity.Tiles;
 using ProjectGTA2_Unity.Characters.Data;
 using ProjectGTA2_Unity.Cars;
+using ProjectGTA2_Unity.Audio;
+using ProjectGTA2_Unity.Weapons;
 
 namespace ProjectGTA2_Unity
 {
@@ -33,9 +36,11 @@ namespace ProjectGTA2_Unity
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private LayerMask npcLayer;
+        [SerializeField] private AudioEventList audioEvents;
 
         [Space(2f), Header("Settings")]
         [SerializeField] private bool canFight;
+        [SerializeField] private float minFleeDistance = 10f;
         [SerializeField] private bool playerIsEnemy;
         [Range(1.0f, 10.0f), SerializeField] private float enemyDetectRange = 5f;       
         [SerializeField, Range(0.5f, 10.0f)] private float weaponGunAttackDistance = 3f;
@@ -47,38 +52,41 @@ namespace ProjectGTA2_Unity
 
         #region PrivateFields
 
+        private Transform target;
         private RaycastHit hit;
         private SurfaceType surfaceType;
+        private float currentSpeed;
         private float attackDistance;
+
         private bool onGround;
         private bool onSlope;
         private bool onJump;
         private bool onCar;
+
         private float startFallHeight;
         private bool isFalling => !onGround && rb.velocity.y < 0;
         private bool wasFalling;
+        private Color gizmoColor = Color.green;
+        private float currentIdleTime;
+        private float maxIdleTime = 10f;
 
         #endregion
 
         #region PublicFields
         public bool IsDead { get; set; }
+        public bool InCar { get; set; }
 
-        [Header("Info")]
+        [Header("Info And Test")]
         public State currentstate;
         public Vector3 destination;
         public bool hasDestination;
         public bool hasDestinationPoint;
         public bool onRotation;
         public bool onChase;
-        public bool onFlee;
-        public bool pathBlocked;
-
-        public float speed;
+        public bool runningAway;
+        public bool pathIsBlocked;
         public Quaternion desiredR;
-
         public List<Tile> groundTiles = new List<Tile>();
-        public Color gizmoColor;
-        public Transform target;
 
         #endregion
 
@@ -95,12 +103,11 @@ namespace ProjectGTA2_Unity
         }
 
         private void Update()
-        {
-            if (IsDead) return;
-
+        {         
             bool wasGrounded = onGround;
-
             GroundCheck();
+
+            if (IsDead) return;
             if (!wasFalling && isFalling) startFallHeight = transform.position.y;
             FallDamageCheck(wasGrounded);
             wasFalling = isFalling;
@@ -184,102 +191,118 @@ namespace ProjectGTA2_Unity
             return false;
         }
 
-        #region Idle
-
+       
         private void IdleState()
         {
+            if (currentIdleTime >= maxIdleTime)
+            {
+                destination = GetNearestDestinationInRange(5.5f);
+
+                if (destination != Vector3.zero)
+                {
+                    currentIdleTime = 0f;
+                    hasDestinationPoint = true;
+                }
+
+                return;
+            }
+
             navAgent.isStopped = true;
             animator.SetBool("Walk", false);
             animator.SetBool("Run", false);
 
-            speed = 0f;
+            currentSpeed = 0f;
 
             if(!hasDestinationPoint)
             {
                 GetDestination();
+                currentIdleTime += Time.deltaTime;
             }
             else
             {
-                pathBlocked = false;
+                pathIsBlocked = false;
                 SetDestination(destination);
             }
 
-            if (hasDestination  && !onRotation) currentstate = State.Walk;
+            if (hasDestination && !onRotation) currentstate = State.Walk;
         }
-
-        #endregion
-
-        #region Walk
 
         private void WalkState()
         {
             navAgent.isStopped = false;
+            currentIdleTime = 0f;
+
             if (weaponBelt != null) animator.SetBool("GunEquiped", weaponBelt.GunEquipped);
             animator.SetBool("Walk", true);
 
-            var color = Color.green;
-            pathBlocked = IsPathBlocked();
-            color = pathBlocked ? Color.red : color;
+            LookAtTarget(destination, charData.RotationSensitivity);
+
+            pathIsBlocked = IsPathBlocked();
+            Color color = pathIsBlocked ? Color.red : Color.green;
             Debug.DrawRay(transform.position, transform.forward * obstacleCheckDistance, color);
-            /*if (pathBlocked)
+            if (pathIsBlocked)
             {
+                hasDestination = false;
                 currentstate = State.Idle;
                 return;
-            }*/
+            }
 
-            LookAtTarget(destination, charData.RotationSensitivity);
-            speed = charData.Walkspeed;
-            MoveToDestination(destination, speed);
+            currentSpeed = charData.Walkspeed;
+            MoveToDestination(destination, currentSpeed);
 
             var distance = Vector3.Distance(transform.position, destination);
             if (distance <= 0.25f)
             {
-                navAgent.isStopped = true;
                 hasDestination = false;
                 currentstate = State.Idle;
             }
         }
-
-        #endregion
-
-        #region Run
 
         private void RunState()
         {
             if(weaponBelt != null) animator.SetBool("GunEquiped", weaponBelt.GunEquipped);
+            currentIdleTime = 0f;
             animator.SetBool("Run", true);
 
-
-            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), transform.forward * 0.65f, Color.red);
-            if (IsPathBlocked())
+            LookAtTarget(destination, charData.RotationSensitivity);
+          
+            pathIsBlocked = IsPathBlocked();
+            Color color = pathIsBlocked ? Color.red : Color.green;
+            Debug.DrawRay(transform.position, transform.forward * obstacleCheckDistance, color);
+            if (pathIsBlocked)
             {
-                speed = 0;
+                hasDestination = false;
+                if (runningAway)
+                {
+                    currentstate = State.Flee;
+                    return;
+                }
+
                 currentstate = State.Idle;
                 return;
             }
 
-            speed = charData.RunSpeed;
-            MoveToDestination(destination, speed);
-
-            if (target != null)
-            {
-                destination = target.position;
-            }
+            currentSpeed = charData.RunSpeed;
+            MoveToDestination(destination, currentSpeed);
 
             var distance = Vector3.Distance(transform.position, destination);
-            if (distance <= 0.25f)
+            if (distance <= 0.15f)
             {
+                if (runningAway)
+                {
+                    currentstate = State.Flee;
+                    return;
+                }
                 hasDestination = false;
                 currentstate = State.Idle;
             }
         }
 
-        #endregion
-
-        #region Chase
-
         private void ChaseState()
         {
+            currentIdleTime = 0f;
+            if (!onChase) onChase = true;
+
             if (!InAttackRange())
             {
                 destination = target.position;
@@ -291,13 +314,9 @@ namespace ProjectGTA2_Unity
             }
         }
 
-
-        #endregion
-
-        #region Attack
-
         private void AttackState()
         {
+            currentIdleTime = 0f;
             if (InAttackRange())
             {
                 weaponBelt.AttackWithCurrentEquippedWeapon();
@@ -308,16 +327,32 @@ namespace ProjectGTA2_Unity
             }
         }
 
-        #endregion
-
-        #region Flee
-
         private void FleeState()
         {
+            currentIdleTime = 0f;
+            float distance = Util.GetDistance(transform.position, target.position);
+            if (distance > minFleeDistance)
+            {
+                runningAway = false;
+                hasDestination = false;
+                hasDestinationPoint = false;
+                currentstate = State.Idle;
+                target = null;
+                return;
+            }
 
+            if (!runningAway) runningAway = true;
+            if (target == null)
+            {
+                currentstate = State.Idle;
+                return;
+            }
+
+            Vector3 dirToTarget = transform.position - target.position;
+            destination = dirToTarget + transform.position;
+            //destination = GetRandomDestination();
+            currentstate = State.Run;
         }
-
-        #endregion
 
         #endregion
 
@@ -339,7 +374,7 @@ namespace ProjectGTA2_Unity
             groundTiles.Clear();
             destination = Vector3.zero;
 
-            if(!pathBlocked) CheckForward();
+            if(!pathIsBlocked) CheckForward();
 
             if (!hasDestinationPoint)
             {
@@ -406,7 +441,16 @@ namespace ProjectGTA2_Unity
 
             pointLeft.x += Util.RandomFloatNumber(-0.25f, 0.25f);
             pointLeft.z += Util.RandomFloatNumber(-0.25f, 0.25f);
-            pointLeft.y += 0.5f;
+
+            if (onSlope)
+            {
+                pointLeft.y += 0.85f;
+            }
+            else
+            {
+                pointLeft.y += 0.5f;
+            }
+           
             hasDestinationPoint = CheckTile(pointLeft);
             pointLeft.y -= 0.5f;
             destination = pointLeft;
@@ -454,6 +498,9 @@ namespace ProjectGTA2_Unity
 
             if (Physics.Raycast(ray, out hit, obstacleCheckDistance))
             {
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Trigger")) return false;
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("TrafficLightTrigger")) return false;
+                //if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Car")) return false;
                 return true;
             }
             return false;
@@ -516,6 +563,50 @@ namespace ProjectGTA2_Unity
             }
         }
 
+        private Vector3 GetRandomDestination()
+        {
+            Vector3 position = UnityEngine.Random.insideUnitSphere * 5;
+            position += transform.position;
+
+            NavMesh.SamplePosition(position, out NavMeshHit hit, 20, 1);
+
+            return hit.position;
+        }
+
+        private Vector3 GetNearestDestinationInRange(float range)
+        {
+            Vector3 destination = Vector3.zero;
+            Collider[] colliders = Physics.OverlapSphere(transform.position, range, groundLayer);
+            List<Tile> tiles = new List<Tile>();
+
+            foreach (var coll in colliders)
+            {
+                Tile tile = coll.GetComponent<Tile>();
+                if (tile.GetTileTypeA() == TileTypeMain.Floor && tile.GetTileTypeB() == TileTypeSecond.Pavement)
+                {
+                    tiles.Add(tile);
+                }
+            }
+
+            if(tiles.Count == 0) return destination;
+
+            float distance = 999f;
+            int index = 0;
+
+            for (int i =0; i < tiles.Count; i++)
+            {
+                float tileDistance = Util.GetDistance(tiles[i].transform.position, transform.position);
+                if (tileDistance >= distance) continue;
+                distance = tileDistance;
+                index = i;
+            }
+
+            destination = tiles[index].transform.position;
+            return destination;
+
+
+        }
+
         #endregion
 
         #region Other
@@ -570,6 +661,51 @@ namespace ProjectGTA2_Unity
                 return false;
             }
             return false;
+        }
+
+        public void SetTarget(Transform target)
+        {
+            this.target = target;
+        }
+
+        public void GunWasFiredNearby(GameObject initiator, Weapon.AttackTypes attackType)
+        {
+            string name = initiator.gameObject.name;
+            SetTarget(initiator.transform);
+
+            if (canFight)
+            {
+                if (initiator.gameObject.name.Contains("Player") && !playerIsEnemy) return;                 
+                currentstate = State.Chase;
+            }
+            else
+            {
+                currentstate = State.Flee;
+            }
+
+            if (!runningAway)
+            {
+                int x = Util.RandomIntNumber(0, 100);
+
+                if (x > 66)
+                {
+                    int r = Util.RandomIntNumber(0, 2);
+
+                    if (r == 0)
+                    {
+                        audioEvents.PlayAudioEventOneShotAttached("CharacterScreamGun", gameObject);
+                    }
+                    else
+                    {
+                        audioEvents.PlayAudioEventOneShotAttached("CharacterScreamHelp", gameObject);
+                    }
+                }               
+            }
+        }
+
+        public void ExplosionNearBy(GameObject initiator)
+        {
+
         }
 
         #endregion

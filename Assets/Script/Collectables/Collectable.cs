@@ -1,13 +1,13 @@
-using ProjectGTA2_Unity.Audio;
+/// <author>Thoams Krahl</author>
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using ProjectGTA2_Unity.Audio;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.Collectables
 {
-    public enum CollectableType
+    public enum CollectableTypes
     {
         Invalid = -1,
         Health,
@@ -33,7 +33,7 @@ namespace ProjectGTA2_Unity
 
     public class Collectable : MonoBehaviour
     {
-        public static Action<CollectableType, int, float> CollectableGathered;
+        public static Action<CollectableTypes, int, float> CollectableGathered;
         public Action Collected;
 
         #region SerializedFields
@@ -43,10 +43,9 @@ namespace ProjectGTA2_Unity
         public UnityEvent OnCollection;
 
         [Header("Settings")]
-
-        [SerializeField] protected CollectableType type = CollectableType.Invalid;
+        [SerializeField] protected CollectableTypes collectableType = CollectableTypes.Invalid;
         [SerializeField] protected int amount = 1;
-        [SerializeField] protected float duration = 0f;
+        [SerializeField] protected float duration = -1f;
         [SerializeField] protected LayerMask playerLayer;
         [SerializeField] protected AudioEventListSO audioEventList;
  
@@ -64,15 +63,15 @@ namespace ProjectGTA2_Unity
         protected virtual void Collect(Collider collider)
         {
             if (!collider.CompareTag("Player")) return;
-            Debug.Log($"<color=#597FFF>Player collect {type} Collectable </color>");          
+            Debug.Log($"<color=#597FFF>Player collect {collectableType} Collectable </color>");          
             OnCollect();
         }
 
         public virtual void OnCollect()
         {
-            if(audioEventList != null) audioEventList.PlayAudioEventOneShotAttached("Collect" + type, gameObject);
+            if(audioEventList != null) audioEventList.PlayAudioEventOneShotAttached("Collect" + collectableType, gameObject);
             OnCollection?.Invoke();
-            CollectableGathered?.Invoke(type, amount, 0f);
+            CollectableGathered?.Invoke(collectableType, amount, 0f);
             Collected?.Invoke();
         }
     }

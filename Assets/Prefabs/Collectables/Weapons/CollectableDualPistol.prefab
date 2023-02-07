@@ -146,9 +146,9 @@ MonoBehaviour:
           m_StringArgument: CollectDualPistol
           m_BoolArgument: 0
         m_CallState: 2
-  type: 3
+  collectableType: 3
   amount: 40
-  duration: 0
+  duration: -1
   playerLayer:
     serializedVersion: 2
     m_Bits: 8

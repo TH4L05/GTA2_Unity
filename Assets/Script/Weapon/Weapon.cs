@@ -2,9 +2,10 @@
 
 using System;
 using UnityEngine;
+using ProjectGTA2_Unity.Weapons.Projectiles;
 using ProjectGTA2_Unity.Audio;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.Weapons
 {
     public enum DamageType
     {
@@ -17,26 +18,27 @@ namespace ProjectGTA2_Unity
         Fist,
     }
 
-    public enum AttackType
-    {
-        Invalid = -1,
-        Melee,
-        Throw,
-        ShootRaycast,
-        ShootProjectile,
-        Beam,
-    }
-
     public class Weapon : MonoBehaviour
-    {
+    {     
+        public enum AttackTypes
+        {
+            Invalid = -1,
+            Melee,
+            Throw,
+            ShootRaycast,
+            ShootProjectile,
+            Beam,
+        }
+
+
         public static Action NoAmmoLeft;
-        public static Action ShootWeapon;
+        public static Action<GameObject, AttackTypes> WeaponAttacked;
 
         #region SerializedFields
 
         [SerializeField] private new string name;
         [SerializeField] private DamageType damageType;
-        [SerializeField] private AttackType attackType;
+        [SerializeField] private AttackTypes attackType;
         [SerializeField] private bool active = true;
 
         [SerializeField] private int damage;
@@ -66,7 +68,7 @@ namespace ProjectGTA2_Unity
 
         public string Name => name;
         public bool Active => active;
-        public AttackType AttackType => attackType;
+        public AttackTypes AttackType => attackType;
         public int CurrentAmmo => currentAmmoMagazines;
         public Sprite Icon => icon;
 
@@ -149,29 +151,31 @@ namespace ProjectGTA2_Unity
 
                 switch (attackType)
                 {
-                    case AttackType.Invalid:
+                    case AttackTypes.Invalid:
                     default:
                         Debug.Log("ERROR: Invalid shoot type !!");
                         return;
-                    case AttackType.Melee:
+                    case AttackTypes.Melee:
                         break;
 
-                    case AttackType.Throw:
+                    case AttackTypes.Throw:
                         Throw();
                         DecreaseAmmo(1);
                         break;
 
-                    case AttackType.ShootRaycast:
+                    case AttackTypes.ShootRaycast:
                         //RaycastShoot();
                         DecreaseAmmo(1);
                         break;
-                    case AttackType.ShootProjectile:
+                    case AttackTypes.ShootProjectile:
                         ProjectileShoot();
                         DecreaseAmmo(1);
                         break;
-                    case AttackType.Beam:
+                    case AttackTypes.Beam:
                         break;
                 }
+
+                WeaponAttacked?.Invoke(transform.parent.parent.gameObject, attackType);
             }
         }
 
@@ -209,7 +213,7 @@ namespace ProjectGTA2_Unity
 
         private void ProjectileShoot()
         {
-            var newProjectile = Instantiate(projectile, projectileSpawn.position, Game.Instance.player.transform.rotation);
+            var newProjectile = Instantiate(projectile, projectileSpawn.position, transform.parent.parent.transform.rotation);
             newProjectile.GetComponent<Projectile>().SetValues(damage, damageType, transform.parent.parent.name);         
         }
 

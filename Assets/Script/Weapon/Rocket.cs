@@ -1,9 +1,8 @@
 /// <author>Thoams Krahl</author>
 
 using UnityEngine;
-using ProjectGTA2_Unity.Characters;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.Weapons.Projectiles
 {
     public class Rocket : Projectile
     {

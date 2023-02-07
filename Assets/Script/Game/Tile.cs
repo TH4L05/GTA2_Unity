@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.Tiles
 {
     public enum TileTypeMain
     {

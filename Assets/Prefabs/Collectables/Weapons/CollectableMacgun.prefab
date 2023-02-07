@@ -122,9 +122,9 @@ MonoBehaviour:
   OnCollection:
     m_PersistentCalls:
       m_Calls: []
-  type: 4
+  collectableType: 4
   amount: 40
-  duration: 0
+  duration: -1
   playerLayer:
     serializedVersion: 2
     m_Bits: 8

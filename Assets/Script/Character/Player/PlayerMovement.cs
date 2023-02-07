@@ -1,9 +1,11 @@
 /// <author>Thoams Krahl</author>
 
 using UnityEngine;
+using ProjectGTA2_Unity.Tiles;
 using ProjectGTA2_Unity.Characters.Data;
 using ProjectGTA2_Unity.Cars;
 using ProjectGTA2_Unity.Audio;
+using ProjectGTA2_Unity.Weapons;
 
 namespace ProjectGTA2_Unity.Characters
 {

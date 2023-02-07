@@ -7,6 +7,7 @@ using UnityEngine;
 using ProjectGTA2_Unity.Characters.Data;
 using ProjectGTA2_Unity.Cars;
 using ProjectGTA2_Unity.Audio;
+using ProjectGTA2_Unity.Weapons;
 
 namespace ProjectGTA2_Unity.Characters
 {
@@ -253,7 +254,6 @@ namespace ProjectGTA2_Unity.Characters
         protected virtual void Death()
         {
             isDead = true;
-            damageOverTime = false;
             healthRegenActive = false;
             foreach (var coll in colliders)
             {
@@ -262,12 +262,16 @@ namespace ProjectGTA2_Unity.Characters
 
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
-            rb.drag = 10f;
-            rb.mass = 999f;
+            rb.drag = 99f;
             spriteRenderer.sortingOrder = 1;
 
+            if(damageOverTime)
+            {
+                damageOverTime = false;
+                StopCoroutine(TakeDamageOverTime(0f));
+            }
             audioEvents.RemoveAllEvents();
-            CancelInvoke();
+            audioEvents.PlayAudioEventOneShotAttached("CharacterScreamDeath", gameObject);
             
             switch (lastDamageType)
             {

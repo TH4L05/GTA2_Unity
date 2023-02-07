@@ -1,107 +1,97 @@
+/// <author>Thoams Krahl</author>
+
 using ProjectGTA2_Unity;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class CollectableSpawner : MonoBehaviour
+namespace ProjectGTA2_Unity.Collectables
 {
-    #region SerializedFields
-
-    [Header("Settings")]
-    [SerializeField] protected bool isEnabled = true;
-    [SerializeField] protected GameObject collectableObject;
-    [SerializeField] protected GameObject collectablesRootObject;
-
-    [Header("Options")]
-    [SerializeField] protected bool canRespawn;
-    [Range(1, 100), SerializeField, Tooltip("RespawnInterval in s")] private int respawnInterval = 5;
-
-    [Space(5),Header("Dev")]
-    [SerializeField] protected Color gizmoColor = Color.cyan;
-
-    #endregion
-
-    #region UnityFunctions
-
-    #region PrivateFields
-
-    protected GameObject spawnedCollectable;
-    protected Collectable collectable;
-    protected bool collected;
-    protected float respawnTimer;
-
-    #endregion
-
-    private void Start()
+    public class CollectableSpawner : MonoBehaviour
     {
-        StartSetup();
-    }
+        #region SerializedFields
 
-    private void Update()
-    {
-        if (!collected) return;
-        if (!canRespawn) return;
-        Respawn();
-    }
+        [Header("Settings")]
+        [SerializeField] protected bool isEnabled = true;
+        [SerializeField] protected GameObject collectableObject;
+        [SerializeField] protected Transform collectablesParentTransform;
 
-    protected void OnDrawGizmos()
-    {
-        Gizmos.color = gizmoColor;
-        Gizmos.DrawCube(transform.position, transform.localScale);
-    }
+        [Header("Options")]
+        [SerializeField] protected bool canRespawn;
+        [Range(1, 100), SerializeField, Tooltip("RespawnInterval in s")] private int respawnInterval = 5;
 
-    #endregion
+        #endregion
 
+        #region UnityFunctions
 
+        #region PrivateFields
 
-    protected void StartSetup()
-    {
-        if (collectableObject == null)
+        protected GameObject spawnedCollectable;
+        protected Collectable collectable;
+        protected bool collected;
+        protected float respawnTimer;
+
+        #endregion
+
+        private void Start()
         {
-            Debug.LogError("Collectable Prefab is Missing -> Spawner get's Disabled");
-            gameObject.SetActive(false);
-            return;
+            StartSetup();
         }
 
-        SpawnPickupObject();
-    }
-
-    public void SpawnPickupObject()
-    {
-        if (collectableObject == null) return;
-        spawnedCollectable = Instantiate(collectableObject, transform.position, Quaternion.Euler(90f, 180f, 0f));
-        collectable = spawnedCollectable.GetComponent<Collectable>();
-        collectable.Collected += Collected;
-        collected = false;
-
-        if (collectablesRootObject != null) collectablesRootObject.transform.parent = collectablesRootObject.transform;
-    }
-
-    protected void Respawn()
-    {
-        respawnTimer += Time.deltaTime;
-
-        if (respawnTimer >= respawnInterval)
+        private void Update()
         {
-            respawnTimer = 0;
-            spawnedCollectable.SetActive(true);
+            if (!collected) return;
+            if (!canRespawn) return;
+            Respawn();
+        }
+
+        #endregion
+
+        protected void StartSetup()
+        {
+            if (collectableObject == null)
+            {
+                Debug.LogError("Collectable Prefab is Missing -> Spawner get's Disabled");
+                gameObject.SetActive(false);
+                return;
+            }
+
+            SpawnPickupObject();
+        }
+
+        public void SpawnPickupObject()
+        {
+            if (collectableObject == null) return;
+            spawnedCollectable = Instantiate(collectableObject, transform.position, Quaternion.Euler(90f, 180f, 0f), collectablesParentTransform);
+            collectable = spawnedCollectable.GetComponent<Collectable>();
+            collectable.Collected += Collected;
             collected = false;
         }
-    }
 
-    protected void Collected()
-    {      
-        if (!canRespawn)
+        protected void Respawn()
         {
-            collectable.Collected -= Collected;
-            Destroy(spawnedCollectable);
-            collectable = null;
-            gameObject.SetActive(false);
-            return;
+            respawnTimer += Time.deltaTime;
+
+            if (respawnTimer >= respawnInterval)
+            {
+                respawnTimer = 0;
+                spawnedCollectable.SetActive(true);
+                collected = false;
+            }
         }
 
-        spawnedCollectable.SetActive(false);
-        collected = true;
+        protected void Collected()
+        {
+            if (!canRespawn)
+            {
+                collectable.Collected -= Collected;
+                Destroy(spawnedCollectable);
+                collectable = null;
+                gameObject.SetActive(false);
+                return;
+            }
+
+            spawnedCollectable.SetActive(false);
+            collected = true;
+        }
     }
 }
+

@@ -4,8 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using ProjectGTA2_Unity.Tiles;
 using ProjectGTA2_Unity.Characters.AI;
-using Unity.VisualScripting;
 
 namespace ProjectGTA2_Unity
 {

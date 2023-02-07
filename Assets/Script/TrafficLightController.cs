@@ -1,7 +1,5 @@
+/// <author>Thoams Krahl</author>
 
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectGTA2_Unity

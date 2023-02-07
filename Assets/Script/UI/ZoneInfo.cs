@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Playables;
 using ProjectGTA2_Unity.Cars;
 
-namespace ProjectGTA2_Unity
+namespace ProjectGTA2_Unity.UI
 {
     public class ZoneInfo : MonoBehaviour
     {
@@ -55,7 +55,7 @@ namespace ProjectGTA2_Unity
             if (playableDirector == null || showCarPlayable == null) return;
             playableDirector.Play(showCarPlayable);
         }
-           
+
         public void ShowCarName(string name)
         {
             name = name.ToUpper();
@@ -63,7 +63,7 @@ namespace ProjectGTA2_Unity
             if (playableDirector == null || showCarPlayable == null) return;
             playableDirector.Play(showCarPlayable);
         }
-       
+
         public void ShowZoneName()
         {
             if (playableDirector == null || showZonePlayable == null) return;
@@ -71,4 +71,5 @@ namespace ProjectGTA2_Unity
         }
     }
 }
+
 

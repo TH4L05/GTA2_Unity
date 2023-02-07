@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/// <author>Thoams Krahl</author>
 
-namespace ProjectGTA2_Unity
+using UnityEngine;
+using ProjectGTA2_Unity.Weapons;
+
+
+namespace ProjectGTA2_Unity.Tiles
 {
     public class TileWater : Tile
     {

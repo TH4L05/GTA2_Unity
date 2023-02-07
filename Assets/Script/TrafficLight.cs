@@ -1,3 +1,4 @@
+/// <author>Thoams Krahl</author>
 
 using System;
 using UnityEngine;
@@ -103,7 +104,7 @@ namespace ProjectGTA2_Unity
         {
 
             if (!collider.CompareTag("Car")) return;
-            Debug.Log("car in Zone");
+            //Debug.Log("car in Zone");
 
             var car = collider.GetComponent<Car>();
 

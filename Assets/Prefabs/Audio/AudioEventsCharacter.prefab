@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5366840548241226534}
   - component: {fileID: 6998110214021118056}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AudioEventsCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
         Data2: 1136847576
         Data3: -2032466247
         Data4: 1169291653
-      Path: event:/Character/CharOnFire
+      Path: event:/Character/Vocals/CharOnFire
   - eventName: CharacterOnFireScream
     eventPath:
       Guid:
@@ -108,5 +108,37 @@ MonoBehaviour:
         Data2: 1096851352
         Data3: 2025342126
         Data4: -96912127
-      Path: event:/Character/CharOnFireScream
+      Path: event:/Character/Vocals/CharOnFireScream
+  - eventName: CharacterScreamGun
+    eventPath:
+      Guid:
+        Data1: -300257930
+        Data2: 1273397655
+        Data3: 1477820576
+        Data4: -1644722111
+      Path: event:/Character/Vocals/CharScreamGun
+  - eventName: CharacterScreamHelp
+    eventPath:
+      Guid:
+        Data1: -1976938550
+        Data2: 1229561901
+        Data3: -1166417250
+        Data4: -58325752
+      Path: event:/Character/Vocals/CharScreamHelp
+  - eventName: CharacterScreamDeath
+    eventPath:
+      Guid:
+        Data1: 137174267
+        Data2: 1075414911
+        Data3: 1904233137
+        Data4: -1562345173
+      Path: event:/Character/Vocals/CharScream
+  - eventName: BurpFart
+    eventPath:
+      Guid:
+        Data1: 1643246520
+        Data2: 1169139454
+        Data3: 423783071
+        Data4: 1542371402
+      Path: event:/BurpFart
   showDebugMessages: 0

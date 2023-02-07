@@ -27,6 +27,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8238841809667873317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Vocals/CharOnFireScream
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Vocals/CharOnFireScream
+  Guid:
+    Data1: -1176510129
+    Data2: 1096851352
+    Data3: 2025342126
+    Data4: -96912127
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7759099119434797694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,10 +231,10 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638097262859606571
+  lastModified: 638113078425511508
   FileSizes:
   - Name: Desktop
-    Value: 629440
+    Value: 743936
   Exists: 1
 --- !u!114 &-5631627904718049434
 MonoBehaviour:
@@ -308,6 +335,33 @@ MonoBehaviour:
     Data2: 1265965290
     Data3: 1264912317
     Data4: 2116890963
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4489866824629859993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Vocals/CharScreamGun
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Vocals/CharScreamGun
+  Guid:
+    Data1: -300257930
+    Data2: 1273397655
+    Data3: 1477820576
+    Data4: -1644722111
   Banks:
   - {fileID: -5999004425347462157}
   IsStream: 0
@@ -426,6 +480,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-3674766329235480077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Car.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Car.bank
+  Name: Car
+  StudioPath: bank:/Car
+  lastModified: 638113078425581587
+  FileSizes:
+  - Name: Desktop
+    Value: 494
+  Exists: 1
 --- !u!114 &-3432765213069429556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +581,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2015573441850088559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Vocals/CharScream
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Vocals/CharScream
+  Guid:
+    Data1: 137174267
+    Data2: 1075414911
+    Data3: 1904233137
+    Data4: -1562345173
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1419792654137060661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,10 +623,10 @@ MonoBehaviour:
   Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638097262859646687
+  lastModified: 638113078425561485
   FileSizes:
   - Name: Desktop
-    Value: 3160
+    Value: 3736
   Exists: 1
 --- !u!114 &-1330046826332315743
 MonoBehaviour:
@@ -650,6 +751,8 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: -1419792654137060661}
   - {fileID: -5999004425347462157}
+  - {fileID: -3674766329235480077}
+  - {fileID: 7941697834294714764}
   EditorEvents:
   - {fileID: 2882896055464666148}
   - {fileID: 9202492830057669059}
@@ -689,11 +792,9 @@ MonoBehaviour:
   - {fileID: 3583943750300837368}
   - {fileID: 3087474582132593088}
   - {fileID: 8178920941378171388}
-  - {fileID: 2315944854921709236}
   - {fileID: -7734032656832516909}
   - {fileID: 3384691444398668521}
   - {fileID: -237095876906497980}
-  - {fileID: 3020631281340780191}
   - {fileID: 8239980682050836027}
   - {fileID: -6541690427681315620}
   - {fileID: -6432700438876361005}
@@ -702,12 +803,18 @@ MonoBehaviour:
   - {fileID: 8198916689811826631}
   - {fileID: 1095587055207385981}
   - {fileID: 6328138477268680054}
+  - {fileID: -8238841809667873317}
+  - {fileID: 3135212866944333196}
+  - {fileID: -4489866824629859993}
+  - {fileID: 6691129013408928772}
+  - {fileID: -2015573441850088559}
+  - {fileID: 2700940557421674551}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5999004425347462157}
   StringsBanks:
   - {fileID: -1419792654137060661}
-  cacheTime: 638097262859646687
+  cacheTime: 638113078425601582
   cacheVersion: 131601
 --- !u!114 &558633894411577639
 MonoBehaviour:
@@ -844,33 +951,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &2315944854921709236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Character/CharOnFire
-  m_EditorClassIdentifier: 
-  Path: event:/Character/CharOnFire
-  Guid:
-    Data1: -285072559
-    Data2: 1136847576
-    Data3: -2032466247
-    Data4: 1169291653
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1547
 --- !u!114 &2474747577259619946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -898,6 +978,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 590
+--- !u!114 &2700940557421674551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BurpFart
+  m_EditorClassIdentifier: 
+  Path: event:/BurpFart
+  Guid:
+    Data1: 1643246520
+    Data2: 1169139454
+    Data3: 423783071
+    Data4: 1542371402
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2882896055464666148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,33 +1027,6 @@ MonoBehaviour:
   - {fileID: -5999004425347462157}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &3020631281340780191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Character/CharOnFireScream
-  m_EditorClassIdentifier: 
-  Path: event:/Character/CharOnFireScream
-  Guid:
-    Data1: -1176510129
-    Data2: 1096851352
-    Data3: 2025342126
-    Data4: -96912127
-  Banks:
-  - {fileID: -5999004425347462157}
-  IsStream: 0
-  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -979,6 +1059,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3135212866944333196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Vocals/CharOnFire
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Vocals/CharOnFire
+  Guid:
+    Data1: -285072559
+    Data2: 1136847576
+    Data3: -2032466247
+    Data4: 1169291653
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1547
 --- !u!114 &3303137070390023449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1249,6 +1356,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &6691129013408928772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Vocals/CharScreamHelp
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Vocals/CharScreamHelp
+  Guid:
+    Data1: -1976938550
+    Data2: 1229561901
+    Data3: -1166417250
+    Data4: -58325752
+  Banks:
+  - {fileID: -5999004425347462157}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &7243256263264591736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,6 +1410,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &7941697834294714764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Character.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../- PRG/FMOD/GTA2_Unity/GTA2Unity/Build/Desktop/Character.bank
+  Name: Character
+  StudioPath: bank:/Character
+  lastModified: 638113078425601582
+  FileSizes:
+  - Name: Desktop
+    Value: 494
+  Exists: 1
 --- !u!114 &7976775884241421922
 MonoBehaviour:
   m_ObjectHideFlags: 0
