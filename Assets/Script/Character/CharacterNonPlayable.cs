@@ -11,15 +11,10 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected NonPlayableBehaviour npcBehaviour;
         private ObjectPool<CharacterNonPlayable> objectPool;
 
-        protected override void StartSetup()
-        {
-            base.StartSetup();
-            SetShirtColor();
-        }
-
-        protected override void OnEnbaleSetup()
+        protected override void OnEnableSetup()
         {
             SetShirtColor();
+            health.Initialize(false);
         }
 
         protected override void Death()

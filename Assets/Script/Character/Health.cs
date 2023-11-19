@@ -61,7 +61,7 @@ public class Health : MonoBehaviour
             NoHealthLeft();
         }
 
-        if (isPlayer) return;
+        if (!isPlayer) return;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
@@ -81,7 +81,7 @@ public class Health : MonoBehaviour
             }
         }
 
-        if (isPlayer) return;
+        if (!isPlayer) return;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 

@@ -75,9 +75,13 @@ namespace ProjectGTA2_Unity.UI
             if (health0 == null || health1 == null || health2 == null || health3 == null | health4 == null) return;
             if (healthFull == null || healthEmpty == null) return;
 
-            float p = currenthealth / maxHealth;
+            Debug.Log("UpdateHealthUI");
+            UpdateHealthSprites(currenthealth / maxHealth);        
+        }
 
-            switch (p)
+        private void UpdateHealthSprites(float value)
+        {
+            switch (value)
             {
                 case > 0.9f:
                     health0.sprite = healthFull;
@@ -85,7 +89,7 @@ namespace ProjectGTA2_Unity.UI
                     health2.sprite = healthFull;
                     health3.sprite = healthFull;
                     health4.sprite = healthFull;
-              
+
                     health0.rectTransform.localScale = Vector3.one;
                     health1.rectTransform.localScale = Vector3.one;
                     health2.rectTransform.localScale = Vector3.one;

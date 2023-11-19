@@ -84,6 +84,7 @@ namespace ProjectGTA2_Unity.Characters
             PlayerCamera.SetCameraTarget(transform);
             OnUpdateMoney?.Invoke(money);
             playerMovement.SetActive(true);
+            health.Initialize(true);
            
         }
 

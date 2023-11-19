@@ -83,7 +83,7 @@ namespace ProjectGTA2_Unity.Characters
 
         void OnEnable()
         {
-            OnEnbaleSetup();
+            OnEnableSetup();
         }
 
         void Start()
@@ -109,7 +109,7 @@ namespace ProjectGTA2_Unity.Characters
         {
         }
 
-        protected virtual void OnEnbaleSetup()
+        protected virtual void OnEnableSetup()
         {
         }
 
