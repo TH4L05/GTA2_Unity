@@ -58,7 +58,6 @@ namespace ProjectGTA2_Unity.UI
 
         public void ShowCarName(string name)
         {
-            name = name.ToUpper();
             SetCarName(name);
             if (playableDirector == null || showCarPlayable == null) return;
             playableDirector.Play(showCarPlayable);

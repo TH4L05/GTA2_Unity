@@ -1,9 +1,9 @@
 /// <author>Thoams Krahl</author>
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Cars;
-using System.Collections.Generic;
 
 namespace ProjectGTA2_Unity
 {
@@ -25,11 +25,9 @@ namespace ProjectGTA2_Unity
         public void ChangeState(TrafficLightState trafficLightState)
         {
             state = trafficLightState;
-
-            switch (state)
+            switch (trafficLightState)
             {
                 case TrafficLightState.Disabled:
-                    if (lightSpriteRenderer != null) lightSpriteRenderer.sprite = null;
                     break;
 
                 case TrafficLightState.Red:
@@ -84,7 +82,7 @@ namespace ProjectGTA2_Unity
         {
             
             if (!collider.CompareTag("Car")) return;
-            Debug.Log("car in Zone");
+            //Debug.Log("car in Zone");
 
             var car = collider.GetComponent<Car>();
 

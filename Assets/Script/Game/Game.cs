@@ -1,9 +1,7 @@
 /// <author>Thoams Krahl</author>
 
 using UnityEngine;
-using ProjectGTA2_Unity.Tiles;
 using ProjectGTA2_Unity.Characters;
-using ProjectGTA2_Unity.UI;
 using ProjectGTA2_Unity.Weapons;
 using UnityEngine.InputSystem;
 
@@ -13,8 +11,7 @@ namespace ProjectGTA2_Unity
     {
         public static Game Instance;
         public Player player;
-        public Hud hud;
-        public UnitSpawner characterSpawner;
+        //public UnitSpawner characterSpawner;
         public Camera mainCamera;
 
         public Color[] carColors;

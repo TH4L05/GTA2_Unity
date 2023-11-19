@@ -1,8 +1,7 @@
-using ProjectGTA2_Unity.Characters;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/// <author>Thoams Krahl</author>
 
+using ProjectGTA2_Unity.Characters;
+using UnityEngine;
 
 namespace ProjectGTA2_Unity
 {

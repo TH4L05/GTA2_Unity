@@ -1,12 +1,11 @@
 /// <author>Thoams Krahl</author>
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using ProjectGTA2_Unity.Collectables;
 using ProjectGTA2_Unity.Weapons;
 using ProjectGTA2_Unity.Input;
-using UnityEngine.InputSystem;
 
 namespace ProjectGTA2_Unity.Characters
 {

@@ -1,5 +1,6 @@
 /// <author>Thoams Krahl</author>
 
+using System.Collections;
 using UnityEngine;
 
 namespace ProjectGTA2_Unity
@@ -12,9 +13,7 @@ namespace ProjectGTA2_Unity
         [SerializeField] private TrafficLight[] leftRightLights;
         [SerializeField] private float phaseDuration = 5f;
 
-
         private float currentTime = 0f;
-        private bool red = false;
         private TrafficLight.TrafficLightState currentUpDownState;
         private TrafficLight.TrafficLightState currentLeftRightState;
 
@@ -33,20 +32,22 @@ namespace ProjectGTA2_Unity
                 currentLeftRightState = TrafficLight.TrafficLightState.Red;
             }
             SetStates();
+            StartCoroutine(ChangePhase());
         }
 
-        private void Update()
+        private IEnumerator ChangePhase()
         {
-            currentTime += Time.deltaTime;  
-
-            if(currentTime >= phaseDuration) 
-            { 
-                ChangeState();
+            while( currentTime < phaseDuration )
+            {
+                currentTime += Time.deltaTime;
+                yield return null;
             }
+            ChangeState();
         }
 
         private void ChangeState()
         {
+            if (!isEnabled) return;
             currentTime = 0f;
 
             TrafficLight.TrafficLightState lastUpDownState = currentUpDownState;
@@ -55,7 +56,8 @@ namespace ProjectGTA2_Unity
             currentUpDownState = lastLeftRightState; 
             currentLeftRightState = lastUpDownState;
 
-            SetStates();
+            SetStates();       
+            StartCoroutine(ChangePhase());
         }
 
         private void SetStates()
@@ -63,7 +65,6 @@ namespace ProjectGTA2_Unity
             foreach (var light in upDownLights)
             {
                 light.ChangeState(currentUpDownState);
-
             }
 
             foreach (var light in leftRightLights)

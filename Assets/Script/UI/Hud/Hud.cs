@@ -3,7 +3,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
-using TMPro;
 using ProjectGTA2_Unity.Characters;
 using ProjectGTA2_Unity.Audio;
 using ProjectGTA2_Unity.Weapons;
