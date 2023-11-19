@@ -11,25 +11,27 @@ using ProjectGTA2_Unity.Weapons;
 
 namespace ProjectGTA2_Unity.Characters
 {
-    public enum CharacterType
-    {
-        Invalid = -1,
-        Player,
-        NormalNPC,
-        GangMember,
-        CarThief,
-        Mugger,
-    }
+   
 
     [RequireComponent(typeof(Rigidbody))]
     public class Character : MonoBehaviour, IDamagable
     {
-        public static Action<string,string,string> CharacterisDead;
+        public enum CharacterType
+        {
+            Invalid = -1,
+            Player,
+            NormalNPC,
+            GangMember,
+            CarThief,
+            Mugger,
+        }
+
+        public static Action<string,string> CharacterisDead;
 
         #region SerializedFields
 
         [Header("Base")]
-        [SerializeField] protected CharacterType characterType = CharacterType.Invalid;
+        [SerializeField] protected CharacterType charType = CharacterType.Invalid;
         [SerializeField] protected CharacterData charData;
         [SerializeField] protected Rigidbody rb;
         [SerializeField] protected Animator animator;
@@ -39,13 +41,12 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] protected float CarEnterDistance = 2f;
 
         [Header("Health")]
-        [SerializeField] protected bool godMode = false;    
-        [SerializeField] protected float maxHealth;       
-        [SerializeField] protected bool canRegenHealth = false;
+        [SerializeField] protected bool godMode = false;
+        [SerializeField] Health health;
 
         [Header("Death")]
         [SerializeField] protected Sprite deathSpriteNormal;
-        [SerializeField] protected float deletionTime = 5f;
+        [SerializeField] protected float deletionTime = 2f;
 
         [Header("VFX")]
         [SerializeField] protected GameObject damgeVfxNormal;
@@ -56,27 +57,19 @@ namespace ProjectGTA2_Unity.Characters
 
         #endregion
 
-        
-
         #region private Fields
-
-        protected float currentHealth;
-        protected bool healthRegenActive;
-        [SerializeField] protected bool onGround;
-        protected bool isDead;
-        protected DamageType lastDamageType;
-        protected string lastDamageTag;
-        protected string dotLastDamageTag;
+     
+        protected bool onGround;
+        protected bool isDead;      
         protected string killer;
-        protected bool damageOverTime;
-
+        protected DamageType lastDamageType;
         #endregion
 
         #region PublicFields
 
-        public CharacterType CharacterType
+        public CharacterType CharType
         {
-            get { return characterType; }
+            get { return charType; }
         }
 
         #endregion
@@ -88,22 +81,16 @@ namespace ProjectGTA2_Unity.Characters
             Initialize();
         }
 
+        void OnEnable()
+        {
+            OnEnbaleSetup();
+        }
+
         void Start()
         {
             StartSetup();
         }
-
-        void Update()
-        {
-
-        }
-
-        void LateUpdate()
-        {
-            if(!canRegenHealth) return;
-            RegenerateHealth();
-        }
-
+    
         void OnDestroy()
         {
             //DeathSetup();
@@ -115,11 +102,14 @@ namespace ProjectGTA2_Unity.Characters
 
         protected virtual void Initialize()
         {
-            currentHealth = maxHealth;
             rb = GetComponent<Rigidbody>();
         }
 
         protected virtual void StartSetup()
+        {
+        }
+
+        protected virtual void OnEnbaleSetup()
         {
         }
 
@@ -133,7 +123,11 @@ namespace ProjectGTA2_Unity.Characters
 
         public virtual void TakeDamage(float damageAmount, DamageType damageType, string character)
         {
-            if(godMode || isDead) return;
+            if(godMode) return;
+            if (health.IsDead)
+            {
+                Death();
+            }
 
             lastDamageType = damageType;
             killer = character;
@@ -148,11 +142,11 @@ namespace ProjectGTA2_Unity.Characters
                     break;
 
                 case DamageType.Fire:
-                    if (!damageOverTime) DamageOverTime(1.15f, character);
+                    health.DamageOverTime(1.15f);
                     return;
 
                 case DamageType.Water:
-                    if (damageOverTime) CancelInvoke("TakeDamageOverTime");                 
+                    health.CancelDamageOverTime();             
                     break;
 
                 case DamageType.Electro:
@@ -165,96 +159,18 @@ namespace ProjectGTA2_Unity.Characters
                     break;
             }
 
-            DecreaseHealth(damageAmount);         
+            health.DecreaseHealth(damageAmount);
             Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount} {damageType} damage by {character}</color>");
         }
-
-        private IEnumerator TakeDamageOverTime(float repeatTime)
-        {
-            while (currentHealth > 0)
-            {
-                yield return new WaitForSeconds(repeatTime);
-                DecreaseHealth(10f);
-                audioEvents.PlayAudioEventOneShotAttached("CharacterOnFireScream", gameObject);
-            }        
-        }
-
-        private void DamageOverTime(float repeatTime, string c)
-        {
-            dotLastDamageTag = c;
-            damageOverTime = true;
-            audioEvents.Create3DEvent("CharacterOnFire", transform);
-            StartCoroutine(TakeDamageOverTime(repeatTime));
-            //InvokeRepeating("TakeDamageOverTime", 0f, repeatTime);
-        }
-
+      
         #endregion
 
         #region Health
 
-        protected virtual void DecreaseHealth(float amount)
-        {
-            if (isDead) return;
-
-            currentHealth -= amount;
-
-            if (currentHealth <= 0)
-            {
-                currentHealth = 0;               
-                Death();
-            }
-
-            //if (healthBar != null) healthBar.UpdateBar(currentHealth, healthmax);
-        }
-
-        protected virtual void IncreaseHealth(float amount)
-        {
-            if (isDead) return;
-            if (maxHealth < 0) return;
-
-            currentHealth += amount;
-
-            if (currentHealth >= maxHealth)
-            {
-                currentHealth = maxHealth;
-                if (healthRegenActive)
-                {
-                    CancelInvoke("HealthRegen");
-                    healthRegenActive = false;
-                }
-            }
-
-            //if (healthBar != null) healthBar.UpdateBar(currentHealth, healthmax);
-        }
-
-        private void RegenerateHealth()
-        {
-            var healthMax = maxHealth;
-            if (healthMax < 0) return;
-
-            if (currentHealth < healthMax && !healthRegenActive)
-            {
-                InvokeRepeating("HealthRegen", 1f, 1f);
-                healthRegenActive = true;
-            }
-        }
-
-        private void HealthRegen()
-        {
-            var healthRegen = maxHealth;
-            if (healthRegen < 0)
-            {
-                CancelInvoke("HealthRegen");
-                healthRegenActive = false;
-            }
-
-            IncreaseHealth(healthRegen);
-        }
-
         protected virtual void Death()
         {
             isDead = true;
-            healthRegenActive = false;
+            
             foreach (var coll in colliders)
             {
                 coll.enabled = false;
@@ -265,11 +181,7 @@ namespace ProjectGTA2_Unity.Characters
             rb.drag = 99f;
             spriteRenderer.sortingOrder = 1;
 
-            if(damageOverTime)
-            {
-                damageOverTime = false;
-                StopCoroutine(TakeDamageOverTime(0f));
-            }
+            
             audioEvents.RemoveAllEvents();
             audioEvents.PlayAudioEventOneShotAttached("CharacterScreamDeath", gameObject);
             
@@ -311,7 +223,7 @@ namespace ProjectGTA2_Unity.Characters
             }
 
             
-            CharacterisDead?.Invoke(gameObject.name, lastDamageTag, killer);
+            CharacterisDead?.Invoke(gameObject.name, killer);
         }
 
         #endregion

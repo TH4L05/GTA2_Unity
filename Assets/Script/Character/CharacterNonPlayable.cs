@@ -1,12 +1,15 @@
 /// <author>Thoams Krahl</author>
 
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace ProjectGTA2_Unity.Characters
 {
     public class CharacterNonPlayable : Character
     {
+        [Header("NPC")]
         [SerializeField] protected NonPlayableBehaviour npcBehaviour;
+        private ObjectPool<CharacterNonPlayable> objectPool;
 
         protected override void StartSetup()
         {
@@ -14,11 +17,16 @@ namespace ProjectGTA2_Unity.Characters
             SetShirtColor();
         }
 
+        protected override void OnEnbaleSetup()
+        {
+            SetShirtColor();
+        }
+
         protected override void Death()
         {
             npcBehaviour.IsDead = true;
             base.Death();
-            Destroy(gameObject, deletionTime);
+            //Destroy(gameObject, deletionTime);
         }
 
         private void SetShirtColor()
@@ -38,6 +46,12 @@ namespace ProjectGTA2_Unity.Characters
 
             Color newShirtColor = new Color(r, g, b);
             return newShirtColor;
+        }
+        
+
+        public void SetPool(ObjectPool<CharacterNonPlayable> pool)
+        {
+            objectPool = pool;
         }
     }
 }

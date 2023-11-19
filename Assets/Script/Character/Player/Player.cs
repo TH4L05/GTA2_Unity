@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Collectables;
 using ProjectGTA2_Unity.Weapons;
+using ProjectGTA2_Unity.Input;
+using UnityEngine.InputSystem;
 
 namespace ProjectGTA2_Unity.Characters
 {
@@ -14,6 +16,7 @@ namespace ProjectGTA2_Unity.Characters
         public static Action<float,float> OnHealthChanged;
         public static Action<int> OnUpdateMoney;
 
+        [Header("Player")]
         [SerializeField] private ArmouryPlayer armoury;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private int money;
@@ -22,17 +25,17 @@ namespace ProjectGTA2_Unity.Characters
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (InputHandler.Instance.ShootInputPressed)
             {
                 armoury.AttackWithCurrentEquippedWeapon();
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (InputHandler.Instance.InteractInputPressed)
             {
                 CheckNearbyCarsToEnter();
             }
 
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Keyboard.current.tabKey.wasPressedThisFrame)
             {
                 audioEvents.PlayAudioEventOneShot("BurpFart");
             }
@@ -81,7 +84,7 @@ namespace ProjectGTA2_Unity.Characters
             Collectable.CollectableGathered += CollectableGathered;
             PlayerCamera.SetCameraTarget(transform);
             OnUpdateMoney?.Invoke(money);
-            OnHealthChanged?.Invoke(currentHealth, maxHealth);
+            //OnHealthChanged?.Invoke(currentHealth, maxHealth);
         }
 
         #endregion
@@ -91,17 +94,23 @@ namespace ProjectGTA2_Unity.Characters
             armoury.AddAmmo(collectableType.ToString(), amount);                
         }
 
-        protected override void DecreaseHealth(float amount)
+        /*public override void TakeDamage(float damageAmount, DamageType damageType, string character)
+        {
+            base.TakeDamage(damageAmount, damageType, character);
+            OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        }*/
+
+        /*protected override void DecreaseHealth(float amount)
         {
             base.DecreaseHealth(amount);
             OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        }
+        }*/
 
-        protected override void IncreaseHealth(float amount)
+        /*protected override void IncreaseHealth(float amount)
         {
             base.IncreaseHealth(amount);
             OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        }
+        }*/
 
         protected override void Death()
         {

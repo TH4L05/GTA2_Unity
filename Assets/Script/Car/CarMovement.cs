@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectGTA2_Unity.Tiles;
+using ProjectGTA2_Unity.Input;
 
 namespace ProjectGTA2_Unity.Cars
 {
@@ -410,9 +411,7 @@ namespace ProjectGTA2_Unity.Cars
         protected void PlayerInputCheck()
         {
             if (!isActive) return;
-
-            input.x = Input.GetAxis("Horizontal");
-            input.y = Input.GetAxis("Vertical");
+            input = InputHandler.Instance.MovementAxisInputValue;
 
             if (input.y > 0)
             {

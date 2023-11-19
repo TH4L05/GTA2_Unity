@@ -3,6 +3,7 @@
 using System;
 using UnityEngine;
 using ProjectGTA2_Unity.Weapons;
+using ProjectGTA2_Unity.Input;
 
 namespace ProjectGTA2_Unity
 {
@@ -29,12 +30,14 @@ namespace ProjectGTA2_Unity
 
         private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Y))
+            if (InputHandler.Instance.PreviousWeaponPressed)
             {
+                InputHandler.Instance.PreviousWeaponPressed = false;
                 PreviousWeapon();
             }
-            else if (Input.GetKeyUp(KeyCode.X))
+            else if (InputHandler.Instance.NextWeaponInputPressed)
             {
+                InputHandler.Instance.NextWeaponInputPressed = false;
                 NextWeapon();
             }
         }
@@ -69,7 +72,6 @@ namespace ProjectGTA2_Unity
 
         public void PreviousWeapon()
         {
-
             currentweaponIndex--;
 
             if (currentweaponIndex < 0)

@@ -1,17 +1,21 @@
 /// <author>Thoams Krahl</author>
 
 using UnityEngine;
+using Unity.Netcode;
 using ProjectGTA2_Unity.Tiles;
 using ProjectGTA2_Unity.Characters.Data;
 using ProjectGTA2_Unity.Cars;
 using ProjectGTA2_Unity.Audio;
 using ProjectGTA2_Unity.Weapons;
+using ProjectGTA2_Unity.Input;
 
 namespace ProjectGTA2_Unity.Characters
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
+        #region SerializedFields
+
         [SerializeField] private ArmouryPlayer armoury;
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected LayerMask groundLayer;
@@ -19,19 +23,22 @@ namespace ProjectGTA2_Unity.Characters
         [SerializeField] private Transform groundRaycast;
         [SerializeField] private AudioEventList audioEvents;
 
+        #endregion
+
+        #region PrivateFields
+
         private Rigidbody rb;
         private CharacterData characterData;
-        private TileTypeMain tileType;
         private SurfaceType surfaceType;
         private RaycastHit hit;
 
         private Vector3 move = Vector3.zero;
         private Vector3 moveSlope = Vector3.zero;
         private Vector2 input = Vector2.zero;
-        private Vector3 rotation = Vector3.zero;
         private float accumulated_Distance = 1f;
         private float step_Distance = 0f;
 
+        private bool jump;
         private bool onGround;     
         private bool onSlope;
         private bool onJump;
@@ -41,6 +48,10 @@ namespace ProjectGTA2_Unity.Characters
         private bool isFalling => !onGround && rb.velocity.y < 0;
         private bool wasFalling;
 
+        #endregion
+
+        #region UnityFunctions
+
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -49,8 +60,10 @@ namespace ProjectGTA2_Unity.Characters
 
         private void Update()
         {
+            //if (!IsOwner) return;
             bool wasGrounded = onGround;
-                     
+
+            ReadInputValues();
             GroundCheck();
             if(!wasFalling && isFalling) startFallHeight = transform.position.y;
             
@@ -63,10 +76,9 @@ namespace ProjectGTA2_Unity.Characters
             moveSlope = Vector3.ProjectOnPlane(move, hit.normal);
         }
 
-        
-
         private void FixedUpdate()
         {
+            //if (!IsOwner) return;
             //rb.useGravity = onGround;
             if (!onGround)
             {
@@ -89,13 +101,18 @@ namespace ProjectGTA2_Unity.Characters
             Rotation();
         }
 
+        #endregion
+
         #region Movement
+
+        private void ReadInputValues()
+        {
+            input = InputHandler.Instance.MovementAxisInputValue;
+            jump = InputHandler.Instance.JumpInputPressed;
+        }
 
         private void ForwardBackwardMovement()
         {
-            //move = Vector3.zero;
-            input.y = Input.GetAxis("Vertical");
-
             move = transform.forward * input.y * characterData.RunSpeed;
             //move *= Time.deltaTime;
 
@@ -113,11 +130,8 @@ namespace ProjectGTA2_Unity.Characters
         {
             if (!onGround) return;
 
-            input.x = Input.GetAxis("Horizontal");
-
             var rotationY = input.x * characterData.RotationSensitivity;
-
-            rotation = new Vector3(0f, rotationY, 0f);
+            Vector3 rotation = new Vector3(0f, rotationY, 0f);
             rotation *= Time.deltaTime;
 
             transform.Rotate(rotation);
@@ -125,7 +139,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private void Jump()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && onGround)
+            if (jump && onGround)
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
                 rb.AddForce((transform.forward + Vector3.up) * characterData.JumpForce, ForceMode.Impulse);
@@ -156,11 +170,11 @@ namespace ProjectGTA2_Unity.Characters
                     //return;
                 }
 
-                var car = hit.collider.gameObject.GetComponent<Car>();
+                /*var car = hit.collider.gameObject.GetComponent<Car>();
                 if (car)
                 {
                     onCar = true;
-                }              
+                }*/           
             }
 
             if (onJump && onGround)

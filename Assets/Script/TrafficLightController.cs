@@ -71,7 +71,6 @@ namespace ProjectGTA2_Unity
                 light.ChangeState(currentLeftRightState);
             }
         }
-
     }
 }
 

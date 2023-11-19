@@ -98,10 +98,10 @@ namespace ProjectGTA2_Unity.Cars
         {
             if(!isActive) return;
 
-            if (playerControlled && Input.GetKeyDown(KeyCode.E))
+            /*if (playerControlled && Input.GetKeyDown(KeyCode.E))
             {
                 CharacterExit();
-            }
+            }*/
         }
 
         private void OnDestroy()

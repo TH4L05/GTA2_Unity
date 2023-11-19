@@ -33,7 +33,7 @@ namespace ProjectGTA2_Unity
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F1))
+            /*if (Input.GetKeyDown(KeyCode.F1))
             {
                 player.TakeDamage(999f, DamageType.Normal, "");
             }
@@ -51,7 +51,7 @@ namespace ProjectGTA2_Unity
             if (Input.GetKeyDown(KeyCode.F4))
             {
                 player.TakeDamage(4f, DamageType.Normal, "");
-            }
+            }*/
         }
 
 
