@@ -48,6 +48,8 @@ namespace ProjectGTA2_Unity.Characters
         private bool isFalling => !onGround && rb.velocity.y < 0;
         private bool wasFalling;
 
+        private bool isActive;
+
         #endregion
 
         #region UnityFunctions
@@ -60,6 +62,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private void Update()
         {
+            if (!isActive) return;
             //if (!IsOwner) return;
             bool wasGrounded = onGround;
 
@@ -78,6 +81,7 @@ namespace ProjectGTA2_Unity.Characters
 
         private void FixedUpdate()
         {
+            if (!isActive) return;
             //if (!IsOwner) return;
             //rb.useGravity = onGround;
             if (!onGround)
@@ -284,6 +288,11 @@ namespace ProjectGTA2_Unity.Characters
                     Game.Instance.player.TakeDamage(fallHeight * 10f, DamageType.Normal, gameObject.tag);
                 }               
             }
+        }
+
+        public void SetActive(bool active)
+        {
+            isActive = active;
         }
     }
 }

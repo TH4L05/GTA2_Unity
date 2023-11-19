@@ -5,6 +5,7 @@ using ProjectGTA2_Unity.Tiles;
 using ProjectGTA2_Unity.Characters;
 using ProjectGTA2_Unity.UI;
 using ProjectGTA2_Unity.Weapons;
+using UnityEngine.InputSystem;
 
 namespace ProjectGTA2_Unity
 {
@@ -27,31 +28,30 @@ namespace ProjectGTA2_Unity
         }
 
         private void Start()
-        {
-            Initialize();                
+        {               
         }
 
         private void Update()
         {
-            /*if (Input.GetKeyDown(KeyCode.F1))
+            if (Keyboard.current.f1Key.wasPressedThisFrame)
             {
                 player.TakeDamage(999f, DamageType.Normal, "");
             }
 
-            if (Input.GetKeyDown(KeyCode.F2))
+            if (Keyboard.current.f2Key.wasPressedThisFrame)
             {
                 player.IncreaseMoney(100);
             }
 
-            if (Input.GetKeyDown(KeyCode.F3))
+            if (Keyboard.current.f3Key.wasPressedThisFrame)
             {
-                player.TakeDamage(999f, DamageType.Fire, "");
+                player.TakeDamage(1f, DamageType.Fire, "");
             }
 
-            if (Input.GetKeyDown(KeyCode.F4))
+            if (Keyboard.current.f4Key.wasPressedThisFrame)
             {
                 player.TakeDamage(4f, DamageType.Normal, "");
-            }*/
+            }
         }
 
 
@@ -61,10 +61,6 @@ namespace ProjectGTA2_Unity
         {
             int rnd = Util.RandomIntNumber(0, carColors.Length);
             return carColors[rnd];
-        }
-
-        private void Initialize()
-        {     
         }
     }  
 }

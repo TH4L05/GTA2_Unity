@@ -10,15 +10,20 @@ namespace ProjectGTA2_Unity
     public class HumanPlayer
     {
         [SerializeField] private string name;
-        [SerializeField] private int lifes = 1;
-        [SerializeField] private int lifesMax = 99;
-        [SerializeField] private int money = 0;
-        [SerializeField] private int moneyMax = 9999999;
+        [SerializeField] private int lifes;
+        [SerializeField] private int lifesMax;
+        [SerializeField] private int money;
+        [SerializeField] private int moneyMax;
         [SerializeField] private Player player;
 
-        public void Initialize()
+        public HumanPlayer(string name, int lifeMax, int moneyMax)
         {
+            this.name = name;
+            lifesMax = lifeMax;
             lifes = lifesMax;
+            money = 0;
+            this.moneyMax = moneyMax;
+            player = null;
         }
 
         public void IncreaseMoney(int amount)

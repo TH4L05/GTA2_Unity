@@ -13,12 +13,16 @@ namespace ProjectGTA2_Unity
 {
     public class UnitSpawner : MonoBehaviour
     {
+        #region SerializedFields
+
         [Header("Base")]
-        [SerializeField] private Transform charactersParentObject;
-        [SerializeField] private Transform carsParentObject;
+        [SerializeField] private Transform PlayersParentTransform;
+        [SerializeField] private Transform NpcParentTransform;
+        [SerializeField] private Transform CarsParentTransform;
         [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private float maxDistanceToPlayer = 20f;
-        [SerializeField] private Vector3 size = new Vector3(15f, 1f, 10f);   
+        [SerializeField] private float maxUnitDistanceToPlayer = 20f;
+        [SerializeField] private Vector3 checkSize = new Vector3(15f, 1f, 10f);
+        [SerializeField] private Vector2 spawnPositionOffsetMinMax = new Vector2(-0.25f, 0.25f);
 
         [Space(2f), Header("Player")]
         [SerializeField] private List<HumanPlayer> humanPlayers = new List<HumanPlayer>();
@@ -27,29 +31,29 @@ namespace ProjectGTA2_Unity
         [SerializeField] private float playerRespawnTime = 2f;
 
         [Space(2f), Header("NPC")]
-        [SerializeField] private CharacterNonPlayable npc;
-        [SerializeField] private GameObject[] npcPrefabs;
-        [SerializeField] private int maxNpc = 10;
+        [SerializeField] private bool NpcSpawnIsActive;
+        [SerializeField] private CharacterNonPlayable ncpPrefab;
+        [SerializeField, Range(1, 100)] private int maxActiveNpc = 25;
+
+        [Space(2f), Header("Pooling")]
+        [SerializeField, Range(1, 1000)] private int npcPoolSize = 100;
+        //[SerializeField, Range(1, 1000)] private int carPoolSize = 100;
 
         [Space(2f), Header("Cars")]
+        [SerializeField] private bool CarSpawnIsActive;
         [SerializeField] private GameObject[] carPrefabs;
-        [SerializeField] private int maxCars = 10;
+        [SerializeField] private int maxActiveCars = 10;
+
+        #endregion
+
+        #region PrivateFields
 
         private ObjectPool<CharacterNonPlayable> nonPlayableCharactersPool;
-
         private List<CharacterNonPlayable> spawnedNpcs = new List<CharacterNonPlayable>();
-        private List<CharacterNonPlayable> spawnedNpcsForDelete = new List<CharacterNonPlayable>();
+        private List<CharacterNonPlayable> spawnedNpcsOutOfRange = new List<CharacterNonPlayable>();
         private List<GameObject> spawnedCars = new List<GameObject>();
-        private List<GameObject> spawnedCarsForDelete = new List<GameObject>();
         private Player player;
-
-        public bool NpcSpawnIsActive;
-        public bool CarSpawnIsActive;
-
-        private Vector3 spawnPosition = Vector3.zero;
-
-        private int poolData;
-
+ 
         Transform target
         {
             get 
@@ -58,6 +62,8 @@ namespace ProjectGTA2_Unity
                 return null;                                
             }
         }
+
+        #endregion
 
         #region UnityFunctions
 
@@ -71,23 +77,23 @@ namespace ProjectGTA2_Unity
 
         private void Start()
         {
-            Initialize();
             NpcPoolSetup();
+            Initialize();
         }
 
         private void LateUpdate()
         {
             CheckSpawnedNpcToPlayerDistance();
-            if (spawnedNpcs.Count < maxNpc)
+            if (spawnedNpcs.Count < maxActiveNpc)
             {
-                SpawnNpc();
+               SpawnNpc();
             }
            
-            CheckSpawnedCarToPlayerDistance();
-            if (spawnedCars.Count < maxCars)
+            /*CheckSpawnedCarToPlayerDistance();
+            if (spawnedCars.Count < maxActiveCars)
             {
                 SpawnCar();
-            }                 
+            }*/    
         }
 
         private void OnDestroy()
@@ -99,29 +105,19 @@ namespace ProjectGTA2_Unity
 
         #endregion;
 
-        /*private void OnDrawGizmosSelected()
-        {
-            if (player == null) return;
-            Gizmos.color = new Color(1f, 0f, 0f, 0.45f);
-            Gizmos.DrawWireCube(player.transform.position, new Vector3(maDistanceToPlayer, 3f, maDistanceToPlayer));
-        }*/
-
         #region ObjectPools
 
         private void NpcPoolSetup()
         {
-            nonPlayableCharactersPool = new ObjectPool<CharacterNonPlayable>(CreateNpc, GetNpcFromPool, ReturnNpcToPool, OnNpcDestroy, true, maxNpc, maxNpc*2);
-            poolData = nonPlayableCharactersPool.CountAll;
-            Debug.Log(nonPlayableCharactersPool.CountInactive);
-            Debug.Log(nonPlayableCharactersPool.CountActive);
-            Debug.Log(nonPlayableCharactersPool.CountAll);
+            Debug.Log("CreatePool");
+            nonPlayableCharactersPool = new ObjectPool<CharacterNonPlayable>(CreateNpc, GetNpcFromPool, ReturnNpcToPool, OnNpcDestroy, true, npcPoolSize, npcPoolSize*2);
         }
 
         private CharacterNonPlayable CreateNpc()
         {
-            var newNpc = Instantiate(npc, charactersParentObject);
+            CharacterNonPlayable newNpc = Instantiate(ncpPrefab, NpcParentTransform);
             newNpc.SetPool(nonPlayableCharactersPool);
-            npc.gameObject.SetActive(false);
+            newNpc.gameObject.SetActive(false);
             return newNpc;
         }
 
@@ -151,12 +147,9 @@ namespace ProjectGTA2_Unity
                 UnityEditor.EditorApplication.isPlaying = false;
             }
         
-            foreach (var humanPlayer in humanPlayers)
-            {
-                humanPlayer.Initialize();
-            }
-         
-            StartCoroutine(SpawnThePlayer(0.5f,0));
+            HumanPlayer newPlayer = new HumanPlayer("Player" + humanPlayers.Count.ToString("00"), 5, 999999);
+            humanPlayers.Add(newPlayer);
+            StartCoroutine(SpawnThePlayer(0.25f,humanPlayers.Count -1));        
         }
 
         #endregion
@@ -165,21 +158,14 @@ namespace ProjectGTA2_Unity
 
         public void SpawnPlayer(int index)
         {
-            for (int i = 0; i < humanPlayers.Count; i++)
-            {
-                Vector3 spawnPosition = GetSpawnPosition();
-                GameObject newPlayerObj = Instantiate(playerPrefab, spawnPosition, Quaternion.identity, charactersParentObject);
+            Vector3 spawnPosition = GetSpawnPosition();
+            GameObject newPlayerObj = Instantiate(playerPrefab, spawnPosition, Quaternion.identity, PlayersParentTransform);
+            newPlayerObj.name = humanPlayers[index].GetName();
 
-                Player player = newPlayerObj.GetComponent<Player>();
-                humanPlayers[i].SetPlayer(player);
-
-                string name = "Player" + i.ToString("00");
-                humanPlayers[i].SetName(name);
-                newPlayerObj.name = name;               
-            }
-
-            player = humanPlayers[0].GetPlayer();
+            Player player = newPlayerObj.GetComponent<Player>();
             Game.Instance.player = player;
+            humanPlayers[index].SetPlayer(player);
+
             NpcSpawnIsActive = true;
         }
 
@@ -191,15 +177,15 @@ namespace ProjectGTA2_Unity
 
         public void RespawnPlayer(DamageType type, string playerName)
         {
+
             int index = 0;
             foreach (var hum in humanPlayers)
             {
                 if (hum.GetName() == playerName)
                 {
+                    hum.DecreaseLife(1);
                     var player = hum.GetPlayer();
-                    if (player == null) return;
-
-                    Destroy(hum.GetPlayer().gameObject, playerRespawnTime - 0.1f);
+                    Destroy(player.gameObject, playerRespawnTime - 0.1f);
                     hum.SetPlayer(null);
                     Game.Instance.player = null;
                     StartCoroutine(SpawnThePlayer(playerRespawnTime, index));
@@ -221,12 +207,7 @@ namespace ProjectGTA2_Unity
         private void SpawnNpc()
         {
             if (!NpcSpawnIsActive) return;
-            
-            /*if (npcPrefabs.Length == 0)
-            {
-                Debug.LogError("Cant Spawn Npc -> No Prefabs available !!");
-                return;
-            }*/
+            if (ncpPrefab == null) return;
 
             List<Tile> tiles = GetSpawnableTiles(TileTypeSecond.Pavement);
             if (tiles.Count == 0)
@@ -237,7 +218,7 @@ namespace ProjectGTA2_Unity
 
             int randomIndex = Util.RandomIntNumber(0, tiles.Count);
             Vector3 spawnPosition = tiles[randomIndex].transform.position;
-            spawnPosition = RandomSpawnPositionWithOffset(spawnPosition, new Vector2(-0.25f, 0.25f));
+            spawnPosition = RandomSpawnPositionWithOffset(spawnPosition, spawnPositionOffsetMinMax);
 
             var npc = nonPlayableCharactersPool.Get();
             npc.transform.position = spawnPosition;
@@ -247,29 +228,31 @@ namespace ProjectGTA2_Unity
         private void CheckSpawnedNpcToPlayerDistance()
         {
             if (!NpcSpawnIsActive) return;
-             
+         
             foreach (var npc in spawnedNpcs)
             {
                 Vector3 camPos =Camera.main.transform.position;
-                Vector3 npcPos = npc.transform.position;
-
+                Vector3 npcPos = npc.transform.position;           
                 float distance = Util.GetDistance(npcPos, camPos);
 
-                if (distance > maxDistanceToPlayer)
+                if (distance > maxUnitDistanceToPlayer)
                 {
-                    spawnedNpcsForDelete.Add(npc); 
+                    spawnedNpcsOutOfRange.Add(npc);                 
                 }
             }
+            RemoveNpcOutOfRange();
+        }
 
-            if(spawnedNpcsForDelete.Count > 0)
+        private void RemoveNpcOutOfRange()
+        {
+            if (spawnedNpcsOutOfRange.Count == 0) return;
+            
+            foreach (var npc in spawnedNpcsOutOfRange)
             {
-                foreach (var npc in spawnedNpcsForDelete)
-                {
-                    spawnedNpcs.Remove(npc);
-                    nonPlayableCharactersPool.Release(npc);
-                }
-            }
-            spawnedNpcsForDelete.Clear();
+                spawnedNpcs.Remove(npc);
+                nonPlayableCharactersPool.Release(npc);
+            }          
+            spawnedNpcsOutOfRange.Clear();
         }
 
         private void CharacterDied(string name, string killer)
@@ -326,7 +309,7 @@ namespace ProjectGTA2_Unity
             Vector3 spawnPosition = tiles[randomIndex].transform.position;
 
             randomIndex = Util.RandomIntNumber(0, carPrefabs.Length);
-            GameObject newCar = Instantiate(carPrefabs[randomIndex], spawnPosition, Quaternion.identity, carsParentObject);
+            GameObject newCar = Instantiate(carPrefabs[randomIndex], spawnPosition, Quaternion.identity, CarsParentTransform);
             newCar.name = "Car" + Time.time;
 
             Vector3 rot = Vector3.zero;
@@ -366,14 +349,15 @@ namespace ProjectGTA2_Unity
         {
             if (!CarSpawnIsActive) return;
 
+            List<GameObject> spawnedCarsForDelete = new List<GameObject>();
             foreach (var car in spawnedCars)
             {
                 Vector3 camPos = Camera.main.transform.position;
-                Vector3 npcPos = car.transform.position;
+                Vector3 carPos = car.transform.position;
 
-                float distance = Util.GetDistance(npcPos, camPos);
+                float distance = Util.GetDistance(carPos, camPos);
 
-                if (distance > maxDistanceToPlayer)
+                if (distance > maxUnitDistanceToPlayer)
                 {
                     spawnedCarsForDelete.Add(car);
                 }
@@ -387,7 +371,6 @@ namespace ProjectGTA2_Unity
                     Destroy(car, 0.25f);
                 }
             }
-            spawnedCarsForDelete.Clear();
         }
 
         #endregion
@@ -405,7 +388,7 @@ namespace ProjectGTA2_Unity
             List<Tile> tilePositions = new List<Tile>();          
             if (target == null) return tilePositions;
 
-            Collider[] colliders = Physics.OverlapBox(target.position, size, target.rotation, groundLayer);
+            Collider[] colliders = Physics.OverlapBox(target.position, checkSize, target.rotation, groundLayer);
 
             foreach (var collider in colliders)
             {

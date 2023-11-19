@@ -48,7 +48,7 @@ namespace ProjectGTA2_Unity.UI
             ArmouryPlayer.WeaponUpdate += UpdateAmmo;
             Player.OnDeath += PlayerDied;
             Player.OnUpdateMoney += UpdateMoney;
-            Player.OnHealthChanged += UpdateHealth;
+            Health.OnHealthChanged += UpdateHealth;
         }
 
         private void OnDestroy()
@@ -57,7 +57,7 @@ namespace ProjectGTA2_Unity.UI
             ArmouryPlayer.WeaponUpdate -= UpdateAmmo;
             Player.OnDeath -= PlayerDied;
             Player.OnUpdateMoney -= UpdateMoney;
-            Player.OnHealthChanged -= UpdateHealth;
+            Health.OnHealthChanged -= UpdateHealth;
         }
 
         private void UpdateMoney(int amount)

@@ -42,7 +42,7 @@ namespace ProjectGTA2_Unity.Characters
 
         [Header("Health")]
         [SerializeField] protected bool godMode = false;
-        [SerializeField] Health health;
+        [SerializeField] protected Health health;
 
         [Header("Death")]
         [SerializeField] protected Sprite deathSpriteNormal;
@@ -123,12 +123,9 @@ namespace ProjectGTA2_Unity.Characters
 
         public virtual void TakeDamage(float damageAmount, DamageType damageType, string character)
         {
-            if(godMode) return;
-            if (health.IsDead)
-            {
-                Death();
-            }
-
+            if (godMode) return;
+            if (isDead) return;
+            
             lastDamageType = damageType;
             killer = character;
 
@@ -159,8 +156,13 @@ namespace ProjectGTA2_Unity.Characters
                     break;
             }
 
+           
             health.DecreaseHealth(damageAmount);
             Debug.Log($"<color=orange>{gameObject.name} takes {damageAmount} {damageType} damage by {character}</color>");
+            if (health.IsDead)
+            {
+                Death();
+            }
         }
       
         #endregion
@@ -176,8 +178,8 @@ namespace ProjectGTA2_Unity.Characters
                 coll.enabled = false;
             }
 
-            rb.isKinematic = true;
             rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
             rb.drag = 99f;
             spriteRenderer.sortingOrder = 1;
 

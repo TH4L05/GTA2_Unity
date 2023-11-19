@@ -1,5 +1,6 @@
 using ProjectGTA2_Unity.Audio;
 using ProjectGTA2_Unity.Weapons;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,9 +8,12 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    public static Action<float, float> OnHealthChanged;
+
     [SerializeField, Range(1.0f, 1000.0f)] protected float maxHealth = 100;
     [SerializeField] protected bool canRegenHealth = false;
 
+    private bool isPlayer;
     private float currentHealth;
     private bool healthRegenActive;
     private bool damageOverTime;
@@ -35,9 +39,13 @@ public class Health : MonoBehaviour
         RegenerateHealth();
     }
 
-    public void Initialize()
+    public void Initialize(bool isPlayer)
     {
         currentHealth = maxHealth;
+        this.isPlayer = isPlayer;
+
+        if (!this.isPlayer) return;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
 
@@ -53,7 +61,8 @@ public class Health : MonoBehaviour
             NoHealthLeft();
         }
 
-        //if (healthBar != null) healthBar.UpdateBar(currentHealth, healthmax);
+        if (isPlayer) return;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     public virtual void IncreaseHealth(float amount)
@@ -72,7 +81,8 @@ public class Health : MonoBehaviour
             }
         }
 
-        //if (healthBar != null) healthBar.UpdateBar(currentHealth, healthmax);
+        if (isPlayer) return;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     private void RegenerateHealth()

@@ -66,7 +66,7 @@ namespace ProjectGTA2_Unity
         private float startFallHeight;
         private bool isFalling => !onGround && rb.velocity.y < 0;
         private bool wasFalling;
-        private Color gizmoColor = Color.green;
+        private Color gizmoColor = new Color(0f,1f,0f,0.35f);
         private float currentIdleTime;
         private float maxIdleTime = 10f;
 
@@ -119,7 +119,7 @@ namespace ProjectGTA2_Unity
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = gizmoColor;
-            Gizmos.DrawCube(destination, new Vector3(0.3f, 0.3f, 0.3f));
+            Gizmos.DrawCube(destination, new Vector3(0.1f, 0.1f, 0.1f));
         }
 
         #endregion

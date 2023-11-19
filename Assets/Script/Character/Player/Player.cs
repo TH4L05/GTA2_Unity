@@ -13,7 +13,6 @@ namespace ProjectGTA2_Unity.Characters
     public class Player : Character
     {
         public static Action<DamageType,string> OnDeath;
-        public static Action<float,float> OnHealthChanged;
         public static Action<int> OnUpdateMoney;
 
         [Header("Player")]
@@ -30,7 +29,7 @@ namespace ProjectGTA2_Unity.Characters
                 armoury.AttackWithCurrentEquippedWeapon();
             }
 
-            if (InputHandler.Instance.InteractInputPressed)
+            if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 CheckNearbyCarsToEnter();
             }
@@ -84,7 +83,8 @@ namespace ProjectGTA2_Unity.Characters
             Collectable.CollectableGathered += CollectableGathered;
             PlayerCamera.SetCameraTarget(transform);
             OnUpdateMoney?.Invoke(money);
-            //OnHealthChanged?.Invoke(currentHealth, maxHealth);
+            playerMovement.SetActive(true);
+           
         }
 
         #endregion
@@ -94,27 +94,10 @@ namespace ProjectGTA2_Unity.Characters
             armoury.AddAmmo(collectableType.ToString(), amount);                
         }
 
-        /*public override void TakeDamage(float damageAmount, DamageType damageType, string character)
-        {
-            base.TakeDamage(damageAmount, damageType, character);
-            OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        }*/
-
-        /*protected override void DecreaseHealth(float amount)
-        {
-            base.DecreaseHealth(amount);
-            OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        }*/
-
-        /*protected override void IncreaseHealth(float amount)
-        {
-            base.IncreaseHealth(amount);
-            OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        }*/
-
         protected override void Death()
         {
             base.Death();
+            playerMovement.SetActive(false);
             OnDeath?.Invoke(lastDamageType, gameObject.name);           
         }
     }
